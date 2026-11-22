@@ -1,0 +1,180 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchModal from '../components/SearchModal.astro';
+import { SITE } from '../config';
+
+interface Props {
+  /** Tiêu đề riêng của trang (nếu không đặt sẽ dùng tiêu đề mặc định) */
+  title?: string;
+  description?: string;
+  /** Ảnh OG tương đối (vd: /images/covers/posts/ten-bai.jpg) */
+  image?: string;
+  /** Bật cho trang bài viết để dùng og:type article */
+  isArticle?: boolean;
+  /** Trang có công thức toán — chỉ load KaTeX CSS trên những trang này (~28KB CSS + fonts theo nhu cầu) */
+  math?: boolean;
+  /** Dữ liệu JSON-LD bổ sung (vd: BlogPosting) */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description = SITE.description, image = '/images/covers/posts/_og_default.jpg', isArticle = false, math = false, jsonLd } = Astro.props;
+
+const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const ogType = isArticle ? 'article' : 'website';
+---
+
+<!doctype html>
+<html lang="vi" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — RSS`} href="/rss.xml" />
+    {math && <link rel="stylesheet" href="/katex/katex.min.css" />}
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#fffdf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171310" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title ?? `${SITE.name} — ${SITE.tagline}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="vi_VN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? `${SITE.name} — ${SITE.tagline}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      // Áp dụng theme trước khi vẽ trang để tránh chớp giao diện.
+      (function () {
+        try {
+          var saved = localStorage.getItem('lwh-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = saved === 'dark' || saved === 'light'
+            ? saved
+            : prefersDark ? 'dark' : 'light';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+
+    {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj) => (
+        <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+      ))}
+
+    {/* JSON-LD site-wide: giúp Google hiểu trang web có ô tìm kiếm nội bộ (⌘K) */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: SITE.name,
+      url: new URL('/', Astro.site).toString(),
+      description: SITE.description,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: new URL('/bai-viet/?q={search_term_string}', Astro.site).toString(),
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    })} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Bỏ qua tới nội dung chính</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <button class="to-top" id="to-top" type="button" aria-label="Quay về đầu trang" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m18 15-6-6-6 6"></path>
+      </svg>
+    </button>
+    <SearchModal />
+  </body>
+</html>
+
+<script>
+  // ===== Motion layer: reveal on scroll, về đầu trang, chuyển theme mượt =====
+  (function () {
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var doc = document.documentElement;
+
+    // --- 1. Reveal on scroll — chỉ gắn class qua JS để trang vẫn đọc được khi không có JS ---
+    var revealSel = [
+      '.section-head',
+      '.post-card',
+      '.path-card',
+      '.topic-card',
+      '.path-lesson',
+      '.path-panel',
+      '.post-header',
+      '.post-cover',
+      '.post-grid',
+      '.topic-grid',
+      '.path-grid',
+      '.path-grid-home',
+      '.path-lessons',
+      '.paths-hero .container > *',
+      '.path-hero .container > *',
+    ].join(',');
+
+    var targets = document.querySelectorAll(revealSel);
+
+    if (!prefersReduced && 'IntersectionObserver' in window && targets.length) {
+      targets.forEach(function (el) {
+        // Trễ so le theo vị trí trong cụm cha — mỗi nhóm 70ms, tối đa 350ms
+        const node = el as HTMLElement;
+        const siblings = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+        node.style.transitionDelay = Math.min(siblings * 70, 350) + 'ms';
+        node.classList.add('reveal');
+      });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+
+      targets.forEach(function (el) { io.observe(el); });
+    }
+
+    // --- 2. Nút về đầu trang ---
+    const toTop = document.getElementById('to-top');
+    if (toTop) {
+      toTop.hidden = false;
+      const onScroll = function () {
+        toTop.classList.toggle('is-visible', window.scrollY > 600);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+      });
+    }
+
+    // --- 3. Chuyển theme mượt: bật class trong lúc đổi để nền/chữ không nhảy gắt ---
+    document.addEventListener('click', function (ev) {
+      var btn = ev.target instanceof Element ? ev.target.closest('#theme-toggle') : null;
+      if (!btn || prefersReduced) return;
+      doc.classList.add('theme-transition');
+      window.setTimeout(function () { doc.classList.remove('theme-transition'); }, 350);
+    });
+  })();
+</script>

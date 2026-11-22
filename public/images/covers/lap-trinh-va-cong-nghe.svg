@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#241d18"/>
+  <rect x="140" y="120" width="680" height="390" rx="20" fill="#2f2721"/>
+  <rect x="140" y="120" width="680" height="56" rx="20" fill="#3c332a"/>
+  <circle cx="180" cy="148" r="10" fill="#e06c5a"/>
+  <circle cx="212" cy="148" r="10" fill="#e8b74f"/>
+  <circle cx="244" cy="148" r="10" fill="#ff9d5c"/>
+  <text x="190" y="250" font-family="ui-monospace, Menlo, monospace" font-size="30" fill="#d8b48f">&gt;&gt;&gt; print("xin chao")</text>
+  <text x="190" y="300" font-family="ui-monospace, Menlo, monospace" font-size="30" fill="#ff9d5c">xin chao</text>
+  <text x="190" y="350" font-family="ui-monospace, Menlo, monospace" font-size="30" fill="#d8b48f">&gt;&gt;&gt; _</text>
+  <circle cx="940" cy="220" r="110" fill="#ff9d5c" opacity="0.12"/>
+  <circle cx="940" cy="220" r="58" fill="#ff9d5c" opacity="0.3"/>
+  <circle cx="940" cy="220" r="24" fill="#ff9d5c"/>
+  <rect x="860" y="400" width="160" height="24" rx="12" fill="#3c332a"/>
+  <rect x="860" y="440" width="110" height="24" rx="12" fill="#3c332a"/>
+</svg>

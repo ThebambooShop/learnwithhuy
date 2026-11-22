@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 132">
+  <rect width="132" height="132" rx="66" fill="#ffedd5"/>
+  <circle cx="66" cy="52" r="24" fill="#e8590c" opacity="0.85"/>
+  <path d="M66 82c-24 0-40 14-40 30v20h80v-20c0-16-16-30-40-30z" fill="#e8590c" opacity="0.85"/>
+  <text x="66" y="124" font-family="system-ui, sans-serif" font-size="12" fill="#5c6670" text-anchor="middle">placeholder</text>
+</svg>

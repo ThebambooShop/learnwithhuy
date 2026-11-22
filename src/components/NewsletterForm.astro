@@ -1,0 +1,119 @@
+---
+import { NEWSLETTER_NOTE } from '../config';
+
+interface Props {
+  /** 'card' = nền trắng nổi, 'band' = dải màu nhấn nhá */
+  variant?: 'card' | 'band';
+  title?: string;
+}
+
+const { variant = 'card', title = 'Đừng bỏ lỡ bài viết mới' } = Astro.props;
+const id = `nl-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class:list={['newsletter', { 'newsletter--band': variant === 'band' }]} id="dang-ky-ban-tin">
+  <h2>{title}</h2>
+  <p>
+    Nhận email ngắn gọn mỗi khi có bài viết mới — tổng hợp kiến thức AI và công nghệ
+    dễ đọc, có ví dụ thực tế. Không spam, bạn có thể hủy nhận bất cứ lúc nào.
+  </p>
+
+  <form id={id} novalidate>
+    <label class="sr-only" for={`${id}-email`} style="position:absolute;left:-999px;">Địa chỉ email</label>
+    <input
+      id={`${id}-email`}
+      name="email"
+      type="email"
+      inputmode="email"
+      autocomplete="email"
+      placeholder="email@example.com"
+      required
+    />
+    <button class="btn btn--primary" type="submit">Đăng ký</button>
+  </form>
+
+  <p class="privacy-note">{NEWSLETTER_NOTE}</p>
+</div>
+
+<script>
+  // ============================================================
+  // Điểm tích hợp bản tin.
+  // Khi có dịch vụ email (Mailchimp, Buttondown, API riêng...):
+  //   1. Gán endpoint thật vào NEWSLETTER_ENDPOINT (vd '/api/subscribe').
+  //   2. Thay khối DEMO bên dưới bằng fetch(NEWSLETTER_ENDPOINT, {...}).
+  // Trước khi tích hợp, form chạy ở chế độ demo: chỉ xác thực input,
+  // KHÔNG gửi dữ liệu đi đâu và thông báo ghi rõ điều đó cho người dùng.
+  // ============================================================
+  const NEWSLETTER_ENDPOINT: string | null = null; // TODO: điền endpoint thật.
+
+  function initForm(form: HTMLFormElement) {
+    const input = form.querySelector<HTMLInputElement>('input[name="email"]');
+    if (!input) return;
+
+    const setError = (msg?: string) => {
+      document.querySelectorAll(`.nl-error[data-for="${form.id}"]`).forEach((n) => n.remove());
+      input.removeAttribute('aria-invalid');
+      if (!msg) return;
+      const p = document.createElement('p');
+      p.className = 'field-error nl-error';
+      p.dataset.for = form.id;
+      p.textContent = msg;
+      p.setAttribute('role', 'alert');
+      form.after(p);
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      setError();
+
+      const email = input.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        setError('Email chưa đúng định dạng — bạn kiểm tra lại giúp mình nhé.');
+        return;
+      }
+
+      if (NEWSLETTER_ENDPOINT) {
+        // Tích hợp thật — chạy khi endpoint đã được cấu hình.
+        fetch(NEWSLETTER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error('Máy chủ từ chối yêu cầu.');
+            renderSuccess(email, false);
+          })
+          .catch(() => setError('Đã có lỗi khi gửi đăng ký. Bạn thử lại sau ít phút nhé.'));
+      } else {
+        // Chế độ demo: không gửi dữ liệu đi đâu cả.
+        renderSuccess(email, true);
+      }
+    });
+
+    function renderSuccess(email: string, isDemo: boolean) {
+      const box = document.createElement('div');
+      box.className = 'form-success';
+      box.setAttribute('role', 'status');
+      if (isDemo) {
+        box.innerHTML = [
+          '<strong>Email hợp lệ — đã xác nhận ở phía trình duyệt.</strong>',
+          'Website đang chạy ở chế độ demo: chưa kết nối dịch vụ gửi email, nên đăng ký này chưa được lưu.',
+          'Chủ website chỉ cần cấu hình <code>NEWSLETTER_ENDPOINT</code> trong component để kích hoạt nhận đăng ký thật.',
+        ].join(' ');
+      } else {
+        box.innerHTML = [
+          '<strong>Đăng ký thành công!</strong>',
+          `Chúng tôi sẽ gửi bài viết mới đến <strong>${email.replace(/</g, '&lt;')}</strong>.`,
+          'Kiểm tra hộp thư đến (hoặc mục spam) nếu chưa thấy email chào mừng nhé.',
+        ].join(' ');
+      }
+      form.replaceWith(box);
+      const note = box.parentElement?.querySelector('.privacy-note');
+      if (note) note.remove();
+    }
+  }
+
+  document.querySelectorAll<HTMLFormElement>('.newsletter form').forEach(initForm);
+</script>

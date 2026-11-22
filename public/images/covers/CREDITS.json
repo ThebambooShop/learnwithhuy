@@ -1,0 +1,248 @@
+{
+  "system": "LearnWithHuy cover design system",
+  "note": "Tất cả cover là thiết kế gốc sinh bằng code (SVG → render browser), không phải ảnh stock — không cần attribution bên thứ ba.",
+  "canvas": "1200x630 (tỷ lệ OG image)",
+  "palette": {
+    "background": "#fffdf9",
+    "ink": "#1c1917",
+    "accent_soft": "#ffeedd",
+    "brand": "#c2410c",
+    "topics": {
+      "ai-trong-giao-duc": "#0d9488",
+      "ai-co-ban": "#d97706",
+      "generative-ai-llm": "#7c3aed",
+      "prompt-engineering": "#0e7490",
+      "cong-cu-ai": "#c2410c",
+      "machine-learning": "#4338ca",
+      "lap-trinh-va-cong-nghe": "#15803d",
+      "ai-trong-cong-viec": "#be123c",
+      "goc-nhin-va-xu-huong": "#86198f"
+    }
+  },
+  "covers": {
+    "21-use-case-openclaw-thuc-chien": {
+      "icon": "🧰",
+      "ry": "Bộ công cụ cho 21 use case thực chiến"
+    },
+    "7-cach-dung-ai-tiet-kiem-thoi-gian": {
+      "icon": "⏱️",
+      "ry": "Tiết kiệm thời gian"
+    },
+    "9router-va-hermes-agent": {
+      "icon": "🔀",
+      "ry": "Định tuyến mô hình"
+    },
+    "ai-engineer-roadmap-2026": {
+      "icon": "🗺️",
+      "ry": "Roadmap 6 giai đoạn"
+    },
+    "ai-la-gi": {
+      "icon": "🤖",
+      "ry": "AI là gì"
+    },
+    "bai-hoc-ai-doanh-nghiep-openai": {
+      "icon": "🏢",
+      "ry": "Doanh nghiệp tiên phong"
+    },
+    "bat-dau-hoc-lap-trinh-cung-ai": {
+      "icon": "💻",
+      "ry": "Học lập trình"
+    },
+    "cai-dat-hermes-agent-tu-so-0": {
+      "icon": "⌨️",
+      "ry": "Cài đặt qua terminal"
+    },
+    "cai-dat-va-cau-hinh-openclaw": {
+      "icon": "⚙️",
+      "ry": "Cấu hình hệ thống"
+    },
+    "claude-8-phong-ban-lo-trinh-30-ngay": {
+      "icon": "👥",
+      "ry": "8 phòng ban"
+    },
+    "claude-claude-md-project-skills": {
+      "icon": "🧩",
+      "ry": "Ba trụ cột ghép khối"
+    },
+    "claude-code-notebooklm-obsidian-nghien-cuu": {
+      "icon": "🔬",
+      "ry": "Nghiên cứu cá nhân"
+    },
+    "claude-connectors-mcp-sub-agents": {
+      "icon": "🔌",
+      "ry": "Kết nối hệ thống"
+    },
+    "claude-content-marketing-9-prompt": {
+      "icon": "✍️",
+      "ry": "Content marketing"
+    },
+    "claude-doanh-nghiep-tu-duy-va-he-sinh-thai": {
+      "icon": "🏛️",
+      "ry": "Tư duy doanh nghiệp"
+    },
+    "claude-kienc-truc-7-tang-6-tai-san-tri-thuc": {
+      "icon": "🏗️",
+      "ry": "Kiến trúc 7 tầng"
+    },
+    "co-may-content-claude-4-agent": {
+      "icon": "🖨️",
+      "ry": "Cỗ máy xuất bản content"
+    },
+    "cong-cu-ai-cho-viec-hoc": {
+      "icon": "🎓",
+      "ry": "Học tập"
+    },
+    "danh-gia-chat-luong-rag-ragas": {
+      "icon": "📊",
+      "ry": "Đo lường chất lượng"
+    },
+    "gemini-workspace-prompt-guide-101": {
+      "icon": "📘",
+      "ry": "Handbook Google"
+    },
+    "graphrag-knowledge-graph": {
+      "icon": "🕸️",
+      "ry": "Đồ thị tri thức"
+    },
+    "huong-dan-xay-dung-agent-thuc-te": {
+      "icon": "🧱",
+      "ry": "Xây dựng agent"
+    },
+    "hybrid-search-bm25-dense-rrf": {
+      "icon": "🔍",
+      "ry": "Tìm kiếm hybrid"
+    },
+    "llm-hoat-dong-nhu-the-nao": {
+      "icon": "🧠",
+      "ry": "Bên trong LLM"
+    },
+    "lo-trinh-hoc-ai-agent-a-z": {
+      "icon": "🧭",
+      "ry": "Lộ trình A-Z"
+    },
+    "lo-trinh-vibe-coding-6-thang": {
+      "icon": "🚀",
+      "ry": "6 tháng đến sản phẩm"
+    },
+    "machine-learning-khac-generative-ai": {
+      "icon": "⚖️",
+      "ry": "So sánh ML vs GenAI"
+    },
+    "multi-agent-bao-mat-vps-openclaw": {
+      "icon": "🔐",
+      "ry": "Bảo mật + VPS"
+    },
+    "multi-hop-rag-langgraph": {
+      "icon": "🦘",
+      "ry": "Suy luận bắc cầu (hop)"
+    },
+    "multimodal-rag-pdf-tieng-viet": {
+      "icon": "📄",
+      "ry": "Pipeline PDF đa phương thức"
+    },
+    "openclaw-la-gi": {
+      "icon": "🦞",
+      "ry": "Biểu tượng OpenClaw (claw)"
+    },
+    "openclaw-vs-manus-lo-trinh-30-ngay": {
+      "icon": "🥊",
+      "ry": "Đối đầu 2 công cụ"
+    },
+    "prompt-giao-viec-6-lop-best-practices": {
+      "icon": "🪜",
+      "ry": "6 lớp xếp tầng"
+    },
+    "tools-skills-va-tich-hop-kenh-openclaw": {
+      "icon": "🛠️",
+      "ry": "Tools & Skills"
+    },
+    "viet-prompt-ro-rang": {
+      "icon": "💬",
+      "ry": "Viết prompt rõ ràng"
+    },
+    "xu-huong-ai-nhin-the-binh-tinh": {
+      "icon": "🌊",
+      "ry": "Nhìn bình tĩnh như sóng biển"
+    },
+    "_hero": {
+      "icon": "✨",
+      "ry": "Hero trang chủ"
+    },
+    "_og_default": {
+      "icon": "🤖",
+      "ry": "OG image mặc định"
+    },
+    "deep-learning-specialization-andrew-ng": {
+      "icon": "🧮",
+      "ry": "Nền tảng neural network"
+    },
+    "fastai-practical-deep-learning": {
+      "icon": "🏋️",
+      "ry": "Train model thật từ bài 1"
+    },
+    "google-ml-crash-course": {
+      "icon": "⚡",
+      "ry": "Crash course nhanh"
+    },
+    "hands-on-large-language-models": {
+      "icon": "🖼️",
+      "ry": "Học qua hình minh họa"
+    },
+    "karpathy-zero-to-hero": {
+      "icon": "🎥",
+      "ry": "Code cùng video"
+    },
+    "llm-engineer-roadmap-mlabonne": {
+      "icon": "🛣️",
+      "ry": "Curriculum 3 phần"
+    },
+    "stanford-cs231n-computer-vision": {
+      "icon": "👁️",
+      "ry": "Computer vision"
+    },
+    "tong-hop-tutorial-ai-danh-gia-cao": {
+      "icon": "📋",
+      "ry": "Bản đồ học AI"
+    },
+    "xay-dung-llm-tu-scratch": {
+      "icon": "🔠",
+      "ry": "Tokenization, attention"
+    },
+    "xay-dung-second-brain-obsidian": {
+      "icon": "📓",
+      "ry": "Second brain Obsidian"
+    },
+    "llm-wiki-karpathy-knowledge-base": {
+      "icon": "🗃️",
+      "ry": "Knowledge base biên dịch sẵn"
+    },
+    "lo-trinh-ai-trong-giao-duc-2026": {
+      "icon": "🗺️",
+      "ry": "Series 7 bài từ 334 nghiên cứu"
+    },
+    "ai-gia-su-hoat-dong-nhu-the-nao": {
+      "icon": "👩‍🏫",
+      "ry": "Kiến trúc gia sư AI, không đưa đáp án"
+    },
+    "ai-thiet-ke-ke-hoach-bai-day": {
+      "icon": "📝",
+      "ry": "Soạn giáo án 20 phút"
+    },
+    "ai-cham-diem-danh-gia-tu-dong": {
+      "icon": "✅",
+      "ry": "Rubric và phản hồi tự động"
+    },
+    "ai-biet-nguoi-hoc-dang-o-dau": {
+      "icon": "📊",
+      "ry": "Knowledge tracing"
+    },
+    "ai-day-tung-mon-hoc": {
+      "icon": "📚",
+      "ry": "Ngoại ngữ, Toán, Lập trình"
+    },
+    "tu-build-ai-gia-su-don-gian": {
+      "icon": "🛠️",
+      "ry": "Capstone: một system prompt là đủ"
+    }
+  }
+}

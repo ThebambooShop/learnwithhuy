@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { topics } from '../../data/topics';
+import { getPublishedPosts, readingTime, formatDate, stripMarkdown } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+---
+
+<BaseLayout
+  title="Tất cả bài viết"
+  description="Duyệt toàn bộ bài viết của LearnWithHuy — tìm kiếm theo từ khóa, lọc theo chủ đề, sắp xếp theo mới nhất hoặc phổ biến."
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>Bài viết</h1>
+      <p class="lead">
+        Toàn bộ bài viết trên LearnWithHuy. Dùng ô tìm kiếm và bộ lọc chủ đề để tìm nhanh
+        nội dung bạn cần.
+      </p>
+    </header>
+
+    <!-- Bộ lọc: đồng bộ với tham số URL ?q= &chu-de= &sap-xep= -->
+    <div class="filter-bar" role="search" aria-label="Tìm kiếm và lọc bài viết">
+      <div class="search-wrap" id="search-wrap">
+        <input
+          type="search"
+          id="filter-q"
+          placeholder="Tìm theo tiêu đề hoặc nội dung…"
+          aria-label="Tìm kiếm bài viết"
+        />
+        <button class="clear-q" id="clear-q" type="button" aria-label="Xóa từ khóa tìm kiếm">✕</button>
+      </div>
+
+      <select id="filter-topic" aria-label="Lọc theo chủ đề">
+        <option value="">Tất cả chủ đề</option>
+        {topics.map((t) => <option value={t.slug}>{t.name}</option>)}
+      </select>
+
+      <select id="filter-sort" aria-label="Sắp xếp bài viết">
+        <option value="moi">Mới nhất</option>
+        <option value="pho-bien">Phổ biến</option>
+      </select>
+    </div>
+
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+
+    <div class="post-grid" id="post-grid">
+      {posts.map((p) => <PostCard post={p} />)}
+    </div>
+
+    <div class="empty-state" id="empty-state" hidden>
+      <div class="icon" aria-hidden="true">🔍</div>
+      <h3>Không tìm thấy bài viết nào</h3>
+      <p>Không có bài nào khớp với từ khóa hoặc bộ lọc hiện tại. Thử xóa bộ lọc hoặc dùng từ khóa khác nhé.</p>
+      <button class="btn btn--primary" id="reset-filters" type="button">Xóa bộ lọc & tìm kiếm</button>
+    </div>
+  </div>
+
+  <script define:vars={{ topics, posts_count: posts.length }}>
+    // Lọc/sắp xếp phía client — đồng bộ với tham số URL để có thể chia sẻ liên kết.
+    const grid = document.getElementById('post-grid');
+    const emptyBox = document.getElementById('empty-state');
+    const countEl = document.getElementById('result-count');
+    const qInput = document.getElementById('filter-q');
+    const qWrap = document.getElementById('search-wrap');
+    const qClear = document.getElementById('clear-q');
+    const topicSel = document.getElementById('filter-topic');
+    const sortSel = document.getElementById('filter-sort');
+    const resetBtn = document.getElementById('reset-filters');
+
+    const TOPIC_NAMES = {};
+    topics.forEach((t) => (TOPIC_NAMES[t.slug] = t.name));
+
+    const readMinutes = (body) => Math.max(1, Math.round(body.trim().split(/\s+/).length / 200));
+    const fmtDate = (iso) =>
+      new Intl.DateTimeFormat('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso));
+
+    // Dữ liệu bài viết cho phía client — nạp từ chỉ mục tìm kiếm (có sẵn body).
+    let POSTS = null;
+    async function ensurePosts() {
+      if (POSTS) return POSTS;
+      const res = await fetch('/search-index.json');
+      POSTS = await res.json();
+      return POSTS;
+    }
+
+    function cardHtml(p) {
+      const chip = TOPIC_NAMES[p.topic]
+        ? `<a class="chip" href="/chu-de/${p.topic}/">${TOPIC_NAMES[p.topic]}</a>`
+        : '';
+      return `
+        <article class="post-card">
+          <a class="post-card__media" href="/bai-viet/${p.slug}/" aria-hidden="true" tabindex="-1">
+            <img src="${p.cover}" alt="" width="1200" height="675" loading="lazy" />
+          </a>
+          <div class="post-card__body">
+            <div style="display:flex; gap:0.4rem; align-items:center;">${chip}</div>
+            <h3 class="post-card__title"><a href="/bai-viet/${p.slug}/">${p.title}</a></h3>
+            <p class="post-card__desc">${p.description}</p>
+            <p class="post-card__meta">
+              <time datetime="${p.date.slice(0, 10)}">${fmtDate(p.date)}</time>
+              <span class="meta-dot" aria-hidden="true"></span>
+              <span>${readMinutes(p.body)} phút đọc</span>
+            </p>
+          </div>
+        </article>`;
+    }
+
+    function apply(pushUrl = true) {
+      const q = qInput.value.trim().toLowerCase();
+      const topic = topicSel.value;
+      const sort = sortSel.value;
+
+      if (pushUrl) {
+        const params = new URLSearchParams();
+        if (q) params.set('q', q);
+        if (topic) params.set('chu-de', topic);
+        if (sort !== 'moi') params.set('sap-xep', sort);
+        const qs = params.toString();
+        history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+      }
+
+      qWrap.classList.toggle('has-value', !!q);
+
+      ensurePosts().then((posts) => {
+        let list = posts.filter((p) => {
+          const okTopic = !topic || p.topic === topic;
+          const okQ =
+            !q ||
+            p.title.toLowerCase().includes(q) ||
+            p.description.toLowerCase().includes(q) ||
+            p.body.toLowerCase().includes(q);
+          return okTopic && okQ;
+        });
+        list = sort === 'pho-bien'
+          ? [...list].sort((a, b) => b.views - a.views || new Date(b.date) - new Date(a.date))
+          : [...list].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        grid.innerHTML = list.map(cardHtml).join('');
+        grid.hidden = list.length === 0;
+        emptyBox.hidden = list.length !== 0;
+        const topicLabel = topic ? TOPIC_NAMES[topic] : null;
+        countEl.textContent = list.length
+          ? `${list.length} bài viết${topicLabel ? ` trong chủ đề “${topicLabel}”` : ''}${q ? ` khớp “${q}”` : ''}`
+          : '';
+      });
+    }
+
+    qInput.addEventListener('input', () => apply());
+    qClear.addEventListener('click', () => { qInput.value = ''; apply(); qInput.focus(); });
+    topicSel.addEventListener('change', () => apply());
+    sortSel.addEventListener('change', () => apply());
+    resetBtn.addEventListener('click', () => {
+      qInput.value = '';
+      topicSel.value = '';
+      sortSel.value = 'moi';
+      apply();
+      qInput.focus();
+    });
+
+    // Khôi phục trạng thái từ URL khi tải trang.
+    (function initFromUrl() {
+      const params = new URLSearchParams(location.search);
+      qInput.value = params.get('q') ?? '';
+      topicSel.value = params.get('chu-de') ?? '';
+      sortSel.value = params.get('sap-xep') === 'pho-bien' ? 'pho-bien' : 'moi';
+      if (params.get('q') || params.get('chu-de') || params.get('sap-xep') === 'pho-bien') apply(false);
+      else {
+        qWrap.classList.remove('has-value');
+        countEl.textContent = `${posts_count} bài viết`;
+      }
+    })();
+  </script>
+</BaseLayout>

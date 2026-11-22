@@ -1,0 +1,69 @@
+---
+import { SITE, NEWSLETTER_NOTE } from '../config';
+import { topics } from '../data/topics';
+
+const year = new Date().getFullYear();
+
+const socials = [
+  { name: 'Facebook', url: SITE.social.facebook },
+  { name: 'YouTube', url: SITE.social.youtube },
+  { name: 'LinkedIn', url: SITE.social.linkedin },
+  { name: 'GitHub', url: SITE.social.github },
+].filter((s) => s.url);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="logo" href="/">LearnWith<em>Huy</em></a>
+        <p style="margin-top: 0.75rem;">
+          Kiến thức dễ hiểu, ví dụ thực tế, ứng dụng được ngay. Cùng học AI và công nghệ,
+          từng bước một. {NEWSLETTER_NOTE}
+        </p>
+      </div>
+
+      <nav aria-label="Liên kết trang">
+        <h3>Khám phá</h3>
+        <ul>
+          <li><a href="/bai-viet/">Bài viết</a></li>
+          <li><a href="/chu-de/">Chủ đề</a></li>
+          <li><a href="/ve-huy/">Về Huy</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Chủ đề nổi bật">
+        <h3>Chủ đề</h3>
+        <ul>
+          {topics.slice(0, 5).map((t) => (
+            <li><a href={`/chu-de/${t.slug}/`}>{t.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p style="margin: 0;">© {year} {SITE.copyright}. Liên hệ: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+
+      <div class="footer-social">
+        {socials.map((s) => (
+          <a href={s.url} aria-label={s.name} rel="me noopener" target="_blank">
+            {s.name === 'Facebook' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5V11H8.5v3H11v7Z"/></svg>
+            )}
+            {s.name === 'YouTube' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3Z"/></svg>
+            )}
+            {s.name === 'LinkedIn' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.4 8.6H3.5V21h2.9ZM5 7.2a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4ZM12 21H9.1V8.6H12v1.7a3.9 3.9 0 0 1 3.4-1.9c2.6 0 4.4 1.7 4.4 5V21h-2.9v-6.9c0-1.8-.7-2.9-2.2-2.9-1.4 0-2.7 1-2.7 3Z"/></svg>
+            )}
+            {s.name === 'GitHub' && (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5A3.9 3.9 0 0 1 6.7 8.7a3.6 3.6 0 0 1 .1-2.7s.9-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1a3.6 3.6 0 0 1 .1 2.7 3.9 3.9 0 0 1 1 2.8c0 3.9-2.4 4.8-4.6 5 .4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

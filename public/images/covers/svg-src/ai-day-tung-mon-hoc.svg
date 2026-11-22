@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fffdf9"/>
+  <circle cx="1070" cy="560" r="120" fill="#ffeedd" opacity="0.75"/>
+  <circle cx="140" cy="90" r="85" fill="#ffeedd" opacity="0.6"/>
+  <rect x="110" y="110" width="600" height="410" rx="24" fill="#ffffff" stroke="#f2e3cf" stroke-width="3"/>
+  <rect x="160" y="165" width="160" height="160" rx="18" fill="#f0fdfa" stroke="#99f6e4" stroke-width="3"/>
+  <text x="240" y="255" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#0d9488" text-anchor="middle">Aa</text>
+  <text x="240" y="365" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="700" fill="#1c1917" text-anchor="middle">Ngoại ngữ</text>
+  <rect x="350" y="165" width="160" height="160" rx="18" fill="#ffeedd" stroke="#fcd9b6" stroke-width="3"/>
+  <text x="430" y="255" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#c2410c" text-anchor="middle">∑ π</text>
+  <text x="430" y="365" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="700" fill="#1c1917" text-anchor="middle">Toán</text>
+  <rect x="540" y="165" width="160" height="160" rx="18" fill="#fefce8" stroke="#fde68a" stroke-width="3"/>
+  <text x="620" y="255" font-family="'SF Mono', Menlo, monospace" font-size="44" font-weight="700" fill="#b45309" text-anchor="middle">&lt;/&gt;</text>
+  <text x="620" y="365" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="700" fill="#1c1917" text-anchor="middle">Lập trình</text>
+  <line x1="240" y1="390" x2="240" y2="430" stroke="#f2e3cf" stroke-width="4"/>
+  <line x1="430" y1="390" x2="430" y2="430" stroke="#f2e3cf" stroke-width="4"/>
+  <line x1="620" y1="390" x2="620" y2="430" stroke="#f2e3cf" stroke-width="4"/>
+  <rect x="190" y="440" width="440" height="50" rx="25" fill="#ccfbf1"/>
+  <text x="410" y="474" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#0d9488" text-anchor="middle">Mỗi môn một cách dạy khác nhau</text>
+  <rect x="720" y="180" width="400" height="50" rx="25" fill="#ccfbf1"/>
+  <text x="738" y="214" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#0d9488">AI TRONG GIÁO DỤC · Bài 6/7</text>
+  <text x="720" y="305" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="46" font-weight="800" fill="#1c1917">AI dạy từng</text>
+  <text x="720" y="365" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="46" font-weight="800" fill="#1c1917">môn học ra sao?</text>
+  <text x="720" y="440" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#57534e">Ngoại ngữ, Toán, Lập trình —</text>
+  <text x="720" y="475" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#57534e">kèm công cụ dùng được ngay</text>
+  <text x="110" y="595" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#a8a29e">learnwithhuy · Series AI trong giáo dục</text>
+</svg>

@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { learningPaths, getPathPosts, pathReadingMinutes } from '../../data/learning-paths';
+import { getTopic } from '../../data/topics';
+import { getTopicOf, readingTime } from '../../lib/posts';
+import { SITE } from '../../config';
+
+export async function getStaticPaths() {
+  return learningPaths.map((path) => ({ params: { slug: path.slug }, props: { path } }));
+}
+
+const { path } = Astro.props;
+const topic = getTopic(path.topic);
+const posts = await getPathPosts(path);
+const totalMinutes = pathReadingMinutes(path, posts);
+const notFound = path.lessons.filter((slug) => !posts.some((p) => p.id === slug));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: path.title,
+  description: path.description,
+  provider: { '@type': 'Organization', name: SITE.name },
+  educationalLevel: path.level,
+  teaches: path.outcomes,
+  hasPart: posts.map((p, i) => ({
+    '@type': 'LearningResource',
+    position: i + 1,
+    name: p.data.title,
+    url: new URL(`/bai-viet/${p.id}/`, Astro.site).toString(),
+  })),
+};
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: path.title,
+  itemListElement: posts.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: new URL(`/bai-viet/${p.id}/`, Astro.site).toString(),
+    name: p.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title={path.title}
+  description={path.description}
+  image={posts[0]?.data.cover}
+  jsonLd={[jsonLd, itemListLd]}
+>
+  <section class="path-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">Lộ trình học</span>
+      <h1>{path.title}</h1>
+      <p class="lead">{path.description}</p>
+      <div class="path-hero__badges">
+        {topic && <a class="chip" href={`/chu-de/${topic.slug}/`}>{topic.name}</a>}
+        <span class="badge">{path.level}</span>
+        <span class="badge">{posts.length} bài học</span>
+        <span class="badge">~{totalMinutes} phút</span>
+      </div>
+      <div class="path-hero__cta">
+        <a class="btn btn--primary" href={`/bai-viet/${posts[0]?.id ?? ''}/`}>Bắt đầu học bài 1 →</a>
+        <a class="btn btn--outline" href="/lo-trinh/">Các lộ trình khác</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="outcomes-h">
+    <div class="container container--narrow">
+      <div class="path-panel">
+        <h2 id="outcomes-h">Học xong, bạn sẽ làm được gì</h2>
+        <ul class="path-outcomes">
+          {path.outcomes.map((o) => (
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 13 4 4L19 7"></path>
+              </svg>
+              {o}
+            </li>
+          ))}
+        </ul>
+
+        {path.prerequisites && (
+          <div class="path-prereq">
+            <h3>Điều kiện tiên quyết</h3>
+            <ul>
+              {path.prerequisites.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="curriculum-h">
+    <div class="container container--narrow">
+      <h2 id="curriculum-h">Giáo trình — học theo thứ tự</h2>
+      <ol class="path-lessons">
+        {posts.map((p, i) => (
+          <li class="path-lesson">
+            <div class="path-lesson__num" aria-hidden="true">{i + 1}</div>
+            <div class="path-lesson__body">
+              <h3>
+                <a href={`/bai-viet/${p.id}/`}>{p.data.title}</a>
+              </h3>
+              <p>{p.data.description}</p>
+              <p class="path-lesson__meta">
+                {getTopicOf(p)?.name}
+                <span class="meta-dot" aria-hidden="true"></span>
+                {readingTime(p.body ?? '')} phút đọc
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .path-hero {
+    padding: 3.5rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .path-hero h1 {
+    margin: 0.5rem 0 1rem;
+    font-size: 2.1rem;
+    text-wrap: balance;
+  }
+  .path-hero .lead {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .path-hero__badges {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1.1rem;
+  }
+  .badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--surface-2, var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.8rem;
+  }
+  .path-hero__cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .path-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem;
+  }
+  .path-panel h2 {
+    margin: 0 0 1rem;
+    font-size: 1.3rem;
+  }
+  .path-outcomes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+  .path-outcomes li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    line-height: 1.6;
+  }
+  .path-outcomes svg {
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    color: var(--accent);
+  }
+  .path-prereq {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--border);
+  }
+  .path-prereq h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1rem;
+  }
+  .path-prereq ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--muted);
+  }
+  .path-lessons {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .path-lesson {
+    display: flex;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.15rem 1.3rem;
+    transition: border-color 0.15s ease;
+  }
+  .path-lesson:hover {
+    border-color: var(--accent);
+  }
+  .path-lesson__num {
+    flex-shrink: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .path-lesson__body {
+    min-width: 0;
+  }
+  .path-lesson__body h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+  .path-lesson__body h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .path-lesson__body h3 a:hover {
+    color: var(--accent);
+  }
+  .path-lesson__body > p:first-of-type {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .path-lesson__meta {
+    margin: 0.55rem 0 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+</style>

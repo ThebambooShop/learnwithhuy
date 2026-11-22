@@ -1,0 +1,71 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+}
+
+const { slug, title } = Astro.props;
+const url = new URL(`/bai-viet/${slug}/`, Astro.site).toString();
+const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+const xUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+const emailUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
+---
+
+<div class="post-actions">
+  <span class="label">Chia sẻ:</span>
+  <a class="btn btn--outline btn--small" href={fbUrl} target="_blank" rel="noopener" aria-label="Chia sẻ lên Facebook">Facebook</a>
+  <a class="btn btn--outline btn--small" href={xUrl} target="_blank" rel="noopener" aria-label="Chia sẻ lên X (Twitter)">X</a>
+  <a class="btn btn--outline btn--small" href={emailUrl} aria-label="Chia sẻ qua email">Email</a>
+  <button class="btn btn--outline btn--small" id="copy-link" type="button" data-url={url}>Copy liên kết</button>
+  <button class="btn btn--outline btn--small" id="save-post" type="button" data-slug={slug}>Lưu bài viết</button>
+</div>
+
+<script>
+  // Copy liên kết — dùng clipboard API, có fallback cho trình duyệt cũ.
+  const copyBtn = document.getElementById('copy-link') as HTMLButtonElement | null;
+  copyBtn?.addEventListener('click', async () => {
+    const url = copyBtn.dataset.url ?? location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const old = copyBtn.textContent;
+    copyBtn.textContent = 'Đã copy ✓';
+    window.setTimeout(() => (copyBtn.textContent = old), 1600);
+  });
+
+  // Lưu bài viết — dùng localStorage, trạng thái nút phản ánh số nhiều bài đã lưu.
+  const saveBtn = document.getElementById('save-post') as HTMLButtonElement | null;
+  const KEY = 'lwh-saved-posts';
+
+  const getSaved = (): string[] => {
+    try { return JSON.parse(localStorage.getItem(KEY) ?? '[]'); } catch { return []; }
+  };
+
+  function sync() {
+    if (!saveBtn) return;
+    const saved = getSaved();
+    const on = saved.includes(saveBtn.dataset.slug ?? '');
+    saveBtn.classList.toggle('btn--saved', on);
+    saveBtn.textContent = on ? '✓ Đã lưu' : 'Lưu bài viết';
+    saveBtn.setAttribute('aria-pressed', String(on));
+  }
+
+  saveBtn?.addEventListener('click', () => {
+    const slug = saveBtn.dataset.slug;
+    if (!slug) return;
+    const saved = getSaved();
+    const i = saved.indexOf(slug);
+    if (i >= 0) saved.splice(i, 1);
+    else saved.push(slug);
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
+    sync();
+  });
+  sync();
+</script>

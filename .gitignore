@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+.vercel
+.playwright-mcp/
+lwh-render/
+.DS_Store
+*.log

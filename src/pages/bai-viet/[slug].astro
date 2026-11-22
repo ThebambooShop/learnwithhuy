@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import PostCard from '../../components/PostCard.astro';
+import ShareSave from '../../components/ShareSave.astro';
+import { getPublishedPosts, formatDate, getTopicOf, readingTime, compareByDateDesc } from '../../lib/posts';
+import { findPathOfPost } from '../../data/learning-paths';
+import { SITE } from '../../config';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const topic = getTopicOf(post);
+const read = readingTime(post.body ?? '');
+const hasMath = post.body?.includes('$$') ?? false;
+
+const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const all = await getPublishedPosts();
+const idx = all.findIndex((p) => p.id === post.id);
+const prev = all[idx + 1]; // mảng đã sắp mới nhất trước
+const next = all[idx - 1];
+
+const related = all
+  .filter((p) => p.id !== post.id && p.data.topic === post.data.topic)
+  .slice(0, 3);
+
+const faqLd = post.data.faq && {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: post.data.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  image: new URL(post.data.cover, Astro.site).toString(),
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  author: { '@type': 'Person', name: 'Huy', url: new URL('/ve-huy/', Astro.site).toString() },
+  publisher: { '@type': 'Organization', name: SITE.name },
+  mainEntityOfPage: new URL(`/bai-viet/${post.id}/`, Astro.site).toString(),
+};
+
+const jsonLdList = [jsonLd, ...(faqLd ? [faqLd] : [])];
+
+// Lộ trình học chứa bài này (nếu có) — hiển thị banner điều hướng
+const pathInfo = findPathOfPost(post.id);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.cover} isArticle math={hasMath} jsonLd={jsonLdList}>
+  <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+
+  <article>
+    <header class="post-header">
+      {topic && <a class="chip" href={`/chu-de/${topic.slug}/`}>{topic.name}</a>}
+      <h1>{post.data.title}</h1>
+      <p class="post-desc">{post.data.description}</p>
+      <div class="post-meta">
+        <span class="author-chip">
+          <img src="/images/avatar.svg" alt="" width="28" height="28" />
+          Huy
+        </span>
+        <span class="meta-dot" aria-hidden="true"></span>
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+        <span class="meta-dot" aria-hidden="true"></span>
+        <span>{read} phút đọc</span>
+      </div>
+    </header>
+
+    <div class="container container--narrow">
+      {pathInfo && (
+        <a class="path-banner" href={`/lo-trinh/${pathInfo.path.slug}/`}>
+          <span class="path-banner__label">Lộ trình</span>
+          <span class="path-banner__text">
+            Bài {pathInfo.position + 1}/{pathInfo.path.lessons.length} trong lộ trình{' '}
+            <strong>{pathInfo.path.title}</strong>
+          </span>
+          <span class="path-banner__cta">Xem giáo trình →</span>
+        </a>
+      )}
+
+      <figure class="post-cover">
+        <img src={post.data.cover} alt={`Ảnh minh họa bài viết: ${post.data.title}`} width="1200" height="630" fetchpriority="high" />
+      </figure>
+
+      <div class="post-layout">
+        <div class="post-main">
+          {tocItems.length > 2 && (
+            <details class="toc toc-mobile">
+              <summary>Mục lục</summary>
+              <ol>
+                {tocItems.map((h) => (
+                  <li style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+
+          <div class="prose">
+            <Content />
+          </div>
+
+          {post.data.faq && post.data.faq.length > 0 && (
+            <div class="prose">
+              <h2>Câu hỏi thường gặp</h2>
+              {post.data.faq.map((f) => (
+                <details class="faq-item">
+                  <summary>{f.q}</summary>
+                  <p set:html={f.a} />
+                </details>
+              ))}
+            </div>
+          )}
+
+          <ShareSave slug={post.id} title={post.data.title} />
+
+          <!-- Điều hướng bài trước / bài sau -->
+          {(prev || next) && (
+            <nav class="prev-next" aria-label="Bài viết trước và sau">
+              {prev ? (
+                <a href={`/bai-viet/${prev.id}/`}>
+                  <span class="dir">← Bài trước</span>
+                  <span>{prev.data.title}</span>
+                </a>
+              ) : <span></span>}
+              {next && (
+                <a class="next" href={`/bai-viet/${next.id}/`}>
+                  <span class="dir">Bài sau →</span>
+                  <span>{next.data.title}</span>
+                </a>
+              )}
+            </nav>
+          )}
+        </div>
+
+        {tocItems.length > 2 && (
+          <aside class="toc toc-desktop" aria-label="Mục lục">
+            <strong>Mục lục</strong>
+            <ol>
+              {tocItems.map((h) => (
+                <li style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </aside>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <!-- Bài viết liên quan -->
+  {related.length > 0 && (
+    <section class="section" aria-labelledby="related-h">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="related-h">Bài viết liên quan</h2>
+          <a class="see-all" href={`/chu-de/${post.data.topic}/`}>Xem thêm chủ đề này →</a>
+        </div>
+        <div class="post-grid">
+          {related.map((p) => <PostCard post={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container container--narrow">
+      <NewsletterForm variant="band" title="Thích bài này? Nhận bài mới qua bản tin" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .path-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    margin: 0.5rem 0 1.25rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .path-banner__label {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+  }
+  .path-banner__text strong {
+    color: var(--accent);
+  }
+  .path-banner__cta {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+  @media (min-width: 1100px) {
+    .post-layout {
+      grid-template-columns: minmax(0, 1fr) 220px;
+    }
+    .toc-mobile { display: none; }
+  }
+</style>
+
+<script>
+  // Thanh tiến độ đọc theo % chiều cao bài viết đã xem.
+  const bar = document.getElementById('progress-bar');
+  const article = document.querySelector('article');
+  function updateProgress() {
+    if (!bar || !article) return;
+    const start = article.offsetTop;
+    const total = article.offsetHeight - window.innerHeight;
+    const pct = total > 0 ? Math.min(100, Math.max(0, ((window.scrollY - start) / total) * 100)) : 0;
+    bar.style.width = `${pct}%`;
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+</script>

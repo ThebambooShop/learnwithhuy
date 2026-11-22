@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fdf0e0"/>
+  <circle cx="600" cy="315" r="200" fill="#ffedd5"/>
+  <circle cx="600" cy="315" r="120" fill="#e8590c" opacity="0.18"/>
+  <circle cx="600" cy="315" r="60" fill="#e8590c"/>
+  <!-- nút bấm: huấn luyện -->
+  <g stroke="#7c2d12" stroke-width="6" opacity="0.55" fill="none">
+    <circle cx="380" cy="180" r="26"/><circle cx="820" cy="180" r="26"/>
+    <circle cx="380" cy="450" r="26"/><circle cx="820" cy="450" r="26"/>
+    <path d="M406 180h120M674 180h120M380 206v218M820 206v218M406 450h120M674 450h120"/>
+  </g>
+  <g fill="#7c2d12" opacity="0.55">
+    <circle cx="380" cy="180" r="10"/><circle cx="820" cy="180" r="10"/>
+    <circle cx="380" cy="450" r="10"/><circle cx="820" cy="450" r="10"/>
+  </g>
+</svg>

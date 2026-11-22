@@ -1,0 +1,102 @@
+---
+import type { LearningPath } from '../data/learning-paths';
+import { getTopic } from '../data/topics';
+
+interface Props {
+  path: LearningPath;
+  minutes: number;
+  lessonCount: number;
+}
+
+const { path, minutes, lessonCount } = Astro.props;
+const topic = getTopic(path.topic);
+---
+
+<article class="path-card">
+  <div class="path-card__head">
+    {topic && <a class="chip" href={`/chu-de/${topic.slug}/`}>{topic.name}</a>}
+    <span class="path-card__level">{path.level}</span>
+  </div>
+  <h2 class="path-card__title">
+    <a href={`/lo-trinh/${path.slug}/`}>{path.title}</a>
+  </h2>
+  <p class="path-card__desc">{path.description}</p>
+  <p class="path-card__meta">
+    <span>{lessonCount} bài học</span>
+    <span class="meta-dot" aria-hidden="true"></span>
+    <span>~{minutes} phút đọc</span>
+  </p>
+  <a class="path-card__cta" href={`/lo-trinh/${path.slug}/`}>Xem lộ trình →</a>
+</article>
+
+<style>
+  .path-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 16px);
+    padding: 1.4rem 1.5rem;
+    height: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .path-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 18px rgba(194, 65, 12, 0.08);
+  }
+  .path-card__head {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .path-card__level {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+  }
+  .path-card__title {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.35;
+  }
+  .path-card__title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .path-card__title a:hover {
+    color: var(--accent);
+  }
+  .path-card__desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .path-card__meta {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .path-card__cta {
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .path-card__cta:hover {
+    text-decoration: underline;
+  }
+</style>

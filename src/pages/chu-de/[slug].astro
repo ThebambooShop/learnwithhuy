@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { topics, getTopic } from '../../data/topics';
+import { getPublishedPosts } from '../../lib/posts';
+
+export function getStaticPaths() {
+  return topics.map((t) => ({ params: { slug: t.slug }, props: { topic: t } }));
+}
+
+const { topic } = Astro.props;
+const posts = (await getPublishedPosts()).filter((p) => p.data.topic === topic.slug);
+---
+
+<BaseLayout title={`Chủ đề: ${topic.name}`} description={topic.description}>
+  <div class="container">
+    <header class="page-head">
+      <a href="/chu-de/" style="font-size: 0.92rem;">← Tất cả chủ đề</a>
+      <h1>{topic.name}</h1>
+      <p class="lead">{topic.description}</p>
+    </header>
+
+    {posts.length > 0 ? (
+      <section class="section" style="padding-top: 1rem;">
+        <div class="post-grid">
+          {posts.map((p) => <PostCard post={p} hideTopic />)}
+        </div>
+      </section>
+    ) : (
+      <section class="section" style="padding-top: 1rem;">
+        <div class="empty-state">
+          <div class="icon" aria-hidden="true">📝</div>
+          <h3>Chủ đề đang trong hàng đợi</h3>
+          <p>Chưa có bài viết cho chủ đề này — nội dung sẽ sớm được cập nhật.</p>
+          <a class="btn btn--outline" href="/bai-viet/">Xem tất cả bài viết</a>
+        </div>
+      </section>
+    )}
+  </div>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container container--narrow">
+      <NewsletterForm variant="band" title="Nhận bài mới của chủ đề này" />
+    </div>
+  </section>
+</BaseLayout>

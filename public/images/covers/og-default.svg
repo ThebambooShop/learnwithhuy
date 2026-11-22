@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#faf9f6"/>
+  <circle cx="1050" cy="120" r="220" fill="#ffedd5"/>
+  <circle cx="110" cy="560" r="160" fill="#fbf4ea"/>
+  <rect x="80" y="240" width="560" height="26" rx="13" fill="#e8590c"/>
+  <rect x="80" y="300" width="380" height="18" rx="9" fill="#e7d9c6"/>
+  <rect x="80" y="340" width="300" height="18" rx="9" fill="#e7d9c6"/>
+  <circle cx="900" cy="430" r="90" fill="#e8590c" opacity="0.12"/>
+  <circle cx="900" cy="430" r="52" fill="#e8590c" opacity="0.35"/>
+  <circle cx="900" cy="430" r="22" fill="#e8590c"/>
+  <text x="80" y="200" font-family="system-ui, sans-serif" font-size="42" font-weight="800" fill="#23282d">LearnWithHuy</text>
+</svg>

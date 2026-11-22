@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { SITE } from '../config';
+
+const socials = [
+  { name: 'Facebook', url: SITE.social.facebook },
+  { name: 'YouTube', url: SITE.social.youtube },
+  { name: 'LinkedIn', url: SITE.social.linkedin },
+  { name: 'GitHub', url: SITE.social.github },
+].filter((s) => s.url);
+---
+
+<BaseLayout
+  title="Về Huy"
+  description="Tác giả của LearnWithHuy — người học mãi, viết để giải thích AI và công nghệ một cách dễ hiểu, ưu tiên ứng dụng thực tế."
+>
+  <div class="container">
+    <section class="about-hero">
+      <img class="about-avatar" src="/images/avatar.svg" alt="Ảnh đại diện của Huy (placeholder)" width="132" height="132" />
+      <div>
+        <h1>Xin chào, mình là Huy 👋</h1>
+        <p class="lead">
+          Một người học mãi, yêu công nghệ và tin rằng kiến thức AI nên được nói bằng ngôn ngữ
+          mà ai cũng hiểu được. LearnWithHuy là nơi mình ghi lại hành trình học — và chia sẻ
+          lại cho bạn.
+        </p>
+        <div class="about-links">
+          {socials.map((s) => <a class="btn btn--outline btn--small" href={s.url} target="_blank" rel="noopener">{s.name}</a>)}
+          <a class="btn btn--primary btn--small" href={`mailto:${SITE.email}`}>Email: {SITE.email}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 1rem;">
+      <div class="prose">
+        <h2>Vì sao có LearnWithHuy</h2>
+        <p>
+          Khi bắt đầu tìm hiểu AI, mình nhận ra khó nhất không phải là thiếu tài liệu — mà là
+          <em>quá nhiều</em> tài liệu, và đa số viết cho người đã hiểu rồi. Người mới bắt đầu
+          thường chìm trong thuật ngữ trước khi kịp nắm được ý nghĩa thực sự.
+        </p>
+        <p>
+          LearnWithHuy ra đời để giải quyết đúng điều đó: mỗi bài viết cố gắng giải thích một
+          khái niệm như thể đang trò chuyện với một người bạn — có ví dụ gần gũi, có hình ảnh,
+          và luôn kết thúc bằng điều gì đó bạn có thể làm được ngay.
+        </p>
+
+        <h2>Nguyên tắc viết của blog</h2>
+        <ol class="value-list">
+          <li>
+            <span class="num">1</span>
+            <div>
+              <strong>Học thật, chia sẻ thật</strong>
+              <span>Mình chỉ viết những gì mình đã tự học, tự dùng và tự hiểu. Chưa chắc chắn thì nói là chưa chắc chắn — không đóng vai chuyên gia toàn tri.</span>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div>
+              <strong>Giải thích rõ ràng trước hết</strong>
+              <span>Một ý tưởng chỉ "hiểu" khi diễn đạt được bằng ngôn từ đơn giản. Ưu tiên ví dụ đời thường, tránh thuật ngữ khi không cần thiết.</span>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div>
+              <strong>Ưu tiên ứng dụng</strong>
+              <span>Hiểu lý thuyết là nền, nhưng bài viết luôn cố gắng trả lời: "Vậy dùng được ngay vào việc gì?" Kiến thức không dùng được thì dễ quên.</span>
+            </div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div>
+              <strong>Từng bước một</strong>
+              <span>Không hứa học nhanh trong một đêm. Blog này là hành trình dài, mỗi bài là một bước nhỏ — đủ để bạn tiến bộ mà không quá tải.</span>
+            </div>
+          </li>
+        </ol>
+
+        <h2>Kết nối với mình</h2>
+        <p>
+          Nếu bạn có câu hỏi, gợi ý chủ đề muốn mình viết, hoặc chỉ muốn chào hỏi — hãy gửi email
+          về <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Mình đọc và trả lời tất cả các
+          email từ độc giả (có thể chậm một chút, nhưng chắc chắn có trả lời).
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container--narrow">
+        <NewsletterForm variant="band" title="Cùng học từng bước với mình" />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

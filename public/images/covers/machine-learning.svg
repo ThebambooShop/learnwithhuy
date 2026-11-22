@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fdf0e0"/>
+  <!-- scatter plot -->
+  <rect x="150" y="120" width="560" height="390" rx="20" fill="#ffffff"/>
+  <line x1="200" y1="460" x2="660" y2="460" stroke="#f2e3cf" stroke-width="4"/>
+  <line x1="200" y1="460" x2="200" y2="170" stroke="#f2e3cf" stroke-width="4"/>
+  <!-- đường hồi quy -->
+  <line x1="230" y1="410" x2="620" y2="220" stroke="#e8590c" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#e8590c" opacity="0.75">
+    <circle cx="260" cy="400" r="12"/><circle cx="320" cy="360" r="12"/><circle cx="390" cy="330" r="12"/>
+    <circle cx="450" cy="290" r="12"/><circle cx="520" cy="280" r="12"/><circle cx="590" cy="230" r="12"/>
+  </g>
+  <g fill="#7c2d12" opacity="0.35">
+    <circle cx="290" cy="330" r="9"/><circle cx="430" cy="380" r="9"/><circle cx="560" cy="300" r="9"/>
+  </g>
+  <circle cx="920" cy="280" r="120" fill="#e8590c" opacity="0.12"/>
+  <circle cx="920" cy="280" r="60" fill="#e8590c" opacity="0.3"/>
+  <circle cx="920" cy="280" r="24" fill="#e8590c"/>
+  <rect x="840" y="440" width="160" height="22" rx="11" fill="#e7d9c6"/>
+  <rect x="840" y="478" width="110" height="22" rx="11" fill="#e7d9c6"/>
+</svg>

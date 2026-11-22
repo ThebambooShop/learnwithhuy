@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fdf0e0"/>
+  <!-- đường xu hướng sóng -->
+  <path d="M140 420 C 240 300, 320 480, 420 360 S 600 200, 700 320 S 880 420, 1060 200"
+    stroke="#e8590c" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M140 460 C 260 420, 360 500, 480 440 S 680 380, 800 420 S 980 440, 1060 360"
+    stroke="#7c2d12" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.3" stroke-dasharray="2 22"/>
+  <g fill="#e8590c">
+    <circle cx="420" cy="360" r="14"/>
+    <circle cx="700" cy="320" r="14"/>
+  </g>
+  <circle cx="1060" cy="200" r="18" fill="#e8590c"/>
+  <circle cx="920" cy="140" r="80" fill="#e8590c" opacity="0.1"/>
+</svg>

@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { SITE } from '../config';
+import { topics } from '../data/topics';
+import { learningPaths, getPathPosts, pathReadingMinutes } from '../data/learning-paths';
+import PathCard from '../components/PathCard.astro';
+import { getPublishedPosts, getTopicOf, readingTime } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const featured = posts.filter((p) => p.data.featured).slice(0, 2);
+const latest = posts.slice(0, 6);
+const popularTopics = [...topics];
+
+const counts = new Map<string, number>();
+for (const p of posts) counts.set(p.data.topic, (counts.get(p.data.topic) ?? 0) + 1);
+const postsPerTopic = (slug: string) => counts.get(slug) ?? 0;
+
+const pathCards = await Promise.all(
+  learningPaths.map(async (path) => {
+    const pathPosts = await getPathPosts(path);
+    return { path, minutes: pathReadingMinutes(path, pathPosts), lessonCount: pathPosts.length };
+  }),
+);
+---
+
+<BaseLayout title={`${SITE.name} — Blog học AI và công nghệ cùng Huy`}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Blog cá nhân về AI & công nghệ</span>
+        <h1>Cùng Huy học AI và công nghệ, từng bước một</h1>
+        <p class="lead">
+          Kiến thức dễ hiểu, ví dụ thực tế, ứng dụng được ngay. Viết cho người mới bắt đầu,
+          không đòi hỏi nền tảng lập trình.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn--primary" href="/bai-viet/">Khám phá bài viết</a>
+          <a class="btn btn--outline" href="/chu-de/ai-co-ban/">Bắt đầu học AI</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img src="/images/covers/posts/_hero.jpg" alt="" width="1200" height="900" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Bài viết nổi bật -->
+  <section class="section section--alt" aria-labelledby="featured-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="featured-h">Bài viết nổi bật</h2>
+        <a class="see-all" href="/bai-viet/?sap-xep=pho-bien">Xem theo độ phổ biến →</a>
+      </div>
+      <div class="post-grid post-grid--2">
+        {featured.map((p) => <PostCard post={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lộ trình học -->
+  <section class="section" aria-labelledby="paths-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="paths-h">Lộ trình học</h2>
+        <a class="see-all" href="/lo-trinh/">Xem tất cả lộ trình →</a>
+      </div>
+      <p class="paths-intro">
+        Bài học được sắp theo thứ tự từ nền tảng đến nâng cao theo từng chủ đề — học đúng
+        trình tự thay vì đọc bài rời rạc.
+      </p>
+      <div class="path-grid-home">
+        {pathCards.map((c) => <PathCard path={c.path} minutes={c.minutes} lessonCount={c.lessonCount} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bài viết mới nhất -->
+  <section class="section" aria-labelledby="latest-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="latest-h">Bài viết mới nhất</h2>
+        <a class="see-all" href="/bai-viet/">Xem tất cả →</a>
+      </div>
+      <div class="post-grid">
+        {latest.map((p) => <PostCard post={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chủ đề phổ biến -->
+  <section class="section section--alt" aria-labelledby="topics-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="topics-h">Chủ đề phổ biến</h2>
+        <a class="see-all" href="/chu-de/">Tất cả chủ đề →</a>
+      </div>
+      <div class="topic-grid">
+        {popularTopics.map((t) => (
+          <a class="topic-card" href={`/chu-de/${t.slug}/`}>
+            <h3 class="topic-card__name">{t.name}</h3>
+            <p class="topic-card__desc">{t.description}</p>
+            <span class="topic-card__count">{postsPerTopic(t.slug)} bài viết</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bản tin -->
+  <section class="section">
+    <div class="container container--narrow">
+      <NewsletterForm variant="band" title="Đồng hành cùng LearnWithHuy qua bản tin" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .paths-intro {
+    margin: -0.75rem 0 1.25rem;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+  .path-grid-home {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+</style>

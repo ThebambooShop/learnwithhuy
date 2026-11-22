@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PathCard from '../../components/PathCard.astro';
+import { learningPaths, getPathPosts, pathReadingMinutes } from '../../data/learning-paths';
+import { SITE } from '../../config';
+
+const cards = await Promise.all(
+  learningPaths.map(async (path) => {
+    const posts = await getPathPosts(path);
+    return { path, minutes: pathReadingMinutes(path, posts), lessonCount: posts.length };
+  }),
+);
+
+const title = 'Lộ trình học — các chuỗi bài có thứ tự theo chủ đề';
+const description =
+  'Các lộ trình học elearning của LearnWithHuy: bài học được sắp theo thứ tự từ nền tảng đến nâng cao, kèm mục tiêu học và điều kiện tiên quyết.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="paths-hero">
+    <div class="container">
+      <span class="eyebrow">Học theo lộ trình</span>
+      <h1>Lộ trình học</h1>
+      <p class="lead">
+        Thay vì đọc bài rời rạc, hãy học theo chuỗi đã sắp thứ tự: mỗi lộ trình là một
+        chủ đề hoàn chỉnh, đi từ nền tảng đến ứng dụng thực hành, kèm mục tiêu và điều
+        kiện tiên quyết rõ ràng.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="paths-h">
+    <div class="container">
+      <div class="path-grid">
+        {cards.map((c) => <PathCard path={c.path} minutes={c.minutes} lessonCount={c.lessonCount} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Cách dùng lộ trình hiệu quả</h2>
+      <div class="prose">
+        <ol>
+          <li><strong>Đọc đúng thứ tự.</strong> Mỗi bài trong lộ trình đều xây trên bài trước — bỏ bước dễ rơi vào tình trạng "biết tên công nghệ nhưng không biết dùng để làm gì".</li>
+          <li><strong>Kiểm tra điều kiện tiên quyết trước khi bắt đầu.</strong> Lộ trình nâng cao cần nền tảng Python; nếu chưa vững, bắt đầu từ chủ đề AI cơ bản.</li>
+          <li><strong>Thực hành song song.</strong> Lộ trình thực hành kèm mã nguồn mở — clone repo về chạy theo từng bước thay vì chỉ đọc.</li>
+          <li><strong>Đánh giá bằng tiêu chí trong bài.</strong> Mỗi bài kết thúc bằng checklist hoặc benchmark — dùng nó để tự kiểm tra trước khi sang bài tiếp theo.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .paths-hero {
+    padding: 3.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .paths-hero h1 {
+    margin: 0.5rem 0 1rem;
+    font-size: 2.3rem;
+  }
+  .paths-hero .lead {
+    max-width: 46rem;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+  .path-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+</style>
