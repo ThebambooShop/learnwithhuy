@@ -1,11 +1,7 @@
 """Bài 5 — Multi-agent orchestration: supervisor pattern (starter kit LearnWithHuy).
 
-Hai chế độ chạy:
-
-- MOCK MODE (không cần API key): hai specialist trả JSON / bài viết ghi sẵn,
-  vòng LLM của supervisor thay bằng kịch bản ghi đúng luồng trong bài —
-  lượt 1 gọi call_researcher, lượt 2 gọi call_writer, lượt 3 trả bài.
-  Kèm self_test (assert) không gọi API.
+- MOCK MODE (không cần API key): hai specialist và vòng supervisor chạy bằng
+  kịch bản ghi đúng luồng trong bài (call_researcher → call_writer → trả bài). Kèm self_test.
 - LIVE MODE (có OPENAI_API_KEY): gọi model thật như code trong bài viết.
 
 Chạy: python bai-5-multi-agent.py
@@ -20,7 +16,6 @@ MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 if not MOCK:
     from openai import OpenAI
-
     client = OpenAI()
 
 # ---------- Supervisor: contract tool (giống bài viết) ----------
@@ -30,11 +25,7 @@ SUPERVISOR_TOOLS = [
         "function": {
             "name": "call_researcher",
             "description": "Gọi agent researcher thu thập điểm chính, số liệu, rủi ro cho một chủ đề.",
-            "parameters": {
-                "type": "object",
-                "properties": {"topic": {"type": "string"}},
-                "required": ["topic"],
-            },
+            "parameters": {"type": "object", "properties": {"topic": {"type": "string"}}, "required": ["topic"]},
         },
     },
     {
@@ -44,10 +35,7 @@ SUPERVISOR_TOOLS = [
             "description": "Gọi agent writer viết bài phân tích từ dữ liệu JSON đã có.",
             "parameters": {
                 "type": "object",
-                "properties": {
-                    "topic": {"type": "string"},
-                    "research_json": {"type": "string"},
-                },
+                "properties": {"topic": {"type": "string"}, "research_json": {"type": "string"}},
                 "required": ["topic", "research_json"],
             },
         },
@@ -62,41 +50,34 @@ SYSTEM = (
 )
 
 
-# ---------- Specialist: live mode (gọi LLM thật) ----------
-def _researcher_live(topic: str) -> str:
+# ---------- Specialist: live mode (gọi LLM thật, logic như bài viết) ----------
+RESEARCHER_PROMPT = (
+    "Bạn là researcher. Với chủ đề được cho, trả về JSON gồm: "
+    "key_points (5 điểm chính), numbers (3 số liệu đáng chú ý), "
+    "risks (2 rủi ro). CHỈ trả JSON, không thêm chữ nào khác."
+)
+WRITER_PROMPT = (
+    "Bạn là writer. Dùng dữ liệu JSON từ researcher, viết bài phân tích khoảng "
+    "300 từ: mở đầu nêu bối cảnh, thân bài dẫn số liệu cụ thể, kết bài nêu rủi "
+    "ro. Không bịa số liệu ngoài JSON."
+)
+
+
+def _llm_text(system: str, user: str) -> str:
+    """Một lượt gọi LLM trả text — dùng chung cho hai specialist ở live mode."""
     resp = client.chat.completions.create(
         model=MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Bạn là researcher. Với chủ đề được cho, trả về JSON gồm: "
-                    "key_points (5 điểm chính), numbers (3 số liệu đáng chú ý), "
-                    "risks (2 rủi ro). CHỈ trả JSON, không thêm chữ nào khác."
-                ),
-            },
-            {"role": "user", "content": f"Chủ đề: {topic}"},
-        ],
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
     )
     return resp.choices[0].message.content
+
+
+def _researcher_live(topic: str) -> str:
+    return _llm_text(RESEARCHER_PROMPT, f"Chủ đề: {topic}")
 
 
 def _writer_live(topic: str, research_json: str) -> str:
-    resp = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Bạn là writer. Dùng dữ liệu JSON từ researcher, viết bài "
-                    "phân tích khoảng 300 từ: mở đầu nêu bối cảnh, thân bài dẫn "
-                    "số liệu cụ thể, kết bài nêu rủi ro. Không bịa số liệu ngoài JSON."
-                ),
-            },
-            {"role": "user", "content": f"Chủ đề: {topic}\nDữ liệu: {research_json}"},
-        ],
-    )
-    return resp.choices[0].message.content
+    return _llm_text(WRITER_PROMPT, f"Chủ đề: {topic}\nDữ liệu: {research_json}")
 
 
 # ---------- Specialist: mock mode (không gọi API) ----------
@@ -137,10 +118,9 @@ def _writer_mock(topic: str, research_json: str) -> str:
         "Về số liệu: AI tối ưu tuyến có thể giảm 10-15% chi phí vận hành kho; "
         "thị trường cloud Việt Nam tăng khoảng 25%/năm; thời gian xử lý chứng từ "
         "rút từ 3 ngày xuống vài giờ khi kết hợp OCR với LLM.\n\n"
-        "Rủi ro cần theo dõi: số liệu lấy từ nguồn công khai nên dễ lệch thời "
-        "điểm, và chưa có khảo sát khách hàng thực tế để xác nhận mức giá chịu "
-        "được. Năng lực cạnh tranh nằm ở dữ liệu trong nước, giá VND và hỗ trợ "
-        "onsite."
+        "Rủi ro: số liệu từ nguồn công khai dễ lệch thời điểm; chưa có khảo sát "
+        "khách hàng thực tế về mức giá chịu được. Năng lực cạnh tranh nằm ở dữ "
+        "liệu trong nước, giá VND và hỗ trợ onsite."
     )
 
 
@@ -162,13 +142,8 @@ def _msg_with_tools(calls):
     """Dựng message tool-call giả cùng hình dạng message OpenAI cho mock/self-test."""
     return SimpleNamespace(
         tool_calls=[
-            SimpleNamespace(
-                id=f"call_{i}",
-                function=SimpleNamespace(
-                    name=name, arguments=json.dumps(args, ensure_ascii=False)
-                ),
-            )
-            for i, (name, args) in enumerate(calls)
+            SimpleNamespace(id=f"call_{i}", function=SimpleNamespace(name=n, arguments=json.dumps(a, ensure_ascii=False)))
+            for i, (n, a) in enumerate(calls)
         ],
         content=None,
     )
@@ -176,9 +151,7 @@ def _msg_with_tools(calls):
 
 def _chat_live(messages):
     """Một lượt gọi LLM của supervisor ở live mode."""
-    resp = client.chat.completions.create(
-        model=MODEL, messages=messages, tools=SUPERVISOR_TOOLS
-    )
+    resp = client.chat.completions.create(model=MODEL, messages=messages, tools=SUPERVISOR_TOOLS)
     return resp.choices[0].message
 
 
@@ -189,10 +162,7 @@ def run_supervisor(task: str, max_rounds: int = 6, _llm=None) -> str:
     có .tool_calls / .content — thay một lượt gọi model thật.
     """
     chat = _llm if _llm is not None else _chat_live
-    messages = [
-        {"role": "system", "content": SYSTEM},
-        {"role": "user", "content": task},
-    ]
+    messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": task}]
     for _ in range(max_rounds):
         msg = chat(messages)
         messages.append(msg)
@@ -204,9 +174,7 @@ def run_supervisor(task: str, max_rounds: int = 6, _llm=None) -> str:
             args = json.loads(call.function.arguments)
             result = dispatch(call.function.name, args)
             print(f"[supervisor] gọi {call.function.name}")
-            messages.append(
-                {"role": "tool", "tool_call_id": call.id, "content": result}
-            )
+            messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
     return "Supervisor dừng: vượt số vòng cho phép."
 
 
@@ -262,8 +230,7 @@ def self_test() -> None:
         # 3. JSON của researcher mock parse được, đủ 3 field đúng độ dài
         data = json.loads(_researcher_mock("GPU cloud cho logistics"))
         assert set(data) == {"key_points", "numbers", "risks"}, set(data)
-        assert len(data["key_points"]) == 5 and len(data["numbers"]) == 3
-        assert len(data["risks"]) == 2
+        assert len(data["key_points"]) == 5 and len(data["numbers"]) == 3 and len(data["risks"]) == 2
     finally:
         researcher, writer = saved
 

@@ -57,6 +57,13 @@ export const topics: Topic[] = [
     description:
       'Đọc tin công nghệ một cách bình tĩnh, có chọn lọc — đánh giá xu hướng bằng bằng chứng thay vì theo hâm mộ.',
   },
+  // AI Agent — kiến trúc và vận hành agent: loop, tool, session, subagent, harness
+  {
+    slug: 'ai-agent',
+    name: 'AI Agent',
+    description:
+      'Kiến trúc và vận hành AI Agent: agent loop, tool use, session, subagent và agent harness — từ nguyên lý đến hệ thống chạy thực tế.',
+  },
   // AI ứng dụng theo ngành — cách AI thay đổi công việc thực tế của từng nghề, gói trong chính ví dụ của nghề đó
   {
     slug: 'ai-trong-giao-duc',
@@ -99,6 +106,13 @@ export const topics: Topic[] = [
     name: 'AI trong hành chính công',
     description:
       'AI hỗ trợ soạn thảo văn bản, phân tích dữ liệu và phục vụ người dân — nền tảng thực dụng cho chuyển đổi số ở cơ quan nhà nước.',
+  },
+  // Tiếng Anh với AI — dùng AI làm gia sư, luyện nghe nói đọc viết cho dân IT
+  {
+    slug: 'tieng-anh-voi-ai',
+    name: 'Tiếng Anh với AI',
+    description:
+      'Dùng AI làm gia sư tiếng Anh cá nhân: luyện nghe, nói, đọc, viết và xây kho từ vựng tech bằng công cụ AI — lộ trình thực dụng cho dân IT.',
   },
 ];
 

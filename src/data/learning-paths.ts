@@ -152,6 +152,62 @@ export const learningPaths: LearningPath[] = [
       'chon-agent-architecture-36-mau',
     ],
   },
+  {
+    slug: 'tieng-anh-cho-dan-ai',
+    title: 'Tiếng Anh cho dân IT bằng AI',
+    description:
+      'Lộ trình 9 bài dùng AI làm gia sư tiếng Anh cá nhân: bản đồ công cụ, 5 phương pháp nền tảng (Comprehensible Input, Shadowing, Sentence Mining, Extensive Reading, Refold), cây luyện nghe từ podcast tech đến TV series, đọc tài liệu kỹ thuật, nói với AI speaking coach, viết kèm correction mode, kho từ vựng Anki và kế hoạch 30 ngày thực thi. Nguồn tổng hợp từ kho awesome-english.',
+    topic: 'tieng-anh-voi-ai',
+    level: 'Mới bắt đầu',
+    outcomes: [
+      'Chọn được combo 3 công cụ khởi đầu và dùng LLM làm gia sư với prompt correction mode',
+      'Áp dụng được 5 phương pháp nền tảng vào thói quen nghe đọc hằng ngày của dân IT',
+      'Xây dựng routine nghe — đọc — nói — viết 35 phút mỗi ngày với Language Reactor, LingQ, AI speaking coach',
+      'Nhận biết được lỗi lặp lại qua error log và sửa dần bằng correction mode thay vì nhờ AI viết hộ',
+      'Tạo bộ flashcard Anki từ câu thật bằng sentence mining và chạy được script sinh CSV không cần API key',
+    ],
+    lessons: [
+      'bat-dau-hoc-tieng-anh-voi-ai',
+      'chatgpt-gia-su-tieng-anh-ca-nhan',
+      '5-phuong-phap-hoc-tieng-anh-hieu-qua',
+      'luyen-nghe-tieng-anh-tu-podcast-va-youtube',
+      'luyen-doc-tai-lieu-ky-thuat-tieng-anh',
+      'luyen-noi-voi-ai-speaking-coach',
+      'viet-tieng-anh-voi-ai-writing-assistant',
+      'kho-tu-vung-tech-voi-anki-va-ai',
+      'ke-hoach-30-ngay-hoc-tieng-anh-voi-ai',
+    ],
+  },
+  {
+    slug: 'xay-dung-agent-harness',
+    title: 'Xây dựng Agent Harness từ số 0 với Mini-dsh',
+    description:
+      'Lộ trình 8 bài tổng hợp từ learn-deepseek-harness — tutorial rebuild DeepSeek Harness (dsh) của DeepSeek từ số 0 bằng Python stdlib, không cần API key. Đi xuyên qua 4 phase của một agent harness production: kernel plugin đảo ngược được, session log append-only với compaction, agent loop state machine, permission pipeline 5 giai đoạn, scheduler song song có barrier, steering inbox, skills nạp on-demand và composition bằng patch layers. Thời gian đọc toàn bộ khoảng 90 phút; làm đầy đủ bài tập thực hành cần thêm 4-6 giờ.',
+    topic: 'ai-agent',
+    level: 'Trung cấp',
+    prerequisites: [
+      'Python cơ bản: đã viết được script dùng class, dict, vòng lặp và xử lý lỗi (try/except)',
+      'Hiểu agent loop ở mức cơ bản — nên đọc bài nền tảng trong lộ trình "Kiến trúc AI Agent"',
+      'Quen terminal: clone repo, chạy file Python từ thư mục dự án',
+    ],
+    outcomes: [
+      'Giải thích được kiến trúc agent harness production: kernel, session log, agent loop, tool registry, skills, subagent',
+      'Tự tay xây dựng từng cơ chế của Mini-dsh bằng Python stdlib và chạy được offline check không cần API key',
+      'Thiết kế permission pipeline pre-ask-guard-execute-post và scheduler tool song song có barrier đúng chuẩn dsh',
+      'Hiểu vì sao "everything is a plugin" và vì sao composition dùng patch layers thay vì deep-merge',
+      'Đọc tiếp được source dsh thật vì đã nắm design question đứng sau từng cơ chế',
+    ],
+    lessons: [
+      'agent-harness-la-gi',
+      'kernel-plugin-thiet-ke-harness',
+      'session-log-va-compaction',
+      'agent-loop-state-machine',
+      'tools-permission-pipeline',
+      'scheduler-va-steering-inbox',
+      'system-prompt-va-skills',
+      'capabilities-subagents-composition',
+    ],
+  },
 ];
 
 export function getPath(slug: string): LearningPath | undefined {

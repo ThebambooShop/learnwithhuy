@@ -1,11 +1,9 @@
 """Bài 6 — Agentic RAG với fallback web: mini-CRAG (starter kit LearnWithHuy).
 
-Hai chế độ chạy:
-
-- MOCK MODE (không cần API key): search_kb và web_search là hàm thuần không
-  gọi API nên giữ nguyên như bài; chỉ vòng LLM của agent thay bằng kịch bản
-  ghi hai ví dụ trong bài — trúng KB → trả lời, hỏng KB → fallback web →
-  trả "không đủ dữ liệu". Kèm self_test (assert) không gọi API.
+- MOCK MODE (không cần API key): search_kb và web_search là hàm thuần không gọi
+  API nên giữ nguyên như bài; chỉ vòng LLM của agent thay bằng kịch bản ghi hai
+  ví dụ trong bài — trúng KB → trả lời, hỏng KB → fallback web → trả "không đủ
+  dữ liệu". Kèm self_test (assert) không gọi API.
 - LIVE MODE (có OPENAI_API_KEY): gọi model thật như code trong bài viết.
 
 Chạy: python bai-6-rag-agent.py
@@ -20,7 +18,6 @@ MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 if not MOCK:
     from openai import OpenAI
-
     client = OpenAI()
 
 # ---------- KB giả lập: 4 doc cứng (giống bài viết) ----------
@@ -97,11 +94,7 @@ TOOLS = [
         "function": {
             "name": "search_kb",
             "description": "Tìm tài liệu trong knowledge base nội bộ. Trả về 2 doc kèm relevance score.",
-            "parameters": {
-                "type": "object",
-                "properties": {"query": {"type": "string"}},
-                "required": ["query"],
-            },
+            "parameters": {"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]},
         },
     },
     {
@@ -109,11 +102,7 @@ TOOLS = [
         "function": {
             "name": "web_search",
             "description": "Tìm trên web. CHỈ dùng khi mọi tài liệu trong KB có relevance thấp.",
-            "parameters": {
-                "type": "object",
-                "properties": {"query": {"type": "string"}},
-                "required": ["query"],
-            },
+            "parameters": {"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]},
         },
     },
 ]
@@ -141,13 +130,8 @@ def _msg_with_tools(calls):
     """Dựng message tool-call giả cùng hình dạng message OpenAI cho mock mode."""
     return SimpleNamespace(
         tool_calls=[
-            SimpleNamespace(
-                id=f"call_{i}",
-                function=SimpleNamespace(
-                    name=name, arguments=json.dumps(args, ensure_ascii=False)
-                ),
-            )
-            for i, (name, args) in enumerate(calls)
+            SimpleNamespace(id=f"call_{i}", function=SimpleNamespace(name=n, arguments=json.dumps(a, ensure_ascii=False)))
+            for i, (n, a) in enumerate(calls)
         ],
         content=None,
     )
@@ -166,10 +150,7 @@ def run_rag_agent(question: str, max_rounds: int = 5, _llm=None) -> str:
     .tool_calls / .content — thay một lượt gọi model thật.
     """
     chat = _llm if _llm is not None else _chat_live
-    messages = [
-        {"role": "system", "content": SYSTEM},
-        {"role": "user", "content": question},
-    ]
+    messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question}]
     for _ in range(max_rounds):
         msg = chat(messages)
         messages.append(msg)
@@ -181,9 +162,7 @@ def run_rag_agent(question: str, max_rounds: int = 5, _llm=None) -> str:
             args = json.loads(call.function.arguments)
             result = dispatch(call.function.name, args)
             print(f"[tool] {call.function.name}({args['query']!r})")
-            messages.append(
-                {"role": "tool", "tool_call_id": call.id, "content": result}
-            )
+            messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
     return "Dừng: vượt số vòng cho phép."
 
 
