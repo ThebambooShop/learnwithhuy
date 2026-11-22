@@ -5,9 +5,17 @@ topic: "tieng-anh-voi-ai"
 date: "2026-11-22"
 cover: "/images/covers/posts/bat-dau-hoc-tieng-anh-voi-ai.jpg"
 views: 0
-featured: false
+featured: true
+faq:
+  - q: "Có cần trả tiền cho công cụ nào trong tháng đầu không?"
+    a: "Không. Bản miễn phí của ChatGPT, Gemini, Claude, Anki desktop và Language Reactor đều đủ cho combo khởi đầu; trả tiền chỉ khi nhu cầu vượt giới hạn bản miễn phí."
+  - q: "Học tiếng Anh với AI có làm mình lệ thuộc AI không?"
+    a: "Có nếu dùng để làm hộ — nhờ viết email, nhờ dịch cả đoạn. Không nếu dùng đúng vai trò gia sư: AI hỏi bạn, chấm bạn, giải thích cho bạn."
+  - q: "Mức tiếng Anh bao nhiêu thì học được với AI?"
+    a: "Kể cả A1–A2, vì LLM chỉnh được độ khó theo yêu cầu — thứ giáo trình in sẵn không làm được. Vấn đề không phải mức thấp, mà là nội dung chưa đúng i+1."
+  - q: "Nếu chỉ chọn một nhóm công cụ thì chọn nhóm nào?"
+    a: "Gia sư hội thoại, vì một công cụ phủ ba nhu cầu: giải thích, role-play, sửa bài viết. Thêm nhóm nghe và từ vựng khi thói quen đã đứng."
 ---
-
 Bạn đọc Stack Overflow, error message, tài liệu docs bằng tiếng Anh không vấn đề gì. Nhưng đến lượt mình nói trong daily standup thì câu dài nhất hôm đó là "no blocker, thanks". Viết reply Slack dài hơn ba dòng là phải mở Google Translate soi từng câu.
 
 Đây là mức bình thường của đa số dân IT Việt: input (đọc, nghe) khá hơn mình tưởng, output (nói, viết) mới là nút thắt thật — và đúng là kiểu bài toán AI giải được tốt.

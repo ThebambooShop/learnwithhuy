@@ -6,11 +6,19 @@ date: "2026-11-22"
 cover: "/images/covers/posts/viet-tieng-anh-voi-ai-writing-assistant.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Grammarly bản miễn phí có đủ dùng không?"
+    a: "Đủ cho email, README và PR description thông thường. Bản trả tiền thêm phân tích tone — chỉ đáng mua khi bạn viết cho khách hàng mỗi ngày."
+  - q: "Nhờ AI viết giùm có nhanh hơn không?"
+    a: "Nhanh hơn hôm nay, nhưng chậm hơn trong một năm. Mỗi lần dán nguyên đoạn AI là bỏ một lần luyện viết miễn phí mỗi tuần."
+  - q: "Workflow này có tốn nhiều thời gian hơn không?"
+    a: "Lần đầu thêm 5-10 phút. Sau vài tuần tốc độ bản nháp tăng, phần viết lại dần ngắn lại vì pattern cũ không còn xuất hiện."
+  - q: "Hemingway phù hợp với tài liệu kỹ thuật nào?"
+    a: "README, runbook, tài liệu hướng dẫn — nơi câu ngắn và rõ là tối thượng. Đừng cố đạt điểm thấp bằng mọi giá; Hemingway chỉ giúp cắt phần rườm rà quanh thuật ngữ."
 ---
-
 Thứ Hai bạn viết PR description cho một pull request lớn. Thứ Tư, email ping đối tác hỏi tiến độ sprint. Thứ Sáu, README cho repo nội bộ. Ba tình huống, chung một thứ tiếng Anh — và nếu mỗi lần đều dán nguyên đoạn ChatGPT trả về, thì sau ba năm bạn vẫn viết đúng như hôm nay.
 
-Viết tiếng Anh là việc lặp lại hằng tuần của dân IT. Chỗ nào lặp lại thì chỗ đó học nhanh nhất — nếu làm đúng cách. Bài này đưa bộ công cụ sửa viết và một workflow bốn bước, trong đó AI là người chấm bài, không phải người viết hộ.
+Viết tiếng Anh là việc lặp lại hằng tuần của dân IT. Chỗ nào lặp lại thì chỗ đó học nhanh nhất — nếu làm đúng cách. Bài này đưa bộ công cụ sửa viết và một workflow bốn bước: AI là người chấm bài, không phải người viết hộ.
 
 ## Bộ công cụ sửa viết đáng dùng
 
@@ -57,7 +65,7 @@ Bảng sửa tách lỗi theo nhóm grammar / word choice / tone — ba thứ ch
 
 **Bước 3 — Tự viết lại theo bản sửa.** Gõ lại bằng tay, đọc phần giải thích từng lỗi khi gõ. Copy-paste bản sửa thì vừa rồi coi như chưa làm.
 
-**Bước 4 — Ghi lỗi lặp lại vào error log.** Một file text, mỗi dòng một pattern ("quên article trước danh từ đếm được"). Đọc qua trước mỗi lần viết; pattern cũ sẽ dần biến mất khỏi bản nháp mới.
+**Bước 4 — Ghi lỗi lặp lại vào error log.** Một file text, mỗi dòng một pattern ("quên article trước danh từ đếm được"). Đọc qua trước mỗi lần viết; pattern cũ dần biến mất khỏi bản nháp mới.
 
 ## Ứng dụng vào công việc thật
 
@@ -80,7 +88,7 @@ Bảng sửa tách lỗi theo nhóm grammar / word choice / tone — ba thứ ch
 
 ⚠️ **Chỉ nhận bản sửa mà không đọc phần giải thích.** Bản sửa chữa một email hôm nay; phần giải thích chữa cả trăm email sau. Đọc từng dòng "why it was wrong" trước khi sang lỗi kế tiếp.
 
-⚠️ **Viết câu quá phức tạp để cho "xịn".** Câu ba mươi chữ với ba mệnh đề phụ không khiến bạn nghe chuyên nghiệp hơn — nó khiến người đọc phải đọc hai lần. Hemingway gạch bạn là nó đang giúp bạn.
+⚠️ **Viết câu quá phức tạp để cho "xịn".** Câu ba mươi chữ không khiến bạn nghe chuyên nghiệp hơn — nó khiến người đọc phải đọc hai lần. Hemingway gạch bạn là nó đang giúp bạn.
 
 ⚠️ **Sửa ngay khi viết từng câu.** Bản nháp không bao giờ hoàn chỉnh, và correction mode mất giá trị vì bài đã bị "sửa lậu" nửa chừng. Viết hết, sửa sau.
 
@@ -90,10 +98,10 @@ Bảng sửa tách lỗi theo nhóm grammar / word choice / tone — ba thứ ch
 Đủ cho email, README và PR description thông thường. Bản trả tiền thêm phân tích tone — chỉ đáng mua khi bạn viết cho khách hàng mỗi ngày.
 
 **Nhờ AI viết giùm có nhanh hơn không?**
-Nhanh hơn hôm nay, nhưng chậm hơn trong một năm. Mỗi lần dán nguyên đoạn AI là bỏ một lần luyện viết miễn phí mà công việc đang bắt bạn làm mỗi tuần.
+Nhanh hơn hôm nay, nhưng chậm hơn trong một năm. Mỗi lần dán nguyên đoạn AI là bỏ một lần luyện viết miễn phí mỗi tuần.
 
 **Workflow này có tốn nhiều thời gian hơn không?**
-Lần đầu thêm 5-10 phút mỗi văn bản. Sau vài tuần tốc độ bản nháp tăng, và phần viết lại dần ngắn lại vì pattern cũ không còn xuất hiện.
+Lần đầu thêm 5-10 phút. Sau vài tuần tốc độ bản nháp tăng, phần viết lại dần ngắn lại vì pattern cũ không còn xuất hiện.
 
 **Hemingway phù hợp với tài liệu kỹ thuật nào?**
 README, runbook, tài liệu hướng dẫn — nơi câu ngắn và rõ là tối thượng. Đừng cố đạt điểm thấp bằng mọi giá; Hemingway chỉ giúp cắt phần rườm rà quanh thuật ngữ.
@@ -102,4 +110,4 @@ README, runbook, tài liệu hướng dẫn — nơi câu ngắn và rõ là t�
 
 Công cụ và nguyên tắc luyện viết trong bài lấy từ section **Writing** và **Writing Tips** của dự án [yvoronoy/awesome-english](https://github.com/yvoronoy/awesome-english) — repo tuyển chọn tài nguyên học tiếng Anh do cộng đồng duy trì.
 
-Đọc tiếp trong series: [ChatGPT làm gia sư tiếng Anh cá nhân](/bai-viet/chatgpt-gia-su-tieng-anh-ca-nhan) đi sâu vào correction mode, [luyện đọc tài liệu kỹ thuật tiếng Anh](/bai-viet/luyen-doc-tai-lieu-ky-thuat-tieng-anh) lo phần đầu vào trước khi viết, còn [kế hoạch 30 ngày học tiếng Anh với AI](/bai-viet/ke-hoach-30-ngay-hoc-tieng-anh-voi-ai) xếp các bài này thành lộ trình từng ngày.
+Đọc tiếp: [ChatGPT làm gia sư tiếng Anh cá nhân](/bai-viet/chatgpt-gia-su-tieng-anh-ca-nhan) đi sâu vào correction mode, [luyện đọc tài liệu kỹ thuật tiếng Anh](/bai-viet/luyen-doc-tai-lieu-ky-thuat-tieng-anh) lo phần đầu vào trước khi viết, còn [kế hoạch 30 ngày học tiếng Anh với AI](/bai-viet/ke-hoach-30-ngay-hoc-tieng-anh-voi-ai) xếp các bài này thành lộ trình từng ngày.

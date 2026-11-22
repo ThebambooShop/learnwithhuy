@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/luyen-doc-tai-lieu-ky-thuat-tieng-anh.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Nên đọc bao nhiêu mỗi ngày?"
+    a: "15–20 phút extensive reading mỗi ngày hiệu quả hơn 2 tiếng dồn vào cuối tuần. Khối lượng nhỏ mà đều đặn mới xây được cảm giác ngôn ngữ."
+  - q: "Đọc trên Kindle hay sách giấy tốt hơn?"
+    a: "Sách điện tử tiện hơn vì click tra từ tức thì (Kindle, LingQ). Sách giấy hợp khi bạn đã ở level hầu như không cần tra — đọc trôi và không bị cám dờ tra từ."
+  - q: "Một đoạn mà hầu như không hiểu thì sao?"
+    a: "Nếu hơn 30% câu không hiểu dù đã đoán, tài liệu đó đang cao hơn bạn một bậc. Đổi tài liệu dễ hơn — cố cưỡng không tăng kỹ năng, chỉ tăng nản."
+  - q: "LingQ có bắt buộc trả phí không?"
+    a: "Bản free có giới hạn số nội dung import mỗi tháng nhưng đủ dùng cho 15–20 phút đọc mỗi ngày. Chỉ nâng gói khi workflow đã phù hợp và bạn muốn import nhiều hơn."
 ---
-
 Mỗi ngày bạn đọc vài chục dòng tiếng Anh: một answer trên Stack Overflow, một trang MDN, một issue trên GitHub. Đa số bạn lướt qua được vì quen chủ đề. Nhưng cứ gặp câu dài ba mươi từ với hai mệnh đề quan hệ là dừng lại, đọc đi đọc lại, rồi đoán mò nghĩa — và quay lại làm việc. Công việc xong, nhưng kỹ năng đọc sau một năm vẫn đứng nguyên.
 
 Đọc là kỹ năng luyện được có hệ thống, giống luyện code: có bài tập, có level, có cách đo. Bài này đưa cho bạn cái cây tài liệu từ dễ lên khó, cách tận dụng input mà dân IT sẵn có, và workflow dùng AI để mỗi câu khó trở thành một bài học thay vì một lần bỏ qua.

@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/chatgpt-gia-su-tieng-anh-ca-nhan.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Nên bắt đầu với ChatGPT, Claude hay Gemini?"
+    a: "Với cái bạn đã có tài khoản. Khác biệt giữa các LLM nhỏ hơn nhiều so với khác biệt giữa \"dùng mỗi ngày\" và \"không dùng\"."
+  - q: "Dùng voice mode luyện nói được không?"
+    a: "Được — cách rẻ nhất luyện phản xạ nói. Giới hạn: không chấm phát âm chi tiết — voice mode cho hội thoại, phát âm dùng Elsa Speak hoặc BoldVoice."
+  - q: "Có nên viết prompt bằng tiếng Việt cho dễ không?"
+    a: "Prompt điều khiển nên viết bằng tiếng Anh — luyện thêm phần input. Chỗ khó diễn đạt thì tiếng Việt cho phần chỉ dẫn, phần luyện tập vẫn là tiếng Anh."
+  - q: "Làm sao nhớ được prompt cho lần sau?"
+    a: "Lưu vào ghi chú, hoặc đưa mức hiện tại và mục tiêu vào custom instructions — tiêu chuẩn: mở phiên mới, dán một prompt là chạy được."
 ---
-
 Gia sư tiếng Anh ở Việt Nam tính 300–500k một giờ, phải đặt lịch trước, kiên nhẫn có hạn. LLM thì rảnh 24/7, hỏi sai lần thứ mười vẫn giải thích lần thứ mười một, và bạn không phải ngại — thứ quan trọng nhất khi luyện nói.
 
 Nhưng dễ tiếp cận không đồng nghĩa dùng được: dùng sai cách, gia sư đó thành công cụ làm hộ bài. Bài này liệt kê 5 cách dùng đúng, kèm prompt mẫu dùng ngay.

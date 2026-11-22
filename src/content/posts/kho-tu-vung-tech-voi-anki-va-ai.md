@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/kho-tu-vung-tech-voi-anki-va-ai.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Anki có khó dùng, mất bao lâu để quen?"
+    a: "Cài đặt và import CSV mất chưa đến 10 phút. Phần khó là kỷ luật review mỗi ngày — mức 10 card mới/ngày giữ workload ổn định nhiều tháng."
+  - q: "Sao không dùng Quizlet cho nhanh?"
+    a: "Quizlet tiện cho bộ card làm sẵn, nhưng import hàng loạt hạn chế và lịch review ít kiểm soát hơn. Khi cần nạp vài trăm card từ công việc của mình, Anki là lựa chọn đích."
+  - q: "Mỗi ngày bao nhiêu card mới là hợp lý?"
+    a: "Khoảng 10. Con số này cho ~70 từ mỗi tuần mà tổng review vẫn dưới 20 phút/ngày; nhảy thẳng 50-100 card/ngày sẽ kẹt review trong một tuần."
+  - q: "AI sinh card có đáng tin không?"
+    a: "Tạm được, đừng tin mù. AI thỉnh thoảng đặt ví dụ gượng hoặc nghĩa chưa sát ngành. Đọc lướt từng card trước khi import và sửa chỗ gượng — đó cũng là một lượt ôn miễn phí."
 ---
-
 Từ "deprecate" xuất hiện trong changelog lần thứ mười hôm nay, và lần thứ mười đó bạn vẫn tra Google như lần thứ nhất. Không phải bạn lười — mà là nhớ bằng cách đọc lại không giữ được gì: một tuần sau, từ đó biến mất như chưa từng học.
 
 Cái giữ được là spaced repetition — và Anki là công cụ chuẩn cho phương pháp này.

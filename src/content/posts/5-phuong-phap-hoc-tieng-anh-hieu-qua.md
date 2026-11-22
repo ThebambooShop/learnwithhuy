@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/5-phuong-phap-hoc-tieng-anh-hieu-qua.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Học cả 5 phương pháp cùng lúc được không?"
+    a: "Được nhưng không nên. Input là nền bắt buộc, còn lại chọn theo mục tiêu; người mới nên giữ Input kèm một phương pháp trong 30 ngày."
+  - q: "Comprehensible Input khác học ngữ pháp kiểu trường học thế nào?"
+    a: "Trường học dạy luật trước, ví dụ sau; Input cho bạn hàng nghìn ví dụ trước, luật tự ngấm. Không phải bỏ ngữ pháp — chỉ để nó đứng sau input."
+  - q: "Dùng Sentence Mining bắt buộc phải cài Anki không?"
+    a: "Không bắt buộc — app flashcard nào có spaced repetition đều dùng được. Quan trọng là card chứa câu thật và ôn đều mỗi ngày."
+  - q: "Refold có bản tiếng Việt không?"
+    a: "Bản chính thức là tiếng Anh, nhưng nhờ AI dịch và giải thích từng phần khá ổn. Đọc bản dịch để hiểu lộ trình, quay lại bản gốc khi cần thuật ngữ chính xác."
 ---
-
 Học tiếng Anh 10 năm, thêm mấy năm đọc docs tiếng Anh hằng ngày — nhưng đến demo call với khách hàng nước ngoài, bạn vẫn đứng hình ở câu thứ hai. Vấn đề không nằm ở lực học. Người chăm chỉ vẫn đi vòng vòng khi học sai phương pháp: nhồi từ vựng rời rạc, nghe thứ mình không hiểu, không bao giờ nói lại điều vừa nghe. Dưới đây là 5 phương pháp nền tảng được cộng đồng kiểm chứng lâu năm, kèm cách dùng AI hỗ trợ từng cái.
 
 ## 1. Comprehensible Input — nghe đọc những thứ vừa đủ hiểu

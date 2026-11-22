@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/luyen-nghe-tieng-anh-tu-podcast-va-youtube.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Phụ đề tiếng Anh có làm hỏng luyện nghe không?"
+    a: "Không, nếu dùng đúng lượt. Phụ đề EN là công cụ của lượt 2 để định vị chỗ chưa hiểu, không thay thế tai ở lượt 1."
+  - q: "Nghe bao lâu thì tiến bộ rõ?"
+    a: "Đều đặn 20–30 phút chủ động mỗi ngày, khoảng 4–6 tuần sẽ thấy ở nội dung quen thuộc. Đừng dùng meeting thật làm thước đo duy nhất."
+  - q: "Không có tài khoản Netflix thì dùng Language Reactor thế nào?"
+    a: "Language Reactor chạy được trên YouTube miễn phí, đủ cho toàn bộ workflow trong bài. Netflix chỉ bổ sung phim dài tập khi bạn muốn nội dung giải trí."
+  - q: "Nghe xong muốn luyện nói luôn thì làm gì?"
+    a: "Shadowing chính là đáp án — nói theo chính đoạn audio bạn vừa nghe qua 3 lượt. Xem bài [5 phương pháp nền tảng](/bai-viet/5-phuong-phap-hoc-tieng-anh-hieu-qua) để làm đúng kỹ thuật."
 ---
-
 Buổi sync đầu tiên với team Singapore, bạn nắm được chắc 30% câu nói — và nửa giờ sau chỉ còn biết gật cho có. Nghe là kỹ năng mở cửa mọi thứ khác: nghe hiểu mới phản hồi được, mới học được phát âm từ chính người nói. Nhưng cũng dễ nản nhất, vì phần lớn chọn sai level ngay từ đầu. Dưới đây là cây nghe theo level và workflow nghe chủ động.
 
 ## Cây nghe theo level

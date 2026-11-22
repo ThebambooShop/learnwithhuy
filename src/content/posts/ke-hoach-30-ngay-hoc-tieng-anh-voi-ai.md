@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/ke-hoach-30-ngay-hoc-tieng-anh-voi-ai.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Mình mất gốc tiếng Anh, có chạy được kế hoạch này không?"
+    a: "Được — kế hoạch mở bằng input dễ, không đòi hỏi nền tảng. Nếu Test Your Vocab cho kết quả dưới 2.000 từ, kéo tuần 1 thành 2 tuần và bắt đầu bằng News in Levels thay vì podcast."
+  - q: "Có phải trả tiền cho công cụ nào không?"
+    a: "Không bắt buộc: bản free của 1 LLM, Language Reactor và Anki desktop đủ chạy cả 30 ngày. Chỉ cân nhắc trả tiền sau tuần 3, khi routine đã hình thành và bạn thấy cần voice mode tốt hơn."
+  - q: "Nếu lỡ bỏ 3 ngày liền thì sao?"
+    a: "Đừng sửa lại kế hoạch và đừng học bù dồn — học bù phá routine nhanh nhất. Quay lại routine minimum 15 phút trong 2 ngày, rồi chạy tiếp nơi đã dừng."
+  - q: "Lịch mỗi ngày khác nhau thì gán giờ học thế nào?"
+    a: "Không cần giờ cố định — cần thời điểm neo (anchor): học ngay sau một việc lặp lại mỗi ngày như cà phê sáng, tàu đi làm. Anchor gắn vào việc nào vẫn xảy ra cả ngày bận thì routine minimum vẫn chạy được."
 ---
-
 Bạn đã bookmark đủ công cụ, đọc hết tám bài trước của lộ trình này. Một tháng sau, bạn vẫn đang ở đúng chỗ cũ. Vấn đề duy nhất còn lại không phải thiếu tool — mà là lịch thực thi. Bài cuối lộ trình bàn giao đúng cái đó: bốn tuần, 30–45 phút mỗi ngày, đo được bằng số.
 
 > Kế hoạch tốt nhất không phải kế hoạch hay nhất trên giấy, mà là lịch bạn chịu chạy mỗi ngày — 15 phút mỗi ngày thắng 3 giờ dồn cuối tuần.

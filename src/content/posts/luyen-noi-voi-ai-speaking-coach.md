@@ -6,8 +6,16 @@ date: "2026-11-22"
 cover: "/images/covers/posts/luyen-noi-voi-ai-speaking-coach.jpg"
 views: 0
 featured: false
+faq:
+  - q: "Giọng Việt Nam có cần \"sửa accent\" không?"
+    a: "Không cần bỏ accent Việt — cần sự rõ ràng. Mục tiêu là người nghe quốc tế hiểu được mà không phải đoán; Elsa và BoldVoice đánh giá theo tiêu chí đó, không phải theo mức giống native."
+  - q: "AI voice mode hiểu mình luôn — làm sao biết mình sai?"
+    a: "AI hiểu nhờ ngữ cảnh và mô hình dự đoán, nên nó bao dung hơn người thật nhiều. Đó là lý do bước 3 trong workflow là bắt buộc: nhờ nó tự chỉ lỗi phát âm, đừng dựa vào cảm giác \"nó hiểu nghĩa là mình đúng\"."
+  - q: "Bắt đầu không có tiền thì dùng gì?"
+    a: "Rachel's English trên YouTube cộng YouGlish cộng Forvo cộng shadowing bằng podcast là bộ miễn phí đủ để bắt đầu. AI coach trả phí đẩy nhanh phần phản hồi cá nhân hóa, nhưng không phải điều kiện để bắt đầu."
+  - q: "Bao lâu thì thấy tiến bộ trong standup?"
+    a: "Với 10 phút mỗi ngày, phần lớn người thấy thay đổi rõ sau 4–6 tuần: nói dày hơn, ít dừng hơn. Kỹ năng nói chậm hơn kỹ năng đọc vì phụ thuộc cơ bắp — đều đặn quan trọng hơn cường độ."
 ---
-
 Viết code ổn, comment tiếng Anh cũng xử được, chat Slack với client không sao. Nhưng đến lượt nói trong standup — một câu status đơn giản — đầu trắng, câu đầu ấp úng, và cuối cùng bạn rút ra câu dễ nhất cho nhanh xong. Ba tiếng sau lại quên chuyện đó. Nhưng tuần sau standup, kịch bản lặp lại y hệt.
 
 Kỹ năng nói không tiến bộ chỉ nhờ nghe và đọc — nó cần cơ quan phát âm luyện tập, và cần phản hồi về thứ bạn vừa phát ra. Ba AI speaking coach dưới đây cho cả hai: cơ hội nói 24/7, và chấm điểm phát âm từng âm.
