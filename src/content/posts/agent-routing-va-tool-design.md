@@ -37,6 +37,8 @@ Quy tắc gọn: routing là tầng rẻ nhất trong stack. Phần lớn reques
 
 Code thực hành — router trả enum + confidence bằng structured output:
 
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode và self-test, hướng dẫn cài đặt từ đầu trong [README](/starter/ai-agent-architecture/README.md).
+
 ```python
 # router.py — phân loại intent, một lượt gọi LLM
 import json
@@ -299,6 +301,14 @@ Một quyết định thiết kế thường bị bỏ qua: tool của bạn bá
 
 Khuyến nghị của tôi: bắt đầu bằng wrapper mỏng bám API thật, đo agent chọn tool đúng thế nào trên một eval set nhỏ, rồi mới thiết kế lại tool theo lỗi thật. Đổi thiết kế tool trước khi đổi model — rẻ hơn nhiều và lặp nhanh hơn.
 
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Model trả route ngoài enum | Route list chưa khai rõ trong prompt | Guardrail ép về `other` như trong code |
+| `json.loads` fail | Model trả text kèm JSON | Thêm `response_format={"type": "json_object"}` + retry một lần |
+| Model gọi tool không tồn tại | Tên tool lệch giữa schema và registry | Registry trả lỗi mềm để model tự chỉnh |
+
 ## 12-factor #4 — tools are just structured outputs
 
 Đây là factor #4 của [humanlayer/12-factor-agents](https://github.com/humanlayer/12-factor-agents) và là điểm nhiều người bỏ qua lần đầu đọc: **tool call không có gì ma thuật — nó chỉ là JSON có cấu trúc model xuất ra**, giống hệt structured output của router ở đầu bài. Cùng một cơ chế, hai cách dùng: một lượt (routing) hay nhiều lượt (agent loop).
@@ -328,11 +338,15 @@ Ba pattern không loại trừ nhau. Hệ thống production thường layered: 
 
 Thứ tự khuyến nghị khi mới bắt đầu: dựng router trước (một buổi chiều là xong), thêm workflow cho route phổ biến, và chỉ viết agent cho route mà workflow không bọc nổi.
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** sau bài này DocMind có cổng routing phân loại câu hỏi, và các tool của nó có tên + mô tả chuẩn để model chọn đúng — nền cho mọi bài sau.
 
-1. **Router theo ngưỡng**: thêm logic `confidence < 0.7 → escalate_to_human` vào `route_ticket`. Viết 10 ticket test, đếm router chọn đúng bao nhiêu — đây là eval set đầu tiên của bạn.
-2. **Schema chặt hơn**: thay `order_id` trong schema của `get_order_status` bằng enum `["DH-101", "DH-102", "DH-201"]`. Thử gọi agent với mã đơn sai và xem model hành xử thế nào trước và sau khi thêm enum.
-3. **Tool có business rule**: thêm tool `cancel_order(order_id)` với mô tả "chỉ hủy được đơn đang vận chuyển; đơn đã giao trả lỗi mềm". Kiểm tra model có tự chặn việc hủy đơn đã giao không. Nếu không, sửa mô tả tool — không phải system prompt — rồi so sánh kết quả.
+## Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: thay `order_id` trong schema của `get_order_status` bằng enum `["DH-101", "DH-102", "DH-201"]`. Thử gọi agent với mã đơn sai và xem model hành xử thế nào trước và sau khi thêm enum.
+
+**Mức 2 — Tự sửa**: thêm tool `cancel_order(order_id)` với mô tả "chỉ hủy được đơn đang vận chuyển; đơn đã giao trả lỗi mềm". Kiểm tra model có tự chặn việc hủy đơn đã giao không. Nếu không, sửa mô tả tool — không phải system prompt — rồi so sánh kết quả trước và sau khi sửa description.
+
+**Mức 3 — Mở rộng**: dùng routing + tool cho DocMind — router phân loại câu hỏi thành `tra_cuu` / `tong_hop` / `khong_lien_quan`; route `tra_cuu` chạy agent với tool `search_docs` từ bài trước. Mục đích: ghép hai pattern của bài này thành cổng vào cho dự án xuyên suốt.
 
 ## Tài liệu gốc
 

@@ -123,6 +123,8 @@ Bản đồ trên trả lời "có gì"; bảng dưới trả lời "chọn gì"
 
 Cách dùng bảng: bắt đầu từ mô tả bài toán gần nhất với của bạn, mở notebook của architecture gợi ý, chạy trên dữ liệu thật trước khi chuyển code vào hệ thống. Đừng đọc dọc bảng theo thứ tự — bài toán của bạn quyết định hàng nào để đọc.
 
+Nhớ rằng bảng chọn là **heuristic để thu hẹp lựa chọn**, không phải quy tắc cứng. Trước khi chốt, chấm bài toán của bạn theo 7 tiêu chí: mức độ biến thiên của tác vụ, hậu quả khi sai, khả năng kiểm tra đầu ra, yêu cầu độ trễ, chi phí chịu được, nhu cầu phê duyệt, phương án fallback khi fail. Hai tiêu chí chiếm trọng số lớn nhất thường là hậu quả khi sai và khả năng kiểm tra — action rủi ro không kiểm tra được thì mọi architecture đều phải thêm approval gate, bất kể thông minh đến đâu.
+
 ## Deterministic-picker: model lo ngôn ngữ, code lo logic
 
 13/36 architecture trong repo dùng chung một pattern nhỏ mà đắt giá: **deterministic-picker**. LLM chỉ được gọi để làm một việc — phân loại hoặc chấm điểm; toàn bộ logic quyết định cuối nằm trong Python. Đây là ranh giới rõ giữa hai vai trò:
@@ -192,11 +194,25 @@ Hai nguyên tắc khi học:
 - **Chạy notebook thật, đừng đọc.** Giao diện `.run(task)` thống nhất cho phép bọc cùng một task qua nhiều architecture và so trực tiếp kết quả. So trên task của bạn là cách học nhanh nhất.
 - **Đọc benchmarks.md trước khi tin bất kỳ architecture nào.** Repo benchmark 36 architecture trên 17 task — chọn theo số đo trên task giống bài toán của bạn, không theo tên nghe "xịn".
 
+Chọn 1-2 architecture khớp bài toán của bạn rồi đào sâu — không ai cần dùng hoặc benchmark cả 36; bản đồ để tra cứu, không phải syllabus.
+
+> 📍 **Dự án xuyên suốt — DocMind:** bài cuối trả lời câu hỏi DocMind cần gì: Agentic RAG làm nền (bài 6), Dry-Run cho action rủi ro (bài 7), deterministic-picker khi loại task đa dạng — hai–ba architecture là đủ, phần còn lại của bản đồ là để tra cứu.
+
+### Lỗi thường gặp
+
+| Lỗi | Vì sao nguy hiểm | Cách sửa |
+| --- | --- | --- |
+| Chọn architecture theo tên nghe xịn | Chưa định nghĩa bài toán trước — không có tiêu chí so sánh | Bắt đầu từ decision matrix theo bài toán thật |
+| Tin benchmark của repo cho bài toán khác | 17 task benchmark không phải dữ liệu của bạn | Dùng benchmark để sàng lọc, rồi tự eval trên dữ liệu thật |
+| Deterministic-picker không có fallback | Nhãn lạ crash hệ thống | `ARCHS.get(label, default)` như trong code — luôn có architecture mặc định |
+
 ## Bài tập tự làm
 
-1. **Chạy 2 notebook trên cùng một task thật của bạn** (Agentic RAG và Self-RAG là cặp hợp lý nếu task là QA nội bộ). Ghi bảng: số lần gọi LLM, tổng token, chất lượng đáp án.
-2. **Viết deterministic-picker** cho 3 architecture bạn chọn: LLM phân loại nhãn, Python compose quyết định cuối và fallback. Thêm 1 test case cho nhãn lạ để chứng minh fallback hoạt động.
-3. **Mở benchmarks.md**, tìm architecture có điểm tốt nhất trên task giống bài toán của bạn. Viết 200 từ giải thích vì sao bạn chọn hoặc vì sao không chọn nó — có lý do rõ hơn có kiến trúc đúng.
+**Mức 1 — làm theo:** chạy 2 notebook trên cùng một task thật của bạn (Agentic RAG và Self-RAG là cặp hợp lý nếu task là QA nội bộ). Ghi bảng: số lần gọi LLM, tổng token, chất lượng đáp án.
+
+**Mức 2 — tự sửa:** viết deterministic-picker cho 3 architecture bạn chọn: LLM phân loại nhãn, Python compose quyết định cuối và fallback. Thêm 1 test case cho nhãn lạ để chứng minh fallback hoạt động.
+
+**Mức 3 — mở rộng:** mở benchmarks.md, tìm architecture có điểm tốt nhất trên task giống bài toán của bạn, viết 200 từ giải thích vì sao chọn hoặc vì sao không chọn — có lý do rõ hơn có kiến trúc đúng. Thêm một bước: cài picker vào DocMind — nó chỉ cần Agentic RAG làm mặc định và Dry-Run cho action xóa tài liệu, không cần hơn.
 
 ## Tài liệu gốc
 

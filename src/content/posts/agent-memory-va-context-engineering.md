@@ -35,6 +35,8 @@ Ba kỹ thuật thực hành, theo thứ tự rẻ đến đắt:
 
 Code thực hành đầu tiên: trim + compaction cho một lịch sử hội thoại.
 
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode (chạy không cần API key) và self-test, hướng dẫn cài đặt từ đầu trong [README](/starter/ai-agent-architecture/README.md).
+
 ```python
 import os
 from openai import OpenAI
@@ -194,6 +196,14 @@ Ba phương thức tương ứng ba vai trò:
 - **retrieve** dùng keyword overlap cộng recency decay: item có từ trùng nhiều hơn và mới hơn được nạp trước. Đây là bản nhíp của vector search thật — nâng cấp tự nhiên là thay keyword bằng embedding cosine similarity, đúng kiến trúc đã nói trong bài [Hybrid Search](/bai-viet/hybrid-search-bm25-dense-rrf).
 - **compact** ép nửa event cũ thành một fact, giữ nguyên các fact có sẵn — cùng tinh thần compaction của context engineering nhưng ở tầng memory.
 
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Compaction làm mất con số quan trọng | Tóm tắt không có instruction giữ nguyên | Instruction tóm tắt phải ghi rõ "giữ NGUYÊN con số, tên riêng, mã đơn" |
+| Retrieve trả kết quả không liên quan | Keyword overlap thấp vẫn vào top_k | Đặt ngưỡng overlap tối thiểu — dưới ngưỡng trả rỗng thay vì ép top_k |
+| Đếm token lệch thực tế | `estimate_tokens` là xấp xỉ | Dùng `usage` trả về trong response hoặc tokenizer thật khi tính chi phí |
+
 ## Cạm bẫy
 
 Ba cạm bẫy phổ biến khi thêm memory cho agent:
@@ -202,11 +212,15 @@ Ba cạm bẫy phổ biến khi thêm memory cho agent:
 2. **Nhầm memory với nền tảng RAG.** RAG truy xuất tài liệu ngoài cho câu hỏi tại chỗ; memory lưu trạng thái liên cá thể và diễn tiến theo thời gian. Cùng dùng vector search nhưng giải bài toán khác — nếu chưa rõ phần truy xuất, đọc bài [Hybrid Search BM25 + Dense + RRF](/bai-viet/hybrid-search-bm25-dense-rrf) trước.
 3. **Không log memory.** Khi agent trả lời sai vì "quên", không có log bạn không biết nó đã retrieve gì, đã compact mất gì. Log mỗi lệnh add/retrieve/compact cùng top_k kết quả — đây là câu trả lời cho phần lớn bug memory.
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** sau bài này DocMind nhớ phiên làm việc trước và giữ context gọn: lịch sử cũ nén thành tóm tắt, kết quả tool đã dùng bị xóa — token giảm, chất lượng không đổi.
 
-1. Thêm hàm `trim_tool_results()` bỏ kết quả tool đã tiêu hóa khỏi context. Chạy một hội thoại 20 lượt và so `estimate_tokens` trước/sau — ghi lại số token tiết kiệm thực tế.
-2. Nâng `retrieve()` từ keyword scoring sang embedding cosine similarity. So kết quả trên 10 câu hỏi thực tế của bạn — đếm mỗi bên trả đúng bao nhiêu kết quả liên quan.
-3. Viết instruction compaction giữ nguyên con số và tên riêng, rồi test: nạp hội thoại có "giá 12 triệu, hạn 30/12", nén, và hỏi lại agent xem nó còn nhớ đúng hai giá trị đó không.
+## Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo:** thêm hàm `trim_tool_results()` bỏ kết quả tool đã tiêu hóa khỏi context. Chạy một hội thoại 20 lượt và so `estimate_tokens` trước/sau — ghi lại số token tiết kiệm thực tế.
+
+**Mức 2 — Tự sửa:** nâng `retrieve()` từ keyword scoring sang embedding cosine similarity. So kết quả trên 10 câu hỏi thực tế của bạn — đếm mỗi bên trả đúng bao nhiêu kết quả liên quan.
+
+**Mức 3 — Mở rộng:** viết instruction compaction giữ nguyên con số và tên riêng, rồi test: nạp hội thoại có "giá 12 triệu, hạn 30/12", nén, và hỏi lại agent xem nó còn nhớ đúng hai giá trị đó không. Ghép vào DocMind — trợ lý phải nhớ được "hạn thanh toán 30/12/2026" mà người dùng nói ở phiên trước.
 
 ## Tài liệu gốc
 

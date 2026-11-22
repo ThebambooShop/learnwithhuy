@@ -80,6 +80,8 @@ Hai kiến trúc có thể xếp chồng: hệ thực tế thường là Agentic
 
 Bản dựng dưới đây là Agentic RAG đúng nghĩa: hai tool — `search_kb` tìm trong knowledge base nội bộ, `web_search` lấy nguồn ngoài. System prompt bắt buộc agent chấm relevance; điểm thấp thì fallback ra web. Đó chính là tinh thần CRAG, thu gọn trong ~100 dòng. Môi trường: `pip install openai`, `export OPENAI_API_KEY=...` (model mặc định `gpt-4o-mini`, đổi qua `OPENAI_MODEL`).
 
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode (chạy không cần API key) và self-test, hướng dẫn cài đặt trong [README](/starter/ai-agent-architecture/README.md).
+
 ```python
 import json
 import os
@@ -236,6 +238,14 @@ def plain_rag(question: str) -> str:
     return resp.choices[0].message.content
 ```
 
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Relevance score lệch khi demo | Mock dùng keyword overlap, không phải embedding | Hiểu đây là giả lập; thay bằng vector search thật khi lên production |
+| Agent retrieve vô hạn | Không có điều kiện dừng khi dữ liệu kém | Đặt `max_rounds` cứng + rule "sau N lần vẫn kém thì trả 'không đủ dữ liệu'" |
+| Agent trả lời ngoài tài liệu | System prompt chưa cấm đoán | Prompt phải có "trả lời chỉ dựa trên dữ liệu đã lấy, không đoán"; thêm eval test câu hỏi ngoài KB |
+
 ## Cấu trúc GraphRAG
 
 GraphRAG đáng một bài riêng (đã có: [GraphRAG — knowledge graph cho RAG](/bai-viet/graphrag-knowledge-graph)), nhưng cấu trúc index cần nằm trong đầu khi chọn kiến trúc. Bốn bước:
@@ -271,11 +281,13 @@ Trade-off nằm rõ ở hai đầu. **Đầu index:** mỗi chunk cần ít nh�
 
 Quy tắc thực dụng: bắt đầu bằng Agentic RAG trên vector index; chỉ thêm GraphRAG cho phần câu hỏi tổng hợp, hoặc cho toàn hệ thống nếu nghiệp vụ sống bằng những câu hỏi "so sánh" và "liên hệ giữa".
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** sau bài này DocMind trả lời trên knowledge base thật: tự quyết khi nào retrieve, chấm relevance, fallback ra web khi KB hụt, và nói "không đủ dữ liệu" thay vì bịa — đây là phần khiến DocMind dùng được thực tế.
 
-1. **Tách grade thành tool thật.** Thêm tool `grade_docs(docs)` trả về danh sách doc kèm điểm từ một LLM chấm riêng. Sửa `SYSTEM` để agent bắt buộc gọi `grade_docs` trước khi dùng tài liệu — mini-CRAG thành thật thay vì chỉ dựa vào relevance score.
-2. **Đếm retrieve và dừng đúng lúc.** Thêm biến đếm số lần `search_kb`; sau hai lần vẫn không có tài liệu đạt, agent trả "không đủ dữ liệu" kèm những gì đã thử. Chạy lại câu hỏi hỏng KB và so hành vi.
-3. **Đo ba loại câu hỏi.** Chạy ba query: fact đơn giản ("chính sách hoàn tiền thế nào"), fact ngoài KB, và câu hỏi tổng hợp ("liên hệ giữa CRAG và web search trong tài liệu"). Ghi lại agent gọi tool nào, mấy lần, rồi viết bảng nhỏ so với plain RAG retrieve-luôn cho cả ba.
+## Bài tập tự làm (3 mức)
+
+- **Mức 1 — Làm theo:** tách `grade_docs` thành tool thật — thêm tool `grade_docs(docs)` trả về danh sách doc kèm điểm từ một LLM chấm riêng, sửa `SYSTEM` để agent bắt buộc gọi trước khi dùng tài liệu; mini-CRAG thành thật thay vì chỉ dựa vào relevance score.
+- **Mức 2 — Tự sửa:** đếm số lần `search_kb`; sau hai lần vẫn không có tài liệu đạt thì agent trả "không đủ dữ liệu" kèm những gì đã thử. Chạy lại câu hỏi hỏng KB và so hành vi.
+- **Mức 3 — Mở rộng:** chạy ba query (fact trong KB, fact ngoài KB, câu hỏi tổng hợp "liên hệ giữa CRAG và web search trong tài liệu"), ghi agent gọi tool nào mấy lần, so với plain RAG retrieve-luôn. Cài vào DocMind — KB nội bộ hiện là mock, thay bằng tài liệu công ty thật của bạn.
 
 ## Tài liệu gốc
 

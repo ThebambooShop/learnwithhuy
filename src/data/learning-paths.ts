@@ -126,13 +126,13 @@ export const learningPaths: LearningPath[] = [
     slug: 'ai-agent-architecture',
     title: 'Kiến trúc AI Agent: từ agent loop đến production',
     description:
-      'Lộ trình 8 bài tổng hợp kiến thức thực hành từ 3 kho học liệu lớn — AI Agents for Beginners của Microsoft, GenAI Agents (64 notebook) và All Agentic Architectures (36 kiến trúc chạy được) cùng 12 nguyên lý production của HumanLayer. Từ agent loop đầu tiên đến bản đồ chọn architecture cho bài toán thật.',
+      'Lộ trình 8 bài tổng hợp kiến thức thực hành từ 3 kho học liệu lớn — AI Agents for Beginners của Microsoft, GenAI Agents (64 notebook) và All Agentic Architectures (36 kiến trúc chạy được) cùng 12 nguyên lý production của HumanLayer. Từ agent loop đầu tiên đến bản đồ chọn architecture cho bài toán thật, đóng trên một dự án xuyên suốt: trợ lý tra cứu tài liệu nội bộ. Thời gian đọc toàn bộ khoảng 95 phút; làm đầy đủ bài tập thực hành cần thêm 4-6 giờ. Bài 1-4 là kiến trúc cốt lõi; bài 5-8 là phần mở rộng thiết kế và vận hành — một agent đơn giản (bài 1-2) đã đủ cho phần lớn tác vụ cơ bản.',
     topic: 'lap-trinh-va-cong-nghe',
     level: 'Trung cấp',
     prerequisites: [
-      'Python cơ bản (hàm, dict, vòng lặp)',
-      'Hiểu cách LLM hoạt động ở mức khái niệm — có thể đọc bài LLM hoạt động như thế nào trước',
-      'Có API key của một nhà cung cấp LLM (OpenAI hoặc tương thích) để chạy code thực hành',
+      'Python cơ bản: đã viết được script dùng hàm, dict, vòng lặp và xử lý lỗi (try/except)',
+      'Quen terminal: cài thư viện bằng pip, chạy file Python, dùng biến môi trường (export)',
+      'Hiểu API key và chi phí gọi API ở mức cơ bản — mỗi lượt gọi model đều tốn tiền',
     ],
     outcomes: [
       'Xây dựng được agent loop hoàn chỉnh ~100 dòng Python không framework và biết khi nào KHÔNG nên dùng agent',

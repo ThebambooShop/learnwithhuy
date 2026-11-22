@@ -63,7 +63,7 @@ While loop, retry, escalation — giữ trong code của bạn, không giao cho 
 
 ### 9. Compact errors into context window
 
-Lỗi là dữ liệu, không phải exception cần nuốt. Nén lỗi ngắn gọn (status code, message một dòng) rồi append vào context để agent tự đọc và tự sửa lần gọi tiếp theo. Ví dụ: API trả 429, context thêm dòng `error: rate limit, retry after 30s` — agent tự đặt lại lịch gọi, không cần code retry riêng bên ngoài vòng lặp.
+Lỗi là dữ liệu, không phải exception cần nuốt. Nén lỗi ngắn gọn (status code, message một dòng) rồi append vào context để agent tự đọc và tự sửa lần gọi tiếp theo. Ví dụ: API trả 429, context thêm dòng `error: rate limit, retry after 30s` — model hiểu tình trạng và dừng gọi tiếp trong lúc bị rate limit; phần backoff là việc của code. Hai ranh giới cần giữ: không đưa nguyên văn stack trace, credentials hay dữ liệu nhạy cảm vào context — nén thành mã lỗi + message một dòng đã sanitize; lỗi 429 phải được code xử lý theo `Retry-After` và backoff ở tầng ứng dụng, không để model tự quyết định gọi lại trong loop.
 
 ### 10. Small, focused agents
 
@@ -76,6 +76,8 @@ Agent mạnh lên khi có thể chạy từ Slack, email, webhook, cron — khô
 ### 12. Make your agent a stateless reducer
 
 Agent là một hàm stateless: events vào → state mới ra, giống reducer trong Redux. Không giữ state trong RAM, không có process "sống" cần bảo vệ; muốn resume thì load events và chạy lại reducer. Đây là nguyên lý nền cho scale: nhiều worker, restart, migrate đều không phá agent. Ví dụ: mỗi tool call và kết quả của nó là một event trong danh sách.
+
+Lưu ý giới hạn: reducer như trình bày là **mô hình khái niệm**, chưa phải bản triển khai event-sourcing hoàn chỉnh. Phát lại event để dựng lại state khác với thực thi lại tool: nếu chạy lại event gây action ngoài đời thật — gửi email, hoàn tiền — phát sinh tác dụng phụ lặp. Tool có side effect cần **idempotency key**: reducer đánh dấu event đã processed, tool kiểm tra trước khi execute.
 
 ### Bonus: Factor 13 — Pre-fetch all the context you might need
 
@@ -91,11 +93,13 @@ Mọi context mà agent có khả năng cần thì lấy trước khi vòng lặ
 | **Tầng vận hành** | 5, 6, 9, 12 | Agent sống sót qua restart, lỗi và scale thế nào? |
 | **Tầng con người & kênh** | 7, 10, 11 | Con người tham gia đâu, agent kích hoạt từ đâu, scope ra sao? |
 
-Làm xong tầng lõi là agent chạy được; tầng vận hành là production-ready; tầng con người & kênh là sản phẩm thực sự dùng được.
+Làm xong tầng lõi là agent chạy được; tầng vận hành là production-ready; tầng con người & kênh là sản phẩm thực sự dùng được. Đây là heuristic, không phải checklist cứng — agent nào "đủ production" phụ thuộc tiêu chí của bài toán: mức độ biến thiên của tác vụ, hậu quả khi sai, khả năng kiểm tra đầu ra, yêu cầu độ trễ, chi phí chịu được, nhu cầu phê duyệt và phương án fallback khi fail.
 
 ## Code thực hành: hai nguyên lý đắt giá nhất
 
 ### Factor 7 — `ask_human` chèn approval vào loop
+
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode và self-test (replay reducer không API), hướng dẫn cài đặt trong [README](/starter/ai-agent-architecture/README.md).
 
 ```python
 import os, json
@@ -122,6 +126,26 @@ def ask_human(question: str) -> str:
     print(f"[CHỜ DUYỆT] {question}")
     return input("Trả lời (approve / từ chối + lý do): ").strip()
 
+# Dispatch qua dict: thêm tool mới chỉ là thêm một entry, không đụng run_agent
+TOOL_HANDLERS = {
+    "ask_human": lambda args: ask_human(args["question"]),
+}
+
+def execute_tool_call(call) -> str:
+    """Mọi tool call — kể cả tool lạ — đều trả một tool result chuỗi.
+    dispatch không raise: lỗi là dữ liệu (Factor 9), không phải exception."""
+    try:
+        args = json.loads(call.function.arguments or "{}")
+    except json.JSONDecodeError as exc:
+        return f"Lỗi: arguments của '{call.function.name}' không parse được JSON ({exc})."
+    handler = TOOL_HANDLERS.get(call.function.name)
+    if handler is None:
+        return f"Lỗi: tool '{call.function.name}' không có handler trong TOOL_HANDLERS."
+    try:
+        return str(handler(args))
+    except Exception as exc:  # handler lỗi vẫn sinh tool result để loop tiếp
+        return f"Lỗi: handler '{call.function.name}' raise {type(exc).__name__}: {exc}"
+
 def run_agent(task: str, max_steps: int = 12) -> str:
     context = [{"role": "user", "content": task}]
     for _ in range(max_steps):
@@ -131,29 +155,34 @@ def run_agent(task: str, max_steps: int = 12) -> str:
         msg = resp.choices[0].message
         context.append(msg)
         for call in msg.tool_calls or []:
-            if call.function.name == "ask_human":
-                args = json.loads(call.function.arguments)
-                answer = ask_human(args["question"])
-                context.append({
-                    "role": "tool",
-                    "tool_call_id": call.id,
-                    "content": answer,
-                })
+            # Luôn append tool result cho MỌI tool call — kể cả tool lạ
+            context.append({
+                "role": "tool",
+                "tool_call_id": call.id,
+                "content": execute_tool_call(call),
+            })
         if not msg.tool_calls:
             return msg.content  # agent trả lời xong
     return "Dừng do vượt số step cho phép"
 ```
 
+Điểm khác biệt so với bản demo tối thiểu: mọi tool call — kể cả tool lạ — đều sinh ra một tool result đúng cấu trúc append vào context; thiếu nó là protocol error ở lượt sau. Test cả trường hợp model gọi nhiều tool trong một lượt trước khi chạy thật.
+
 Mấu chốt: `ask_human` không làm gì đặc biệt — nó chỉ là một tool như mọi tool khác. Agent tự quyết khi nào cần hỏi, và câu trả lời của con người chảy vào context như một tool result. Approval gate ra đời từ một dòng định nghĩa tool.
+
+`input()` chỉ hợp minh họa chạy trong terminal. Ứng dụng thật: trạng thái chờ duyệt phải lưu bền vững — ghi event `approval_requested` vào store, đánh dấu state `awaiting_approval`; process chết vẫn resume được khi duyệt xong. Đó chính là Factor 6 (Launch/Pause/Resume) và Factor 12 (reducer) ghép lại.
 
 ### Factor 12 — stateless reducer
 
 ```python
 def reducer(state: dict, event: dict) -> dict:
-    """Hàm thuần: state hiện tại + 1 event -> state mới.
+    """Hàm thuần + idempotency: event đã xử lý thì bỏ qua khi replay.
     Không đụng biến ngoài, không side effect."""
+    if event.get("id") in state.get("seen_ids", []):
+        return state  # replay không tạo tác dụng phụ lần hai
     new = dict(state)
     new["events"] = state["events"] + [event]
+    new["seen_ids"] = state.get("seen_ids", []) + [event["id"]]
     new["step"] = state["step"] + 1
     kind = event.get("kind")
     if kind == "tool_call":
@@ -167,7 +196,7 @@ def reducer(state: dict, event: dict) -> dict:
 def drive(events: list, target: str = "completed") -> dict:
     """Driver: load events từ DB, chạy reducer tới trạng thái mục tiêu.
     Resume = gọi lại đúng hàm này với đúng danh sách events."""
-    state = {"events": [], "step": 0, "status": "idle"}
+    state = {"events": [], "seen_ids": [], "step": 0, "status": "idle"}
     for ev in events:
         state = reducer(state, ev)
         if state["status"] == target:
@@ -175,13 +204,13 @@ def drive(events: list, target: str = "completed") -> dict:
     return state
 
 # state = drive([
-#     {"kind": "tool_call", "name": "lookup_order", "result": "order_42"},
-#     {"kind": "approval", "approved": True},
-#     {"kind": "done"},
+#     {"id": "ev1", "kind": "tool_call", "name": "lookup_order", "result": "order_42"},
+#     {"id": "ev2", "kind": "approval", "approved": True},
+#     {"id": "ev3", "kind": "done"},
 # ])  # -> {"step": 3, "status": "completed", ...}
 ```
 
-Mỗi tool call và kết quả là một event; state luôn tính lại được từ đầu danh sách. Server chết, worker đổi, chạy lại reducer với cùng events — kết quả như cũ.
+Mỗi tool call và kết quả là một event; state luôn tính lại được từ đầu danh sách. Server chết, worker đổi, chạy lại reducer với cùng events — kết quả như cũ. Event trùng `id` bị bỏ qua khi replay — lớp chống tác dụng phụ lặp nằm trong reducer, không phải trong tool.
 
 ## Evals: chấm trace không cần LLM judge
 
@@ -222,6 +251,8 @@ Bộ guardrail tối thiểu cho agent production:
 
 ⚠️ Approval gate chỉ hoạt động nếu có con người thật trong vòng — nối trực tiếp với Factor 7: gate là tool `ask_human`, không phải một toggle config trong framework.
 
+⚠️ Approval gate và kiểm tra quyền phải nằm **ở phía server** trước hành động có tác dụng phụ — prompt injection classifier chỉ là một lớp, không phải biện pháp bảo vệ duy nhất.
+
 ## Thinking budgets: reasoning effort là chi phí
 
 Một notebook trong GenAI_Agents xử lý đúng bài toán này: kiểm soát **thinking budget** — bao nhiêu reasoning model được phép chi cho một step. Tác vụ dễ không cần suy luận sâu; tiêu tốn budget ở đó là trả tiền cho cái không tạo giá trị. Pattern dùng được ngay: cascade retry — chạy reasoning effort thấp trước, fail thì nâng.
@@ -243,11 +274,23 @@ def run_with_budget(task: str, levels=("low", "medium", "high")) -> str:
 
 Cascade này thống nhất với nguyên lý 9 và 12: lỗi được nén lại để lần gọi kế tốt hơn, và toàn bộ vòng chạy vẫn là code của bạn.
 
+> 📍 **Dự án xuyên suốt — DocMind:** sau bài này DocMind có approval gate cho action xóa tài liệu, eval trace chạy trong CI, và có thể pause/resume không mất trạng thái — đủ dùng cho một team thật.
+
+### Lỗi thường gặp
+
+| Lỗi | Vì sao nguy hiểm | Cách sửa |
+| --- | --- | --- |
+| Model gọi tool không có handler trong dispatch | Loop không append tool result cho tool lạ — protocol error ở lượt sau | Dispatch trả lỗi chuỗi cho MỌI tool call, kể cả tool lạ |
+| Replay reducer phát lại event hoàn tiền | Tool side effect không idempotent — hoàn tiền hai lần | Idempotency key + đánh dấu event processed trước khi execute |
+| Dùng LLM judge cho tiêu chí chấm được bằng quy tắc | Eval flaky — build đỏ không do regression thật | Chuyển sang trace-based cho phần so khớp được |
+
 ## Bài tập tự làm
 
-1. **Viết agent hoàn tiền mini** dùng tool `ask_human`: transaction dưới 5 triệu agent tự duyệt, từ 5 triệu trở lên bắt buộc hỏi. Log toàn bộ events ra file JSON.
-2. **Chuyển agent loop ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop) thành stateless reducer**: giữ nguyên hành vi, chạy lại từ danh sách events cũ và so khớp state cuối.
-3. **Viết eval trace-based** cho agent của bạn với 5 test case, đưa vào CI (GitHub Actions); fail build khi score dưới 0.8.
+**Mức 1 — làm theo:** viết agent hoàn tiền mini dùng tool `ask_human`: transaction dưới 5 triệu agent tự duyệt, từ 5 triệu trở lên bắt buộc hỏi. Log toàn bộ events ra file JSON.
+
+**Mức 2 — tự sửa:** chuyển agent loop ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop) thành stateless reducer — giữ nguyên hành vi, chạy lại từ danh sách events cũ và so khớp state cuối.
+
+**Mức 3 — mở rộng:** viết eval trace-based với 5 test case, đưa vào CI (GitHub Actions), fail build khi score dưới 0.8. Thêm một bài test idempotency thật: chạy replay reducer với danh sách events chứa event trùng `id` — assert state không đổi sau lần phát lại thứ hai.
 
 ## Tài liệu gốc
 

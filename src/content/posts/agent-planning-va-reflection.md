@@ -70,6 +70,8 @@ Không verify, executor chỉ biết bước "chạy xong" chứ không biết b
 
 Code thực hành đầu tiên: plan-then-execute có replan khi bước fail.
 
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode (chạy không cần API key) và self-test, hướng dẫn cài đặt từ đầu trong [README](/starter/ai-agent-architecture/README.md).
+
 ```python
 import os
 import json
@@ -224,6 +226,14 @@ Reflexion (Shinn 2023) là bước nâng cấp của reflection thường, khác
 
 Triển khai tối giản: một list hoặc file, mỗi lần thử push một note, lần thử sau nạp các note cũ vào system prompt. Ba lời phản tư là đủ để tránh lớp lỗi lặp — pattern rẻ nhất trong bài nhưng tăng chất lượng qua các phiên, không chỉ một phiên.
 
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Planner trả JSON lệch, parse fail | Prompt chưa chốt format cứng | Thêm `response_format={"type": "json_object"}` + retry một lần khi parse lỗi |
+| Replan lặp vô tận | Bước fail lặp lại cùng nguyên nhân | Van an toàn `max_replans` — vượt ngưỡng thì raise |
+| Critique chấm mọi thứ pass | Rubric mơ hồ kiểu "hay hơn" | Rubric phải có số đo và định nghĩa rõ từng tiêu chí |
+
 ## Sampling & Search: chạy nhiều phương án rồi chọn
 
 Nhóm pattern thứ ba không tự sửa theo vòng lặp mà **chạy nhiều phương án rồi chọn phương án tốt nhất**. Đầu ra model một lần chỉ là một sample và sample có thể rơi vào trạng thái kém; sinh nhiều sample rồi tìm kiếm giữa chúng tăng xác suất có phương án tốt.
@@ -250,11 +260,15 @@ Bật pattern khi **accuracy đáng giá hơn chi phí**: tác vụ production c
 
 ⚠️ Đo baseline trước khi bật: không có eval đo accuracy trước/sau, bạn chỉ đốt tiền theo niềm tin — cùng nguyên tắc chọn model trong bài nền tảng.
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** sau bài này DocMind xử lý được câu hỏi nhiều bước: planner tách câu hỏi phức tạp thành các lần truy xuất, executor chạy theo thứ tự, bước fail thì replan — thay vì để loop trần mò từng bước.
 
-1. Chạy `run_plan` với mục tiêu "tổng hợp 3 bài báo thành brief 5 gạch đầu dòng". In danh sách bước planner trả về và để ý bước nào model tưởng có tool nhưng thực tế không có — đó là chỗ cần thêm verify trước executor.
-2. Thêm verify vào pipeline: sau mỗi `execute_step`, verifier chấm 1-5 theo expected; dưới 3 thì replan. Đếm tổng lần gọi LLM thực tế — so với dự đoán của bạn trước khi chạy.
-3. Áp Reflexion cho một tác vụ viết: lần thử 1 fail theo rubric, lưu lời tự phản tư; lần thử 2 nạp nó vào system prompt. So `total` điểm rubric giữa hai lần — không tăng nghĩa là lời phản tư vô dụng, chỉnh rubric trước khi thử thêm.
+## Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo:** chạy `run_plan` với mục tiêu "tổng hợp 3 bài báo thành brief 5 gạch đầu dòng". In danh sách bước planner trả về và để ý bước nào model tưởng có tool nhưng thực tế không có — đó là chỗ cần thêm verify trước executor.
+
+**Mức 2 — Tự sửa:** thêm verify vào pipeline: sau mỗi `execute_step`, verifier chấm 1-5 theo expected; dưới 3 thì replan. Đếm tổng lần gọi LLM thực tế — so với dự đoán của bạn trước khi chạy.
+
+**Mức 3 — Mở rộng:** áp Reflexion cho một tác vụ viết: lần thử 1 fail theo rubric, lưu lời tự phản tư; lần thử 2 nạp nó vào system prompt. So `total` điểm rubric giữa hai lần — không tăng nghĩa là lời phản tư vô dụng, chỉnh rubric trước khi thử thêm. Ghép vào DocMind — khi câu hỏi tài liệu là "so sánh chính sách A và B", plan tách thành 2 nhánh truy xuất rồi tổng hợp.
 
 ## Tài liệu gốc
 

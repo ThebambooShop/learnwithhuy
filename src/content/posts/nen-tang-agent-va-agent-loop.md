@@ -112,6 +112,8 @@ Hai chi tiết người mới hay bỏ sót:
 
 Cài dependency: `pip install openai`. Toàn bộ agent nằm trong một file duy nhất, gồm 3 phần: tools thật, tool schema, và vòng lặp.
 
+> **Ghi chú phiên bản**: code dùng Chat Completions API qua `openai` SDK 1.x, kiểm tra với `gpt-4o-mini`. Kiến trúc agent loop — tool call JSON → execute → append context → lặp — là kiến thức ổn định theo thời gian; tên API và model thì không. OpenAI đã ngừng Assistants API từ 26/8/2026 và hướng dự án mới sang Responses API: chuyển API không làm đổi vòng lặp bạn học ở đây.
+
 ```python
 # agent_loop.py — agent đầu tiên, ~100 dòng, không framework
 # Chạy: export OPENAI_API_KEY=<your-key-here> && python agent_loop.py
@@ -259,6 +261,26 @@ if __name__ == "__main__":
     print(run_agent("Hà Nội nay bao nhiêu độ, nóng hơn Đà Nẵng không?"))
 ```
 
+## Chạy code thế nào
+
+Bốn bước, hai phút:
+
+1. Tạo virtual environment và activate: `python3 -m venv .venv && source .venv/bin/activate`
+2. Cài dependency: `pip install openai`
+3. Lưu code phía trên thành file `agent_loop.py`
+4. Đặt API key rồi chạy: `export OPENAI_API_KEY=sk-... && python agent_loop.py`
+
+Chưa có API key vẫn học được bài này: file trong starter kit đi kèm có mock mode — chạy không cần key, in lại đúng luồng output mẫu bên dưới và tự chạy self-test kiểm tra hành vi agent.
+
+Kết quả mẫu với câu hỏi trong code:
+
+> Lượt 1: tool call get_weather(city="Hà Nội"), get_weather(city="Đà Nẵng")
+> Lượt 2: tool call calculate(expression="22 - 30")
+> Lượt 3: "Hà Nội 22°C, Đà Nẵng 30°C — Hà Nội mát hơn Đà Nẵng 8 độ."
+> Số lượt có thể khác nhẹ tùy model.
+
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode và self-test, hướng dẫn cài đặt từ đầu trong [README](/starter/ai-agent-architecture/README.md).
+
 Chạy với câu hỏi trên, luồng thực tế diễn ra thế này:
 
 - **Lượt 1**: model xuất 2 tool calls trong cùng một response — `get_weather(city="Hà Nội")` và `get_weather(city="Đà Nẵng")`. Đây là parallel tool calls.
@@ -267,6 +289,15 @@ Chạy với câu hỏi trên, luồng thực tế diễn ra thế này:
 - **Lượt 3**: model không gọi tool nữa → câu trả lời cuối: "Hà Nội 22°C, Đà Nẵng 30°C — Hà Nội mát hơn Đà Nẵng 8 độ."
 
 Dữ liệu thời tiết ở đây là demo cứng. Thay bằng API thật thì bạn chỉ đổi vài dòng trong `get_weather` — vòng lặp không đổi. Đó chính là lý do thiết kế: agent loop tách rời khỏi tool.
+
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| `ModuleNotFoundError: No module named 'openai'` | Chưa cài package hoặc quên activate venv | Activate venv rồi `pip install openai` |
+| `AuthenticationError 401` | API key chưa export hoặc key sai | `export OPENAI_API_KEY=...` trong cùng terminal chạy code |
+| `invalid_request_error` về model | Tên model sai hoặc tài khoản hết quyền model đó | Đổi `OPENAI_MODEL` hoặc chọn model khác |
+| `protocol error` ở lượt 2 | Thiếu append message chứa tool_calls hoặc thiếu tool result | Cả hai đều bắt buộc trong loop — append đủ rồi mới gọi model lại |
 
 ## Ba quyết định thiết kế đầu tiên
 
@@ -331,11 +362,15 @@ def run_agent_v2(user_question: str, max_turns: int = 8) -> str:
     return "Hết max_turns, agent chưa báo done."
 ```
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** lộ trình đóng trên một dự án: trợ lý tra cứu tài liệu nội bộ. Sau bài này DocMind trả lời được một câu hỏi bằng tool `search_docs` — bạn tự dựng ở bài tập mức 3.
 
-1. **Thêm tool thứ 4**: viết `get_current_time()` trả giờ hiện tại. Chỉ cần hàm + schema + registry — vòng loop không đổi. Mục đích: thấy tool mới "cắm vào" hệ thống mà không đụng logic.
-2. **Đổi điều kiện dừng**: chạy `run_agent_v2` ở trên với câu hỏi cũ. Mục đích: thấy rõ bạn sở hữu control flow của agent, không phải framework.
-3. **Agent hỏi-đáp tài liệu nội bộ**: thay `get_weather` bằng `search_docs(query)` — mock tìm từ khóa trong vài đoạn văn bản công ty. Thêm system prompt: "trả lời chỉ dựa trên kết quả search_docs, trích dẫn đoạn nguồn". Mục đích: chuyển agent từ demo sang ca sử dụng thật đầu tiên.
+## Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: thêm tool thứ 4 `get_current_time()` trả giờ hiện tại. Chỉ cần hàm + schema + registry — vòng loop không đổi. Mục đích: thấy tool mới "cắm vào" hệ thống mà không đụng logic.
+
+**Mức 2 — Tự sửa**: đổi điều kiện dừng — chạy `run_agent_v2` ở trên với câu hỏi cũ. Mục đích: thấy rõ bạn sở hữu control flow của agent, không phải framework.
+
+**Mức 3 — Mở rộng**: agent hỏi-đáp tài liệu nội bộ — thay `get_weather` bằng `search_docs(query)`, mock tìm từ khóa trong vài đoạn văn bản công ty. Thêm system prompt: "trả lời chỉ dựa trên kết quả search_docs, trích dẫn đoạn nguồn". Đây là hình dáng đầu tiên của DocMind — trợ lý tài liệu nội bộ là dự án xuyên suốt của lộ trình.
 
 ## Tài liệu gốc
 

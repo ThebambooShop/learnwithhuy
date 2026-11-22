@@ -114,6 +114,8 @@ Hai mũi tên xuống là hai lời gọi tool; hai đường về là hai kết
 | CrewAI | Role-based crews | Map tự nhiên với business flow (PM, dev, QA) | Ít linh hoạt với flow phức tạp |
 | OpenAI Swarm/Agents SDK | Handoff + as_tool mỏng | API nhỏ, dễ hiểu cơ chế gốc | Ecosystem ít hơn; pattern có hạn |
 
+Đây là heuristic theo kinh nghiệm, không phải quy tắc cứng — nếu team bạn đã quen một framework và nó đủ kiểm soát flow, dùng tiếp là lựa chọn hợp lý.
+
 Khuyến nghị của bài này: **tự dựng supervisor bằng OpenAI SDK thuần trước, rồi mới sang framework**. Lý do nằm ở chỗ debug: framework giấu vòng lặp tool-call bên trong API của nó. Khi pipeline hỏng, người sửa cần biết vòng lặp đó chạy thế nào — state nằm ở đâu, tool-call hỏng chỗ nào, vòng lặp dừng khi nào. Bản dựng ~120 dòng dưới đây chính là vòng lặp mà LangGraph hay CrewAI bọc lại theo cách riêng của chúng.
 
 ## Cạm bẫy multi-agent
@@ -136,9 +138,19 @@ Giảm thiểu bằng bốn nguyên tắc, áp dụng được cho mọi kiến 
 
 Nguyên tắc thứ ba quan trọng nhất: quyền ra quyết định ở một điểm duy nhất thì hệ thống có một nơi để đặt guardrail, một nơi để audit, một nơi để sửa khi sai.
 
+### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Specialist trả text không phải JSON | Prompt chưa chốt "CHỈ trả JSON" đủ cứng | Thêm `response_format={"type": "json_object"}` ở cả specialist; supervisor validate JSON nhận về trước khi dùng |
+| Supervisor tự viết bài thay vì gọi specialist | System prompt chưa cấm tự viết | Thêm "TUYỆT ĐỐI không tự viết bài" vào SYSTEM; soát log để chắc supervisor có gọi tool thật |
+| Vòng không dừng — specialist trả lỗi, supervisor gọi lại mãi | Không có giới hạn vòng cứng | Đặt `max_rounds` cứng; khi hết vòng supervisor phải báo lỗi rõ cho người dùng thay vì dừng im lặng |
+
 ## Code thực hành: supervisor pattern với OpenAI SDK
 
 Môi trường: `pip install openai`, hai biến môi trường `OPENAI_API_KEY` và `OPENAI_MODEL` (ví dụ `gpt-4.1`). Supervisor chỉ điều phối qua hai tool (`call_researcher`, `call_writer`); mỗi specialist là một function gọi LLM riêng với system prompt riêng. Specialist không biết nhau tồn tại — đúng theo sơ đồ ở trên.
+
+> **Bản chạy được:** file Python hoàn chỉnh cho bài này nằm trong [starter kit](/starter/ai-agent-architecture/) — kèm mock mode (chạy không cần API key) và self-test, hướng dẫn cài đặt trong [README](/starter/ai-agent-architecture/README.md).
 
 ```python
 import json
@@ -267,11 +279,13 @@ if __name__ == "__main__":
 
 Chạy ví dụ trên, supervisor làm đúng ba bước: gọi researcher, nhận JSON về, gọi writer với dữ liệu đó, trả bài viết. Ba điểm cần nhìn khi đọc log: mọi quyết định (gọi ai, khi nào, gọi thêm không) nằm ở supervisor; specialist có contract đầu ra cố định — researcher trả JSON ba field, writer bị cấm bịa số liệu ngoài JSON nhận vào; vòng lặp có điểm dừng cứng qua `max_rounds`. Khi bản dựng này chạy ổn, chuyển sang LangGraph hay CrewAI chỉ là đổi cách viết state và flow, không đổi cách nghĩ.
 
-## Bài tập tự làm
+> 📍 **Dự án xuyên suốt — DocMind:** multi-agent là phần mở rộng của DocMind, không phải mặc định. DocMind chạy supervisor chỉ khi task đòi research nhiều nguồn rồi viết dài — phần lớn truy vấn tài liệu vẫn đi qua agent đơn của bài 1-2, rẻ và dễ debug hơn.
 
-1. **Thêm specialist thứ ba.** Viết `fact_checker` nhận `research_json`, trả JSON đã sửa. Sửa `SYSTEM` để supervisor buộc gọi researcher → fact_checker → writer đúng thứ tự đó.
-2. **So sánh supervisor và handoff.** Thay supervisor bằng handoff: researcher chuyển quyền thẳng cho writer khi xong. Chạy cùng một task, so sánh output cuối và số token của hai cách.
-3. **Xử lý khi hết vòng.** Đặt `max_rounds = 2` rồi chạy task đòi ba bước. Viết fallback: khi hết vòng, supervisor trả message rõ ràng cho người dùng ("chưa hoàn thành vì X") thay vì dừng im lặng.
+## Bài tập tự làm (3 mức)
+
+- **Mức 1 — Làm theo:** thêm specialist thứ ba `fact_checker` nhận `research_json`, trả JSON đã sửa; sửa `SYSTEM` để supervisor buộc gọi researcher → fact_checker → writer đúng thứ tự đó.
+- **Mức 2 — Tự sửa:** thay supervisor bằng handoff — researcher chuyển quyền thẳng cho writer khi xong; chạy cùng một task, so output cuối và số token của hai cách.
+- **Mức 3 — Mở rộng:** đặt `max_rounds = 2` trên task đòi ba bước, viết fallback — khi hết vòng, supervisor trả message rõ ràng cho người dùng ("chưa hoàn thành vì X") thay vì dừng im lặng. Chỉ thêm tầng này vào DocMind khi bài viết cần research dài — một agent đơn giản đủ cho phần lớn truy vấn.
 
 ## Tài liệu gốc
 
