@@ -20,6 +20,9 @@ const read = readingTime(post.body ?? '');
 const hasMath = post.body?.includes('$$') ?? false;
 
 const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
+// Bỏ số thứ tự viết tay trong heading con ("1. Chọn model nào?") để không
+// dính double-numbering với số auto của TOC
+const tocLabel = (text: string) => text.replace(/^\d+\.\s*/, '');
 
 const all = await getPublishedPosts();
 const idx = all.findIndex((p) => p.id === post.id);
@@ -101,8 +104,8 @@ const pathInfo = findPathOfPost(post.id);
               <summary>Mục lục</summary>
               <ol>
                 {tocItems.map((h) => (
-                  <li style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
-                    <a href={`#${h.slug}`}>{h.text}</a>
+                  <li class={h.depth === 3 ? 'sub' : undefined} style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
+                    <a href={`#${h.slug}`}>{tocLabel(h.text)}</a>
                   </li>
                 ))}
               </ol>
@@ -151,8 +154,8 @@ const pathInfo = findPathOfPost(post.id);
             <strong>Mục lục</strong>
             <ol>
               {tocItems.map((h) => (
-                <li style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
-                  <a href={`#${h.slug}`}>{h.text}</a>
+                <li class={h.depth === 3 ? 'sub' : undefined} style={`margin-left: ${(h.depth - 2) * 1.1}rem;`}>
+                  <a href={`#${h.slug}`}>{tocLabel(h.text)}</a>
                 </li>
               ))}
             </ol>

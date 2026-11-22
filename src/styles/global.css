@@ -889,12 +889,19 @@ html[data-theme='dark'] a.chip:hover {
 
 .toc ol {
   margin: 0.8rem 0 0.2rem;
-  padding-left: 1.2rem;
+  padding-left: 0;
   list-style: none;
   counter-reset: toc;
 }
 
-.toc ol > li { counter-increment: toc; }
+/* Hanging indent: số inline với text, dòng bọc lùi vào đầu text thay vì
+   rớt xuống dòng riêng (lỗi cũ: <a> inline-block khiến box số + text tách dòng) */
+.toc ol > li {
+  counter-increment: toc;
+  padding-left: 1.6rem;
+  text-indent: -1.6rem;
+  margin-top: 0.3rem;
+}
 
 .toc ol > li::before {
   content: counter(toc) '.';
@@ -903,9 +910,21 @@ html[data-theme='dark'] a.chip:hover {
   margin-right: 0.4rem;
 }
 
+/* Heading con (h3): không đánh số, gạch lười thay số */
+.toc ol > li.sub {
+  counter-increment: none;
+  padding-left: 1.3rem;
+  text-indent: -1.3rem;
+}
+
+.toc ol > li.sub::before {
+  content: '–';
+  color: var(--muted);
+  font-weight: 400;
+}
+
 .toc a {
   color: var(--muted);
-  display: inline-block;
   padding: 0.15rem 0;
 }
 
