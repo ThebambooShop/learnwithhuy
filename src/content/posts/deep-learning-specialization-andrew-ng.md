@@ -1,7 +1,7 @@
 ---
 title: "Deep Learning Specialization (Andrew Ng): 5 khóa nền tảng neural network học đúng thứ tự"
 description: "Bài học elearning phân tích Deep Learning Specialization của Andrew Ng trên deeplearning.ai — khóa kinh điển với hàng triệu người học: nội dung từng khóa, thứ tự học hợp lý và cách làm bài assignment hiệu quả."
-topic: "ai-co-ban"
+topic: "machine-learning"
 date: "2026-11-19"
 cover: "/images/covers/posts/deep-learning-specialization-andrew-ng.jpg"
 views: 220

@@ -1,7 +1,7 @@
 ---
 title: "Hướng dẫn xây dựng Agent thực tế"
 description: "Bản dịch chi tiết đầy đủ guide chính thức của OpenAI (A Practical Guide to Building Agents): nhận diện ca sử dụng, nền tảng thiết kế model-tools-instructions, orchestration single/multi-agent, 7 loại guardrails và human-in-the-loop — kèm toàn bộ code Agents SDK."
-topic: "lap-trinh-va-cong-nghe"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-17"
 cover: "/images/covers/posts/huong-dan-xay-dung-agent-thuc-te.jpg"
 featured: true

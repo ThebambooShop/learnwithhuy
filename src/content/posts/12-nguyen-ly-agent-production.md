@@ -1,7 +1,7 @@
 ---
 title: "12 nguyên lý đưa AI Agent vào production"
 description: "Bản dịch + triển khai 12 nguyên lý của 12-Factor Agents — từ natural language to tool calls, own your prompts và context window, đến stateless reducer — kèm evals, guardrails, human-in-the-loop và code thực hành."
-topic: "lap-trinh-va-cong-nghe"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-22"
 cover: "/images/covers/posts/12-nguyen-ly-agent-production.jpg"
 featured: false

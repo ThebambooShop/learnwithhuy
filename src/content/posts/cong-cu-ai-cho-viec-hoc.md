@@ -1,7 +1,7 @@
 ---
 title: "Những công cụ AI hữu ích cho việc học tập"
 description: "Gia sư trả lời 24/7, ghi chú tự tóm tắt, flashcard thông minh — tổng hợp các nhóm công cụ AI hỗ trợ học tập và cách dùng chúng để hiểu sâu, không phải học vẹt nhanh."
-topic: "cong-cu-ai"
+topic: "ai-trong-giao-duc"
 date: "2026-09-09"
 cover: "/images/covers/posts/cong-cu-ai-cho-viec-hoc.jpg"
 views: 980

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { topics } from '../../data/topics';
+import { topicGroups, topics } from '../../data/topics';
 import { getPublishedPosts } from '../../lib/posts';
 
 const posts = await getPublishedPosts();
@@ -10,27 +10,32 @@ for (const p of posts) counts.set(p.data.topic, (counts.get(p.data.topic) ?? 0) 
 
 <BaseLayout
   title="Chủ đề"
-  description="Các chủ đề của LearnWithHuy: AI cơ bản, Generative AI và LLM, Prompt Engineering, Công cụ AI, Machine Learning, lập trình, AI trong công việc và xu hướng công nghệ."
+  description="Khám phá AI theo 4 hướng: hiểu cách AI hoạt động, sử dụng AI hiệu quả, xây dựng ứng dụng với AI và tìm hiểu tác động của AI trong các ngành nghề."
 >
   <div class="container">
     <header class="page-head">
       <h1>Chủ đề</h1>
       <p class="lead">
-        Nội dung được tổ chức thành 8 chủ đề, từ khái niệm nền tảng cho đến ứng dụng thực tế.
-        Chọn một chủ đề để bắt đầu.
+        Khám phá AI theo 4 hướng: hiểu cách AI hoạt động, sử dụng AI hiệu quả, xây dựng ứng dụng
+        với AI và tìm hiểu tác động của AI trong các ngành nghề. Chọn một chủ đề để bắt đầu, từ
+        kiến thức nhập môn đến các hướng dẫn thực hành.
       </p>
     </header>
 
-    <section class="section" style="padding-top: 1.5rem;">
-      <div class="topic-grid">
-        {topics.map((t) => (
-          <a class="topic-card" href={`/chu-de/${t.slug}/`}>
-            <h2 class="topic-card__name">{t.name}</h2>
-            <p class="topic-card__desc">{t.description}</p>
-            <span class="topic-card__count">{counts.get(t.slug) ?? 0} bài viết</span>
-          </a>
-        ))}
-      </div>
-    </section>
+    {topicGroups.map((g) => (
+      <section class="section" style="padding-top: 1.5rem;" aria-labelledby={`group-${g.slug}`}>
+        <h2 id={`group-${g.slug}`} style="font-size: 1.35rem; margin-bottom: 0.25rem;">{g.name}</h2>
+        <p style="color: var(--text-muted); margin: 0 0 1rem; font-size: 0.95rem;">{g.description}</p>
+        <div class="topic-grid">
+          {topics.filter((t) => t.group === g.slug).map((t) => (
+            <a class="topic-card" href={`/chu-de/${t.slug}/`}>
+              <h3 class="topic-card__name">{t.name}</h3>
+              <p class="topic-card__desc">{t.description}</p>
+              <span class="topic-card__count">{counts.get(t.slug) ?? 0} bài viết</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
   </div>
 </BaseLayout>

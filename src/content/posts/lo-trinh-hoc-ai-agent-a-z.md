@@ -1,7 +1,7 @@
 ---
 title: "Lộ trình học AI Agent từ A đến Z: 47 tài nguyên cho người mới bắt đầu"
 description: "Lộ trình học AI Agent đầy đủ nhất 2026: 47 tài nguyên chọn lọc gồm 8 video, 10 repo GitHub, 5 tài liệu chính thức, 7 sách, 4 bài nghiên cứu và 13 khóa học — xếp theo thứ tự học cho người mới, kèm hướng dẫn bắt đầu."
-topic: "lap-trinh-va-cong-nghe"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-17"
 cover: "/images/covers/posts/lo-trinh-hoc-ai-agent-a-z.jpg"
 featured: true

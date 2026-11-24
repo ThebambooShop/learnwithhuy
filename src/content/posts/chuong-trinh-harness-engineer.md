@@ -15,8 +15,8 @@ faq:
     a: "Lý thuyết 14 bài giảng khoảng 220 phút đọc, thực hành chuỗi Mini-dsh 8 bài khoảng 115 phút. Không cần đọc một lần: mỗi phần của chương trình đứng độc lập được, đọc dần theo bản đồ ở đầu trang."
   - q: "Trang này dài — có cách đọc nhanh không?"
     a: "Có. Mỗi bài trong cẩm nang kết thúc bằng mục 'Những điểm chính cần nhớ' — chỉ đọc các mục đó là nắm được toàn bộ chương trình trong khoảng 15 phút. Khi cần đi sâu vào bài nào thì đọc nguyên phần đó."
-  - q: "Chuỗi Mini-dsh trong cùng chủ đề có liên quan gì?"
-    a: "Chuỗi Mini-dsh (8 bài) là phần thực hành: tự tay dựng một agent harness thật theo nguyên tắc everything-is-a-plugin. Học lý thuyết xong thì vào chuỗi Mini-dsh để dựng hệ thống chạy được."
+  - q: "Phần 8 (Mini-dsh) có liên quan gì đến 14 bài giảng?"
+    a: "Phần 8 là phần thực hành của chương trình: tự tay dựng một agent harness thật (Mini-dsh) theo nguyên tắc everything-is-a-plugin, nối thẳng vào lý thuyết của 14 bài giảng. Học lý thuyết xong thì làm theo Phần 8 để có hệ thống chạy được."
 ---
 
 Agent của bạn chạy 20 phút rồi báo "xong" — nhưng code làm hỏng test, sửa một lỗi sinh ra hai lỗi. Trước khi mở ví nâng cấp model, hãy đọc chương trình này: **vấn đề phần lớn không nằm ở model, mà nằm ở harness** — toàn bộ hạ tầng bên ngoài trọng số model. Chương trình Harness Engineer gồm 14 bài giảng (dịch và tái sử dụng từ [Learn Harness Engineering — WalkingLab](https://github.com/walkinglabs/learn-harness-engineering), giấy phép MIT, bài gốc tiếng Việt) — **toàn bộ nội dung đầy đủ của 14 bài nằm ngay trong trang này**, gộp thành một cẩm nang duy nhất theo 7 phần, không cần click sang web ngoài.
@@ -25,9 +25,9 @@ Agent của bạn chạy 20 phút rồi báo "xong" — nhưng code làm hỏng 
 
 1. **Lướt bản đồ chương trình** phía dưới để định vị phần bạn cần ngay — mỗi phần gồm 2 bài, đứng độc lập được.
 2. **Cuộn tới phần đó**: nội dung đầy đủ của từng bài nằm ngay tại chỗ, mỗi bài kết thúc bằng mục "Những điểm chính cần nhớ" nếu chỉ muốn nắm nhanh.
-3. **Kết thúc bằng chuỗi Mini-dsh** ở cuối trang để chuyển từ lý thuyết sang tự tay dựng harness chạy được.
+3. **Kết thúc bằng Phần 8** để chuyển từ lý thuyết sang tự tay dựng harness chạy được.
 
-Tổng thời gian: **≈220 phút lý thuyết** (14 bài giảng) + **≈115 phút thực hành** (8 bài Mini-dsh). Đọc dần theo phần, không cần một lần.
+Tổng thời gian: **≈220 phút lý thuyết** (Bài 01–14) + **≈115 phút thực hành** (Bài 15–22). Đọc dần theo phần, không cần một lần.
 
 ## Bản đồ chương trình
 
@@ -40,6 +40,7 @@ Tổng thời gian: **≈220 phút lý thuyết** (14 bài giảng) + **≈115 p
 | Xác minh | 09–10 | Chặn tuyên bố thành công sớm; end-to-end testing |
 | Quan sát | 11–12 | Observability trong harness; bàn giao trạng thái sạch |
 | Tổng hợp | 13–14 | Từ prompt thủ công đến vòng lặp tự chủ; graph engineering |
+| Thực hành | 15–22 | Tự tay dựng Mini-dsh: kernel, session log, agent loop, permission, scheduler, skills, composition |
 
 ## Phần 1 · Nền tảng — vì sao agent mạnh vẫn thất bại
 
@@ -2642,17 +2643,2691 @@ Không phải mọi nhiệm vụ đều đáng để vẽ đồ thị. Năm tiê
 
 5. **Biến graph.md thành chương trình thực thi được:** theo sáu bước trong "Xây dựng đồ thị đầu tiên của bạn từ con số không" của bài giảng này, triển khai đồ thị maker-checker bạn đã vẽ thành một đồ thị chạy được (triển khai tham chiếu: `code/maker_checker_graph.py`, viết bằng LangGraph). Đừng bỏ qua bước nào trong sáu bước: định nghĩa trạng thái → liệt kê nút → nối cạnh → viết định tuyến → gắn checkpoint → chạy. Chạy xong so sánh `graph.md` và code, tìm ra chỗ đầu tiên không khớp, và giải thích vì sao không khớp — là đồ thị vẽ sai, hay code viết sai?
 
-## Học tiếp bằng thực hành: chuỗi Mini-dsh
+## Phần 8 · Thực hành — tự tay dựng agent harness Mini-dsh
 
-Lý thuyết của 14 bài giảng ghép với phần thực hành trong cùng chủ đề **Harness Engineer** — chuỗi 8 bài tự tay dựng agent harness (Mini-dsh) theo nguyên tắc *everything is a plugin*, khoảng 115 phút đọc. **Bắt đầu từ bài 1**, mỗi bài dựng một cơ chế rồi nối dần thành hệ thống chạy được:
+Lý thuyết của 14 bài giảng ghép với phần thực hành dưới đây: 8 bài tự tay dựng agent harness (Mini-dsh) theo nguyên tắc *everything is a plugin*, khoảng 115 phút đọc. **Bắt đầu từ Bài 15**, mỗi bài dựng một cơ chế rồi nối dần thành hệ thống chạy được.
 
-1. [Agent Harness là gì: tại sao model cần một lớp điều phối](/bai-viet/chuong-trinh-harness-engineer/) — ranh giới harness vs. loop, Message provider-agnostic *(11 phút)*
-2. [Kernel và nguyên tắc "mọi thứ là plugin"](/bai-viet/chuong-trinh-harness-engineer/) — Fiber, effect(), đăng ký đối xứng với unmount *(11 phút)*
-3. [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/chuong-trinh-harness-engineer/) — rebuild từ log, không có state riêng *(11 phút)*
-4. [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer/) — quyết định call nào được phép chạy *(14 phút)*
-5. [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer/) — nhớ của agent mà không phình context *(13 phút)*
-6. [System prompt động và Skills](/bai-viet/chuong-trinh-harness-engineer/) — nạp đúng thứ tự, đúng lúc *(17 phút)*
-7. [Scheduler song song và steering inbox](/bai-viet/chuong-trinh-harness-engineer/) — chạy nhanh mà không giẫm chân *(15 phút)*
-8. [Capabilities, subagent và composition](/bai-viet/chuong-trinh-harness-engineer/) — ghép thành hệ thống hoàn chỉnh *(24 phút)*
+### Bài 15. Agent Harness là gì: tại sao model cần một lớp điều phối
+
+Bài trước bạn đã tự dựng được agent loop — model quyết định, code thực thi, kết quả quay về model ([Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang)). Nhưng loop chỉ là một cơ chế. Đưa agent đó ra production: bạn cần ghi log từng lượt, quản lý tool registry, permission, sandbox, skills, subagent — và một cách thay model mà không đụng lại toàn bộ code. Toàn bộ lớp điều phối bao quanh loop đó có tên riêng: **agent harness**.
+
+Bài này mở lộ trình 8 bài **Xây dựng Agent Harness từ số 0 với Mini-dsh** — rebuild bản rút gọn của dsh, agent harness production của DeepSeek, chỉ bằng Python stdlib. Bài đầu tiên dựng cơ chế sơ khai nhất mà cả harness đứng trên đó: cách gọi model mà không để format của provider nào chảy vào core. Không API key, không mạng — chạy được ngay sau khi clone.
+
+### Agent harness là gì?
+
+> **Agent harness là toàn bộ lớp điều phối chạy quanh model call: kernel quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent. Model chỉ là một plugin cắm vào lớp điều phối.**
+
+dsh — harness mà DeepSeek dùng thật — là một codebase TypeScript lớn, trong đó tools, prompts và cả những subsystem nguyên vẹn đều là plugin mounted onto a running kernel. Ẩn sau tất cả chỉ là một thao tác lặp đi lặp lại: hỏi model một response. Mỗi lần như vậy, harness derive history, expose tools, assemble prompt, rồi gọi.
+
+Vì mọi cơ chế đều phục vụ đúng một model call, câu hỏi thiết kế đầu tiên không phải "loop viết thế nào" — mà là "gọi model theo cách nào để không một bộ phận nào của harness dính vào một provider cụ thể".
+
+### Harness khác agent loop ở đâu?
+
+Loop là trái tim — nhưng tim không chạy một mình.
+
+| | Agent loop | Agent harness |
+| --- | --- | --- |
+| Bản chất | Một cơ chế: model → tool call → execute → append context | Toàn bộ lớp điều phối chứa cơ chế đó |
+| Quy mô | ~100 dòng Python là đủ | Codebase lớn, tách package rõ |
+| Biết gì về thế giới | Chỉ biết messages và tool schema | Quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent |
+| Đổi model | Sửa trực tiếp vòng lặp | Thay một plugin — loop không đổi |
+| Có thể thiếu không? | Không — không loop thì không có agent | Không — không harness thì production không có log, teardown sạch, swap model |
+
+dsh xây trên nguyên tắc "everything is a plugin": tools, prompts, cả subsystems đều cắm vào kernel đang chạy. Agent loop trong dsh cũng chỉ là một plugin có đặc quyền điều phối. Tách loop ra khỏi lớp điều phối là quyết định kiến trúc đầu tiên bạn phải hiểu trước khi đọc source harness thật.
+
+### Bản đồ Mini-dsh: 4 phase lõi
+
+Mini-dsh dựng harness theo 4 phase, mỗi phase đúng một cơ chế, mỗi phase đứng trên phase trước:
+
+```
+Mini-dsh — 4 phase lõi, mỗi phase một cơ chế, dựng theo thứ tự
+
+PHASE 1 · SEAM                     (bài này, section 00-setup)
+┌────────────────────────────────────────────────────────────────┐
+│  Message(role, content) — frozen, provider-agnostic            │
+│  model(messages) → ("chunk", ...)... → ("message", Message)    │
+└────────────────────────────────────────────────────────────────┘
+                │ seam chờ người dùng đầu tiên
+                ▼
+PHASE 2 · KERNEL                   (bài kế, section 01-kernel)
+┌────────────────────────────────────────────────────────────────┐
+│  ctx.plugin(p) → Fiber gom undo của mọi registration           │
+│  fiber.dispose() → undo chạy ngược — mount/unmount đối xứng    │
+└────────────────────────────────────────────────────────────────┘
+                │ log mount lên kernel như một service
+                ▼
+PHASE 3 · SESSION LOG              (bài session log và compaction)
+┌────────────────────────────────────────────────────────────────┐
+│  chunk / message / tool result → event types → file            │
+│  compaction đọc log, nén view chứ không sửa record             │
+└────────────────────────────────────────────────────────────────┘
+                │ loop là consumer đầu tiên dùng cả ba phase trên
+                ▼
+PHASE 4 · AGENT LOOP               (bài agent loop state machine)
+┌────────────────────────────────────────────────────────────────┐
+│  model → tool call → execute → append → lặp                    │
+│  forward chunks ngay từ byte đầu tiên, không buffer            │
+└────────────────────────────────────────────────────────────────┘
+```
+
+Nguyên tắc dựng của cả lộ trình: mỗi section copy nguyên `src/` của section trước rồi thêm đúng một cơ chế. Diff giữa hai section liên tiếp chỉ là một cơ chế, không hơn — sau 8 bài bạn đọc lịch sử thiết kế harness như đọc một chuỗi commit.
+
+### Phase 1: Message và Model seam
+
+Cách làm đầu tiên ai cũng nghĩ tới: nơi nào cần gọi model thì import SDK của provider đó vào.
+
+Cách làm đó làm provider lan khắp harness: format request của provider chạm vào prompt builder, response object của nó chạm vào log, tên role của nó chạm vào compaction. Đổi provider nghĩa là sửa ở cả ba nơi.
+
+Phase 1 đặt ra 4 yêu cầu để chặn điều đó:
+
+1. Mini-dsh có **Message shape riêng**, provider-agnostic — không vendor format nào vào core.
+2. **Model seam** là một calling convention: callable nhận message list, stream các chunk event rồi kết thúc bằng đúng một final message.
+3. **Scripted stand-in** nói đúng contract đó — seam có implementation chạy được ngay khi nó tồn tại.
+4. Mỗi response được chunk hóa deterministic — streaming thật từ ngày đầu.
+
+Code rút gọn chạy được, trích từ `src/` thật của section 00:
+
+```python
+# mini_seam.py — Phase 1 của Mini-dsh: Message + Model seam + ScriptedModel
+# Chỉ Python stdlib — không API key, không mạng.
+
+from dataclasses import dataclass
+
+# 1. Message: vocabulary duy nhất của toàn bộ harness
+
+@dataclass(frozen=True)
+class Message:
+    role: str      # "user" | "assistant" | "tool"
+    content: str
+
+# 2. ScriptedModel: implementation đầu tiên của Model seam
+
+def _chunks(text, n=3):
+    # chia chuỗi thành n đoạn gần bằng nhau, deterministic
+    size = max(1, -(-len(text) // n))
+    return [text[i : i + size] for i in range(0, len(text), size)]
+
+class ScriptedModel:
+    """Queue trả lời theo kịch bản — không bao giờ đọc request."""
+
+    def __init__(self, responses):
+        self._queue = list(responses)
+
+    def __call__(self, messages):
+        # Contract Model seam: ("chunk", str)... rồi một ("message", Message)
+        text = self._queue.pop(0)
+        for piece in _chunks(text):
+            yield ("chunk", piece)
+        yield ("message", Message(role="assistant", content=text))
+
+# 3. drain: tiện ích tiêu thụ một stream để kiểm tra
+
+def drain(stream):
+    events = list(stream)
+    chunks = [text for kind, text in events[:-1] if kind == "chunk"]
+    kind, final = events[-1]
+    assert kind == "message"
+    return chunks, final
+
+if __name__ == "__main__":
+    model = ScriptedModel(["Hello, reader.", "Second answer."])
+
+    chunks, final = drain(model([Message("user", "hi")]))
+    assert final == Message("assistant", "Hello, reader.")
+    assert "".join(chunks) == final.content, "chunks phải ghép đúng nội dung cuối"
+    assert len(chunks) > 1, "streaming phải thật, không phải một blob"
+
+    _, final = drain(model([Message("user", "again")]))
+    assert final.content == "Second answer.", "queue trả lời đúng thứ tự"
+
+    print("seam OK:", final.content)
+```
+
+Một lượt gọi qua seam chạy đúng hình này:
+
+```text
+caller                          ScriptedModel(["Hello, reader."])
+  │
+  │  model([Message("user", "hi")])
+  ├─────────────────────────────►  pop response kế tiếp
+  │                                (request không bao giờ bị đọc)
+  │   ("chunk", "Hello")   ◄──┐
+  │   ("chunk", ", rea")   ◄──┼──── chia thành n đoạn cố định
+  │   ("chunk", "der.")    ◄──┘
+  │   ("message", Message("assistant", "Hello, reader."))
+  │◄─────────────────────────────
+```
+
+Bốn điểm kỹ thuật đáng nhớ:
+
+- **Frozen, vì message là record của cái đã nói, không phải draft mutable.** Các section sau coi một message đã ghi là sự kiện đã xảy ra; một message cho phép gán lại field sẽ phá cả record lẫn view mà không để lại dấu vết.
+- **Provider-agnostic, vì core không được quan tâm model của ai trả lời.** Dịch Message sang wire format của provider là việc của adapter — và adapter không nằm trong core.
+- **Ba role đủ cho mọi trao đổi của harness**: user nói gì, model nói gì, tool trả về gì. Các cơ chế sau thêm event types *quanh* message chứ không thêm field *vào trong* message.
+- **Seam là calling convention, không phải class.** Một hàm, một closure, một object — cái gì callable, nhận message list và yield đúng hai loại event đều là model hợp lệ. Đổi model là passing một callable khác, thế là model thành một part cắm vào.
+
+Hai phase của stream quan trọng hơn cả stand-in: các chunk là live stream — thứ caller forward đi ngay để người dùng thấy tiến độ; final `Message` là durable record — bản ghi chính thức, luôn đọc lại được toàn văn.
+
+### Chạy thử: clone và chạy offline check
+
+Ba lệnh, không key:
+
+```bash
+git clone https://github.com/hardness1020/learn-deepseek-harness
+cd learn-deepseek-harness
+python sections/00-setup/src/test.py
+```
+
+Output:
+
+```
+section 00: all checks passed
+```
+
+Dòng duy nhất đó đứng trên ba assertion trong `test.py`:
+
+1. **Chunks ghép lại đúng bằng content của final message** — stream và record không lệch nhau một ký tự.
+2. **Số chunk lớn hơn 1** — streaming thật, không phải một blob nén lại.
+3. **Lần gọi thứ hai nhận đúng "Second answer."** — queue trả lời theo đúng thứ tự kịch bản, không bao giờ đảo.
+
+Tại sao chạy không cần key: stand-in trả lời từ queue có sẵn và **không bao giờ đọc request** — mọi check của tutorial đều offline, không mạng, và trả cùng một bytes mỗi lần chạy. Đây là convention check định chuẩn cho cả lộ trình: bạn sửa code, chạy lại, và biết ngay mình phá gì mà không tốn một xu API.
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| `ModuleNotFoundError: No module named 'message'` | Đổi tên file hoặc copy `test.py` ra nơi khác một mình | Chạy đúng `python sections/00-setup/src/test.py` từ root repo — Python tự thêm thư mục chứa script vào `sys.path` |
+| `IndexError: pop from empty list` | Gọi model nhiều lần hơn số response đã nạp vào queue | Nạp đủ kịch bản: mỗi lần gọi model "tiêu" một response |
+| `FrozenInstanceError` khi gán `msg.content = ...` | Message là frozen dataclass — đúng thiết kế | Muốn đổi lịch sử thì thêm message mới hoặc đi qua session log, không sửa record cũ |
+| Ghép chunks tay ở nhiều nơi và lệch | Mỗi caller tự nối chunk một kiểu | Tin final `("message", Message)` làm bản ghi duy nhất; chunks chỉ dùng để hiển thị |
+
+> 📍 **Nguyên tắc carry-forward:** mọi section của lộ trình copy nguyên `src/` section trước rồi thêm đúng một cơ chế. Sau khi đọc hết 8 bài, `diff` giữa hai section liên tiếp cho bạn đúng một quyết định thiết kế mỗi lần.
+
+### Gọi model trực tiếp vs qua harness
+
+| Tiêu chí | Gọi model trực tiếp (import SDK ở mỗi chỗ cần gọi) | Qua harness (Message + Model seam) |
+| --- | --- | --- |
+| Định dạng dữ liệu | Wire format của provider chảy vào prompt, log, compaction | Một Message shape duy nhất; adapter lo dịch |
+| Đổi provider | Sửa mọi nơi import SDK | Thay một callable — model là một plugin |
+| Streaming | Chờ chuỗi hoàn chỉnh, không gì để hiển thị giữa chừng | Chunks + một final message ngay từ ngày đầu |
+| Log | Lưu JSON của provider | Lưu event type riêng, không dính vendor |
+| Test | Cần key, cần mạng, output không xác định | Scripted stand-in: offline, không key, deterministic |
+| Bọc thêm behavior (retry, timing) | Phải sửa mỗi call site | Viết một closure bọc model — vẫn đúng contract |
+
+Quy tắc ngắn: **một shape vào, một shape ra, provider thành một part cắm vào.** Chủ thể thật của harness là mọi thứ quanh model call — không bộ phận nào trong đó được phụ thuộc vào model của ai trả lời.
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy `python sections/00-setup/src/test.py`, rồi sửa test thêm lần gọi thứ ba bằng `Message(role="tool", content="tool result")` — chứng minh seam nhận đủ cả ba role mà không cần đổi gì trong `ScriptedModel`.
+
+**Mức 2 — Tự sửa**: viết hai hàm `to_vendor(msg)` và `from_vendor(d)` dịch Message sang dict kiểu wire format một provider (ví dụ `{"role": ..., "content": ...}`) và ngược lại. Chạy trên vài Message. Điểm cần thấy: harness core không đổi một chữ khi có thêm adapter mới.
+
+**Mức 3 — Mở rộng**: viết `logged_model(model)` — một closure nhận model, trả về model mới vẫn nói đúng contract (chunks rồi message) nhưng in từng chunk ra stdout trước khi forward. Đây là kiểm tra cho tính chất calling convention của seam: một closure bọc model vẫn là model hợp lệ — nếu seam là base class thì cái này không viết nổi.
+
+### Tài liệu gốc
+
+Bài này viết từ source thật của lộ trình:
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo tutorial; section `00-setup` là nguồn code, và bảng "In real dsh" map từng chi tiết vào dsh pinned commit `99f6f02`.
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — harness production của DeepSeek; seam này map vào `packages/llm` (`types.ts` với `ToolSchema`, `index.ts` với `LlmAdapter`).
+
+Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer):
+
+- [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) — loop là một cơ chế nằm trong harness.
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — phase 4 của bản đồ: loop dựng như một state machine.
+- Bài kế: [Kernel và nguyên tắc 'mọi thứ là plugin'](/bai-viet/chuong-trinh-harness-engineer) — phase 2: chỗ để cắm mọi thứ khác của harness.
+
+---
+
+### Bài 16. Kernel và nguyên tắc 'mọi thứ là plugin'
+
+Bài trước kết thúc ở một seam chưa ai cắm vào: Message và contract `model(messages)` đang chờ người dùng đầu tiên ([Agent harness là gì](/bai-viet/chuong-trinh-harness-engineer)). Người dùng đó không phải agent loop — mà là kernel: phần sở hữu vòng đời của mọi thứ cắm vào harness.
+
+Bài này trả lời đúng một design question: **ai phải sở hữu cleanup của plugin?** Câu trả lời của dsh — kernel thật mà DeepSeek dùng — là framework giữ hết, và nó đắt giá hơn bạn nghĩ: cùng một cơ chế này chặn được leak, và mở đường cho hot reload, test teardown, subagent shutdown.
+
+### Design question: ai phải sở hữu cleanup?
+
+Slogan của dsh là "everything is a plugin": tools, session stores, prompt sections, cả subsystem nguyên vẹn — tất cả mount và unmount khi harness đang chạy: đổi profile, hot reload, test teardown, subagent shutdown.
+
+Cách quản cleanup mà ai cũng viết trước: convention. Mỗi plugin tự viết một `cleanup()` unregister những gì nó đăng ký.
+
+Convention đó dễ vỡ một cách âm thầm: plugin thêm một listener trong một code path mới, quên dòng unregister tương ứng — và từ giờ unloading nó leak một callback bắn vào một plugin đã chết, mãi mãi. Không có gì trong cấu trúc code bắt người viết nhớ điều đó; chỉ có review và may mắn.
+
+Kernel đảo quyền sở hữu:
+
+> **Everything is a plugin, and every registration is reversible.**
+
+Đăng ký một thứ *là* trao framework cái undo. Bốn yêu cầu để nguyên tắc đứng vững:
+
+1. Mọi registration — listener, service, bất cứ gì — phải sản xuất một undo (**disposer**).
+2. Disposer gom trên **fiber** sở hữu plugin: unmount là một thao tác framework duy nhất — chạy ngược toàn bộ.
+3. Mỗi disposer chạy tối đa một lần, bất kể ai gọi trước.
+4. Registration trên fiber đã disposed là một error, không phải silent leak.
+
+### Fiber: đơn vị lifetime của một plugin
+
+Fiber là danh sách undo có thứ tự cộng một state gate. Code trích từ `src/kernel.py`:
+
+```python
+class InactiveEffectError(RuntimeError):
+    """Đăng ký effect trên fiber đã disposed."""
+
+
+class Fiber:
+    """Đơn vị lifetime của một plugin: danh sách undo có thứ tự."""
+
+    def __init__(self, label):
+        self.label = label
+        self.state = "loading"  # loading -> active -> disposed
+        self._disposers = []
+
+    def collect(self, dispose, label=""):
+        if self.state == "disposed":
+            raise InactiveEffectError(
+                f"cannot register {label or 'effect'} on disposed fiber '{self.label}'"
+            )
+        entry = {"dispose": dispose, "done": False}
+
+        def run():
+            if not entry["done"]:
+                entry["done"] = True
+                entry["dispose"]()
+
+        self._disposers.append(run)
+        return run  # single-shot: gọi sớm cũng an toàn, fiber không chạy lại
+
+    def dispose(self):
+        if self.state == "disposed":
+            return
+        self.state = "disposed"
+        for run in reversed(self._disposers):
+            run()
+        self._disposers.clear()
+```
+
+Ba chi tiết nắm trọn cơ chế:
+
+- **`collect` là điểm chặn duy nhất.** Mọi undo đi qua đây: fiber disposed thì raise, còn lại thì nhận vào danh sách và trả lại disposer.
+- **Single-shot là phần chống lỗi dễ bị bỏ qua.** Caller gọi disposer sớm, rồi fiber dispose chạy lại — entry `done` đảm bảo undo chỉ chạy đúng một lần.
+- **`reversed` là toàn bộ semantic của teardown.** Không plugin nào tự xếp thứ tự dỡ — framework làm hộ.
+
+### Hình dạng của một plugin
+
+Một plugin chỉ là một hàm nhận context của nó:
+
+```python
+def echo_plugin(ctx):
+    ctx.on("say", heard.append)                    # đăng ký #1
+    ctx.provide("echo", lambda t: f"echo: {t}")    # đăng ký #2
+    # không một dòng cleanup nào: undo đã nằm trên fiber của plugin
+
+fiber = ctx.plugin(echo_plugin)   # mount
+fiber.dispose()                   # unmount: cả listener lẫn service biến mất
+```
+
+Và mỗi registration API của context chỉ dài ba dòng: làm việc thật, rồi trao `effect()` cái undo. Hai API nền của Mini-dsh:
+
+```python
+def on(self, event, callback):
+    listeners = self._root._listeners.setdefault(event, [])
+    listeners.append(callback)
+    return self.effect(lambda: listeners.remove(callback), f"on({event})")
+
+def provide(self, name, value):
+    services = self._root._services
+    if name in services:
+        raise ValueError(f"service '{name}' already provided")
+    services[name] = value
+    return self.effect(lambda: services.pop(name), f"provide({name})")
+```
+
+`on` đăng ký listener cho một event; `provide` đăng ký một service mà plugin khác lấy qua `ctx.get()`. Cả hai xây trên đúng một primitive — `effect()`:
+
+```python
+def effect(self, dispose, label=""):
+    return self.fiber.collect(dispose, label)
+```
+
+Mount và unmount đối xứng by construction:
+
+```text
+mount:    plugin(apply) ──► new Fiber ──► apply(child ctx)
+                                         mỗi ctx.on / ctx.provide / ctx.effect
+                                         đẩy một undo lên fiber
+unmount:  fiber.dispose() ──► undo chạy ngược ──► registration biến mất
+```
+
+Thứ tự ngược có lý do: plugin đăng ký nền móng trước và thứ phụ thuộc sau, nên teardown phải dỡ phụ thuộc trước nền — cùng lý do destructor và defer stack unwound ngược.
+
+### Code đầy đủ chạy được
+
+Ghép lại thành một file chạy được — đây là kernel đủ dùng của Mini-dsh:
+
+```python
+# mini_kernel.py — Phase 2 của Mini-dsh: Fiber, effect(), Context
+# Chỉ Python stdlib — không API key, không mạng.
+
+class InactiveEffectError(RuntimeError):
+    """Đăng ký effect trên fiber đã disposed."""
+
+
+class Fiber:
+    def __init__(self, label):
+        self.label = label
+        self.state = "loading"  # loading -> active -> disposed
+        self._disposers = []
+
+    def collect(self, dispose, label=""):
+        if self.state == "disposed":
+            raise InactiveEffectError(
+                f"cannot register {label or 'effect'} on disposed fiber '{self.label}'"
+            )
+        entry = {"dispose": dispose, "done": False}
+
+        def run():
+            if not entry["done"]:
+                entry["done"] = True
+                entry["dispose"]()
+
+        self._disposers.append(run)
+        return run
+
+    def dispose(self):
+        if self.state == "disposed":
+            return
+        self.state = "disposed"
+        for run in reversed(self._disposers):
+            run()
+        self._disposers.clear()
+
+
+class Context:
+    """View của một plugin lên toàn app. Mọi registration gom trên fiber của view."""
+
+    def __init__(self, root=None, fiber=None):
+        self._root = root if root is not None else self
+        self.fiber = fiber if fiber is not None else Fiber("root")
+        if self._root is self:
+            self.fiber.state = "active"
+            self._services = {}
+            self._listeners = {}  # event name -> list of callbacks
+
+    def effect(self, dispose, label=""):
+        return self.fiber.collect(dispose, label)
+
+    def plugin(self, apply):
+        """Mount: chạy plugin với một child view. Trả về fiber của nó."""
+        fiber = Fiber(getattr(apply, "__name__", "plugin"))
+        apply(Context(self._root, fiber))
+        fiber.state = "active"
+        return fiber
+
+    def on(self, event, callback):
+        listeners = self._root._listeners.setdefault(event, [])
+        listeners.append(callback)
+        return self.effect(lambda: listeners.remove(callback), f"on({event})")
+
+    def emit(self, event, *args):
+        for callback in list(self._root._listeners.get(event, [])):
+            callback(*args)
+
+    def provide(self, name, value):
+        services = self._root._services
+        if name in services:
+            raise ValueError(f"service '{name}' already provided")
+        services[name] = value
+        return self.effect(lambda: services.pop(name), f"provide({name})")
+
+    def get(self, name):
+        return self._root._services.get(name)
+
+
+if __name__ == "__main__":
+    ctx = Context()
+    heard = []
+
+    def echo_plugin(ctx):
+        ctx.on("say", heard.append)
+        ctx.provide("echo", lambda t: f"echo: {t}")
+
+    fiber = ctx.plugin(echo_plugin)
+    ctx.emit("say", "one")
+    assert heard == ["one"]
+    assert ctx.get("echo")("hi") == "echo: hi"
+
+    fiber.dispose()                      # unmount: undo chạy ngược
+    ctx.emit("say", "two")
+    assert heard == ["one"], "listener phải biến mất sau dispose"
+    assert ctx.get("echo") is None, "service phải biến mất sau dispose"
+
+    # unmount một plugin không đụng hàng xóm
+    ctx.plugin(lambda c: c.provide("a", 1))
+    b_fiber = ctx.plugin(lambda c: c.provide("b", 2))
+    b_fiber.dispose()
+    assert ctx.get("a") == 1 and ctx.get("b") is None
+
+    print("kernel OK: mount/unmount đối xứng, hàng xóm còn nguyên")
+```
+
+Chạy file này (lưu thành `mini_kernel.py`, `python3 mini_kernel.py`) cho ra dòng cuối: `kernel OK: mount/unmount đối xứng, hàng xóm còn nguyên` — plugin viết đúng một hình: đăng ký, không cleanup, framework dọn.
+
+### Chạy thử trên repo
+
+Ba lệnh, không key:
+
+```bash
+git clone https://github.com/hardness1020/learn-deepseek-harness
+cd learn-deepseek-harness
+python sections/01-kernel/src/test.py
+```
+
+Output:
+
+```
+section 01: all checks passed
+```
+
+Test này đứng trên 6 nhận định, mỗi nhận định chặn một loại lỗi:
+
+1. **Mount-then-unmount reversibility** — hai registration, zero dòng cleanup trong plugin; sau dispose cả listener lẫn service biến mất.
+2. **Reverse-order unwind** — plugin đăng ký a, b, c; dispose dừng ra c, b, a.
+3. **Single-shot disposer** — caller gọi undo sớm, rồi fiber dispose vẫn chỉ chạy đúng một lần.
+4. **Double dispose là no-op** — dispose lần hai không nổ, không chạy lại gì.
+5. **Registration trên fiber đã disposed** — raise `InactiveEffectError`, không phải silent leak.
+6. **Neighbor isolation** — unmount plugin a, service của plugin b còn nguyên.
+
+Section này chưa gọi model nên không có demo API-key — kernel thuần quy luật vòng đời.
+
+> 📍 Section kế copy nguyên `src/` của section này rồi thêm đúng một cơ chế: session log sẽ mount lên kernel như một service — lần đầu tiên bạn thấy một plugin thật cắm vào lớp điều phối vừa dựng.
+
+### Registration một chiều vs reversible
+
+| Khía cạnh | Convention `cleanup()` (plugin tự dọn) | Reversible registration (framework sở hữu undo) |
+| --- | --- | --- |
+| Ai giữ undo | Plugin tự nhớ viết ở mỗi nơi | Fiber gom tự động qua `effect()` |
+| Code path mới thêm listener | Dễ quên unregister → leak | API trả disposer sẵn, không có chỗ để quên |
+| Thứ tự teardown | Plugin tự lo, dễ sai | Ngược thứ tự đăng ký, mặc định |
+| Cleanup gọi hai lần | Phụ thuộc kỷ luật plugin | Single-shot, gọi sớm cũng an toàn |
+| Đăng ký sau khi unmount | Silent leak | `InactiveEffectError` |
+| HMR / reload / test teardown | Phải viết riêng cho từng case | Cùng một code path: dispose-then-mount |
+
+Cột phải không thông minh hơn cột trái — nó chỉ đẩy mọi quyết định về undo về đúng một điểm: `collect()`. Một điểm chặn thì test được; convention rải rác thì không.
+
+### Failure modes thật của kernel
+
+Năm cách thiết kế này hỏng khi dùng sai — ghi chú trực tiếp từ nguồn:
+
+1. **Cleanup ngoài `effect()` là vô hình.** Plugin mở file, spawn thread mà không bọc undo vào `ctx.effect()` thì leak khi unmount, và framework không nhìn thấy gì để cứu. Kỷ luật phải toàn phần: *mọi* side effect đi qua `effect()`.
+2. **Một disposer throw dừng cả unwind.** Một undo hỏng dừng phần còn lại của cleanup fiber. Mini-dsh chấp nhận để giữ kích thước; Cordis thật isolate lỗi từng disposer để bug của một plugin không kẹt teardown của plugin khác.
+3. **Undo phụ thuộc state đã undone.** Reverse order bảo vệ phụ thuộc *trong một fiber*, nhưng giữa các fiber không có thứ tự ở đây. dsh thật xếp lớp `inject` bên trên để fiber phụ thuộc unload trước provider của nó.
+4. **Đăng ký trong teardown.** Callback phát giữa dispose mà đăng ký effect mới sẽ leak âm thầm — vì vậy fiber disposed raise thay vì nhận.
+5. **Giữ tham chiếu service qua unmount.** `ctx.get("echo")` trả một object sống; caller cache nó là giữ nó chạy sau khi provider đã chết. Quy tắc: resolve at use time, never cache.
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| `InactiveEffectError` khi `fiber.collect(...)` | Đăng ký trên fiber đã disposed — đúng thiết kế | Tạo fiber mới qua `ctx.plugin()`; không cố hồi sinh fiber cũ |
+| `ValueError: service 'x' already provided` | `provide` trùng tên service đang sống | Đổi tên, hoặc unmount plugin đang giữ service trước |
+| Service vẫn chạy sau unmount | Caller giữ tham chiếu lấy trước dispose | Resolve tại thời điểm dùng qua `ctx.get()`, không cache |
+| Listener hàng xóm mất theo unmount | Các plugin đăng ký trên cùng một context gốc | Mỗi plugin mount qua `ctx.plugin()` — registration nằm trên fiber riêng |
+| `emit` không đến ai | Không listener cho event đó | Không phải lỗi — kiểm tra tên event chính xác trước khi debug |
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy `python sections/01-kernel/src/test.py`, rồi tự viết plugin thứ hai đăng ký listener riêng, unmount plugin thứ nhất qua fiber của nó và chứng minh listener của plugin hai vẫn nhận `emit` — neighbor isolation bằng tay của bạn.
+
+**Mức 2 — Tự sửa**: thêm API `ctx.on_once(event, callback)` — listener tự gỡ sau lần phát đầu. Gợi ý: dùng chính disposer trả về từ `ctx.on()` để tự gỡ bên trong callback. Điểm cần thấy: bạn viết được API mới mà không đụng vào Fiber — mọi thứ đã reversible sẵn.
+
+**Mức 3 — Mở rộng**: mount một `logging_plugin` đăng ký `ctx.on("log", ...)` ghi mọi sự kiện vào list, rồi unmount và chứng minh list dừng đúng lúc — lớp điều phối cho bài session log. Bonus: viết mini-HMR — unmount rồi mount lại cùng plugin và chứng minh service quay lại nguyên trạng: reload chỉ là dispose-then-mount.
+
+### Tài liệu gốc
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — section `01-kernel` là nguồn code bài này; bảng "In real dsh" map từng chi tiết vào Cordis vendored trong dsh pinned commit `99f6f02`.
+- [cordiverse/cordis](https://github.com/cordiverse/cordis) — upstream framework mà dsh vendored và patch 18 chỗ; `Fiber`, `effect()`, `inject` đều đến từ đây.
+
+Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer):
+
+- [Agent harness là gì](/bai-viet/chuong-trinh-harness-engineer) — bài trước: Message và Model seam, cái kernel này cắm vào.
+- [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer) — service đầu tiên mount lên kernel này.
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — phase cuối của bản đồ 4 phase.
+
+---
+
+### Bài 17. Agent loop: state machine giữ log làm trạng thái duy nhất
+
+Session log của bài trước đã biết derive history và compact được — nhưng chưa có gì lái nó. Mọi check đều hand-crank: tự append từng message như người điều khiển đứng nhồi tay. Thiếu cái máy: nhận text người dùng, gọi model, ghi lại, lặp cho tới khi xong. Cái máy đó là agent loop, và Mini-dsh gọi một lần chạy của nó là một **turn** — gồm một hoặc nhiều **step**.
+
+Bài này dựng cái máy đó, và mổ xẻ quyết định thiết kế của nó: không giữ state riêng, dựa hẳn vào log.
+
+> **Design question: tại sao reassemble prompt và rederive history trước mỗi step, thay vì giữ một message list trong bộ nhớ?**
+>
+> Vì một list live là **bản sao thứ hai của sự thật**. Compaction đổi surface sau lưng nó. Crash làm mất nó. Resume session nghĩa là dựng lại nó rồi hy vọng khớp với cái model thực sự đã thấy. Log đã là state durable duy nhất — loop nên dựa vào nó, không nên cạnh tranh với nó. Derive mỗi step nghĩa là không có gì cần giữ đồng bộ, bao giờ.
+
+### Turn và step: state machine hai tầng
+
+Một `Agent` cầm đúng ba thứ: một Session, một Model seam (callable nhận messages, stream trả chunk rồi message), và một `status` flag. `status` chỉ có hai giá trị `"idle"` và `"running"` — và nó **không bao giờ durable**: nó chỉ mang nghĩa "đang giữa turn ngay bây giờ", không phải lịch sử.
+
+```python
+# agent_loop.py — rút gọn từ Mini-dsh section 04
+class Agent:
+    """Lái một session qua Model seam, mỗi lần một turn."""
+
+    def __init__(self, session, model):
+        self.session = session
+        self.model = model
+        self.status = "idle"  # "idle" | "running" — không bao giờ durable
+
+    def send(self, text):
+        """Một turn: message người dùng vào, chạy step cho tới khi có end reason."""
+        if self.status == "running":
+            raise RuntimeError("agent đang giữa turn; một log chỉ kể một câu chuyện")
+        self.status = "running"
+        try:
+            self.session.append("user/message", {"content": text})
+            self.session.append("turn/start", {})
+            while self._step() is None:
+                pass
+            self.session.append("turn/end", {})
+        finally:
+            self.status = "idle"
+
+    def _step(self):
+        """Một step: derive lại history, một lần gọi model, append lại tất cả."""
+        self.session.append("step/start", {})
+        messages = self.session.derive_messages()  # derive lại, không bao giờ cache
+        self.session.append("request/header", {"messages": len(messages)})
+        for kind, value in self.model(messages):
+            if kind == "chunk":
+                self.session.append("assistant/chunk", {"text": value})
+            else:
+                self.session.append("assistant/message", {"content": value.content})
+        # Chưa có tool: mọi step đều completed. Bài sau thêm arm None —
+        # tool đã chạy, quay vòng tiếp.
+        reason = "completed"
+        self.session.append("step/end", {"reason": reason})
+        return reason
+```
+
+Cấu trúc hai tầng:
+
+- **`send()` = một turn.** Append `user/message` và `turn/start`, chạy `while self._step() is None` cho tới khi một step trả về end reason, rồi append `turn/end`. Turn guard ở đầu hàm là bắt buộc: hai turn chạy song song trên một log sẽ đan xen hai bộ marker vào một chuỗi — một log chỉ kể một câu chuyện. Real dsh xếp message mới vào inbox và nhấc nó lên ở step boundary; cơ chế đó nằm ở bài scheduler.
+- **`_step()` = một step.** Derive history từ log **fresh**, ghi `request/header` niêm yết cái sắp gửi, stream một lần gọi model qua seam, append lại từng chunk và message cuối, kết thúc bằng `step/end` với reason.
+
+Vòng lặp nhìn như thế này:
+
+```
+send(text)
+  │
+  ├─ append("user/message")            ← model thấy
+  ├─ append("turn/start")              ← log-only
+  │
+  ▼
+┌───────────── một step ─────────────────────┐
+│ append("step/start")                       │
+│ messages = derive_messages()  ◄── đọc log  │
+│ append("request/header", {messages: n})    │
+│ model(messages): chunk … chunk … message   │
+│ append("assistant/chunk" / "message")      │
+│ append("step/end", {reason})               │
+└──────────────────┬─────────────────────────┘
+                   │
+     reason == None ──► còn việc (tool đã chạy) ──► step tiếp theo
+     reason != None ──► append("turn/end") ──► status về "idle"
+```
+
+Chú ý một điều: ngày hôm nay loop chỉ chạy đúng một step mỗi turn — không có tool thì mọi step đều `completed`. Shape `while` + end reason chính là socket mà bài tools sẽ cắm vào: thêm arm `None` cho step có tool call, turn tự động thành nhiều step, và `send()` không đổi một chữ.
+
+### Log là durable state duy nhất
+
+Năm marker — `turn/start`, `step/start`, `step/end`, `turn/end`, `request/header` — đều là **log-only** (`surface_op` là `None`): model không bao giờ thấy, nhưng log kể được cả câu chuyện thực thi. Đây là ba cái giá đầu tiên trả về:
+
+**Compaction tự do ghép vào.** Compact giữa các turn, và `request/header` của step sau tự ghi số nhỏ hơn — vì step derive từ log *như log đang là lúc đó*. Không có dòng code nào bảo loop biết về compaction. Không cần.
+
+**Crash giữa step không cần sửa chữa.** Một model call chết giữa đường để lại `step/start`, một `request/header`, vài orphan chunk — rồi im. Chunk là log-only nên lần derive tiếp theo tự sạch; turn sau gửi đúng history đúng. Không bước "repair" nào tồn tại.
+
+**Resume là replay.** Agent không cầm gì durable. Replay log vào session mới, đưa cho một Agent mới, turn tiếp theo append ra từng row giống hệt như Agent cũ sẽ append. Kiểm chứng ở đây là byte-for-byte, không phải "tương tự".
+
+`request/header` đáng một đoạn riêng: nó là dòng niêm yết **model đã thấy gì**. Không có nó, "model đã thấy X" chỉ là phỏng đoán — list trong bộ nhớ đã đổi nhiều lần rồi. Có nó, bằng chứng nằm ngay trong log: compaction giữa các turn, đọc counts thẳng từ log là `[1, 3, 2]` — 1 message đầu, 3 message turn hai, 2 message sau compaction (summary + message mới). Không đụng internals của stand-in, chỉ đọc record.
+
+### Khác gì agent loop 100 dòng
+
+Vòng lặp bạn viết trong bài [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) và vòng lặp này cùng một bản chất: model quyết định, code thực thi, kết quả quay về model. Khác nhau là nơi loop sống và state nào được thừa nhận:
+
+| Tiêu chí | Agent loop 100 dòng | Loop trong harness |
+| --- | --- | --- |
+| Trạng thái hội thoại | `messages` list trong bộ nhớ | Session log append-only, mọi thứ khác derive từ nó |
+| Prompt mỗi lượt | Ghép từ list đang cầm | `derive_messages()` mỗi step, không cache |
+| Ranh giới thực thi | `for turn in range(max_turns)` — chỉ có trong code | `turn/start` + `step/start` + `step/end` + `turn/end` ghi vào log |
+| Crash giữa đường | Mất list, không biết dừng ở đâu | Log ghi đúng chỗ chết; turn sau derive sạch, không cần repair |
+| Resume | Không có | Replay log + Agent mới = byte-for-byte cùng tương lai |
+| Nơi sống | Script độc lập, import SDK | Plugin trên kernel, service `agents` qua `AgentRegistry` |
+| Guard | `max_turns` là nút an toàn duy nhất | Turn guard theo state machine, mỗi step có end reason |
+
+Cột phải không "tốt hơn" một cách trừu tượng — nó đánh đổi thêm vài lớp code để mua lại những thứ script demo không có: audit, resume, compose. Khi agent chạy vài ngày trên một tác vụ, những thứ đó không phải nice-to-have.
+
+### Chạy được ngay
+
+Ghép hai bài: paste code Session của bài [session log và compaction](/bai-viet/chuong-trinh-harness-engineer) vào trước, rồi thêm block này:
+
+```python
+# loop_demo.py — chỉ stdlib. Ghép code Session + Message của bài trước vào
+# đầu file, rồi chạy: python3 loop_demo.py — không cần API key.
+
+
+class ScriptedModel:
+    """Queue trả lời canned, stream thành vài chunk rồi message cuối."""
+
+    def __init__(self, responses):
+        self._queue = list(responses)
+
+    def __call__(self, messages):
+        text = self._queue.pop(0)
+        for i in range(0, len(text), 3):
+            yield ("chunk", text[i:i+3])
+        yield ("message", Message(role="assistant", content=text))
+
+
+session = Session("s1")
+agent = Agent(session, ScriptedModel(["Hello.", "Now this.", "The summary says 42."]))
+agent.send("hi")
+agent.send("and now?")
+
+
+def header_counts(sess):
+    return [e["payload"]["messages"] for e in sess.log if e["type"] == "request/header"]
+
+
+print(header_counts(session))  # [1, 3] — mỗi step derive lại từ log
+
+# Compaction giữa các turn (bài trước): nén mọi thứ thành một summary
+session.append(
+    "user/message",
+    {"content": "Summary: greeted twice."},
+    surface_op={"op": "replace", "start": 0, "end": len(session.log)},
+)
+agent.send("what did we say?")
+print(header_counts(session))  # [1, 3, 2] — step sau compaction derive đúng 2 message
+```
+
+Số `[1, 3, 2]` là bằng chứng sống của cả hai bài: loop không cache (turn hai gửi 3, không phải nối dồn 4), và compaction đổi view mà không đụng log (turn ba gửi 2 — summary cộng message mới).
+
+### Failure modes
+
+Sáu lỗi nguồn đã liệt kê cho cái loop này:
+
+- **Message list cache là bản sao thứ hai của sự thật.** Giữ history live trong list thì mọi cơ chế khác thành bài toán đồng bộ: compaction đổi surface sau lưng nó, replay dựng session không có nó. Derive từ log mỗi step — không có gì để đồng bộ, bao giờ.
+- **Crash giữa step không cần repair.** `step/start` không có `step/end`, vài orphan chunk. Chunk là log-only nên lần derive kế tự sạch; check offline giết một model giữa dòng để chứng minh điều đó.
+- **Turn không phải một lần gọi model.** Hard-wire "gửi, nhận, xong" thì không có chỗ nào cho tool execution quay vòng vào. Shape while-step với end reason tường minh chính là chỗ để bài tools gắn vào mà không đụng turn.
+- **Không có `request/header` thì "model đã thấy X" là phỏng đoán.** Header niêm yết cái mỗi step gửi thẳng vào log. Compaction giữa các turn đọc counts từ log: 1, 3, 2.
+- **Hai turn trên một log đan xen events.** `send()` trong khi turn đang chạy raise thay vì dệt hai bộ marker vào một chuỗi. Real dsh xếp message vào inbox và nhấc lên ở step boundary — cơ chế của bài scheduler.
+- **Thiếu marker là replay mơ hồ.** Không có `turn/start` và `step/end`, replayer không phân biệt được turn xong đàng hoàng với turn chết giữa đường. Boundary là dữ liệu, không phải printf debugging: chúng biến một đống message thành execution record replay được.
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| `RuntimeError: agent đang giữa turn` | Gọi `send()` trong khi turn đang chạy (thường từ trong model seam) | Một log một câu chuyện. Message mới phải chờ ở step boundary — cơ chế inbox của bài scheduler |
+| `request/header` đếm không đúng kỳ vọng | Bạn so nó với một list cache ở đâu đó | Đọc thẳng từ log: `e["payload"]["messages"]` của event `request/header` |
+| Orphan chunk xuất hiện trong model view | Nhầm chunks là surface type | Chunk là log-only theo thiết kế; `derive_messages()` tự sạch — kiểm tra lại `SURFACE_TYPES` |
+| Resume ra kết quả lệch | Append thủ công nhưng lộn thứ tự, hoặc sửa event trong log | Replay đúng thứ tự log, giữ nguyên `surface_op`; hoặc để `Agent.send()` tự làm mọi thứ |
+| Turn chỉ chạy 1 step dù đã thêm tool | Quên arm `None`: step trả `"completed"` cho cả lượt có tool | Step có tool call phải trả `None` để while-loop quay lại |
+
+> 📍 Bài này là bài 4 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Source đầy đủ của section nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — `test.py` chạy offline, `demo.py` là bản đầu tiên cắm API thật vào Model seam.
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy demo trên, rồi in toàn bộ log sau hai turn: `for e in session.log: print(e["seq"], e["type"], e.get("payload"))`. Đọc từng row theo thứ tự — bạn đang nhìn execution record của hai turn: user message, markers, header, chunks, message, end reason.
+
+**Mức 2 — Tự sửa**: thêm giới hạn step mỗi turn. Cho `send()` nhận `max_steps=3`; `while self._step() is None` phải thoát nếu số step vượt mốc — append `step/end` với `reason="max-steps"` rồi `turn/end`, tương tự max_turns của bài nền tảng nhưng ở cấp step và ghi vào log. Test bằng một model seam luôn trả `None`.
+
+**Mức 3 — Mở rộng**: hai việc. Một — mô phỏng tool: cho model seam trả `("tool_call", {"name": "search", "query": "..."})` trước message cuối; sửa `_step` để append `tool/result` và trả `None` khi gặp tool call, thây cái arm `None` hoạt động — một turn ba step, counts `[1, 2, 2]` kiểu đấy. Hai — viết resume harness: dump `session.log` ra JSON (thaw `surface_op` và payload), load lại, chạy tiếp với Agent mới, assert các row mới byte-for-byte trùng với Agent cũ trên session gốc.
+
+### Tài liệu gốc
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo gốc của lộ trình; cơ chế trong bài là section 04, đối chiếu trực tiếp với `packages/core/agent-loop` của DeepSeek Harness thật (pinned `99f6f02`).
+- [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer) — bài trước: log, surface, `derive_messages()` và replace op mà loop này tiêu thụ mỗi step.
+- [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer) — bài kế tiếp: arm `None` của step được lấp, turn thành nhiều step thật.
+- [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) — agent loop 100 dòng, bản chất mà bài này đưa lên shape production.
+- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — tổng quan 8 bài của lộ trình.
+
+---
+
+### Bài 18. Tools và permission pipeline: quyết định call nào được phép chạy
+
+Bài trước, agent loop của bạn đã chạy được tool đầu tiên: model xuất call, code chạy, kết quả append vào context. Nhưng vẫn còn một khoảng trống to đùng nằm giữa model và code: ai quyết định call nào được phép chạy? Và khi quyết định là không — ai trả lời câu hỏi mà model vừa đặt ra?
+
+Bài này xây đúng lớp đó của Mini-dsh: một **scoped registry** quản lý tool theo phạm vi, và một **pipeline 5 giai đoạn** — pre → ask → guard → execute → post — quyết định số phận từng call. Nguyên tắc xuyên suốt chỉ có một: mọi call đều kết thúc bằng một `tool/result` bình thường, kể cả khi nó bị từ chối, sai tham số, hoặc tên không tồn tại. Nguồn là [tutorial learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness), section 05-tools — link đầy đủ ở cuối bài.
+
+### Tại sao call bị từ chối vẫn phải có câu trả lời
+
+Cách làm hiển nhiên cho tools là một dict hàm: tìm tên, gọi, append những gì nó trả về. Tên lạ? Raise. Tham số sai? Raise. Policy không cho? Raise trước khi gọi. Vấn đề: mỗi raise ấy đều nổ **giữa turn** — message assistant chứa call đã nằm trong log từ trước, exception làm `send()` unwind, và hội thoại giữ lại một câu hỏi không có ai trả lời.
+
+Ba đường dẫn lỗi khác nhau, cùng một hậu quả:
+
+- **Tên tool không tồn tại** — raise "unknown tool".
+- **Tham số sai** — raise khi unpack args.
+- **Policy chặn** — raise trước khi body chạy.
+
+> **Tại sao call bị từ chối hay lỗi vẫn phải trả về `tool/result` bình thường? Vì transcript là hợp đồng.** Model phải đọc được tín hiệu rõ ràng để tự sửa: im lặng là model tưởng lệnh đã chạy và tiếp tục dựa trên giả định sai, hoặc reissue lệnh đó vô hạn; raise là turn chết với một câu hỏi không có câu trả lời, và replay tái dựng đúng cái lỗ hổng đó. `{"is_error": true, "content": "denied: <lý do>"}` — cùng shape với kết quả thành công — là tín hiệu xấu nhưng rõ ràng: model đọc nó như một tool result bình thường rồi đổi hướng, hoặc tổng hợp câu trả lời từ dữ liệu đã có.
+
+Muốn giữ đúng hợp đồng đó, tools layer phải bảo đảm một điều duy nhất: **mọi lối ra qua cùng một cửa**. Một denial, một crash, tham số sai hay tên lạ đều rời pipeline bằng cùng một result dict `{call_id, name, is_error, content}`. Body tool là phần không đáng tin — nó có thể raise bất cứ lúc nào — nhưng pipeline thì không được.
+
+### Scoped registry: tool tồn tại theo phạm vi
+
+Trước khi chạy được, call phải resolve được tên. Registry của Mini-dsh không phải một dict phẳng mà là các layer:
+
+- Một layer **global** chứa tool dùng chung.
+- Mỗi agent scope có một layer riêng, **shadow** tên global: cùng tên thì layer scope thắng.
+- **Restriction** là danh sách tên được phép còn lại của một scope — và mọi restriction áp dụng cho scope phải **intersect**: một name chỉ visible khi nó nằm trong tất cả các restriction đó. Shadowing chỉ có thể thêm hoặc thay thế; restriction mới là thứ siết lại.
+
+Hai chi tiết thiết kế dễ bỏ sót:
+
+- **Tool bị restrict không phải bị "denied"** — nó đơn giản không tồn tại với scope đó. Gọi nó trả về `unknown tool`, một result bình thường như mọi result khác. Model không cần biết khái niệm permission để hiểu transcript của mình.
+- **Mọi đăng ký đều trả về undo.** `register`, `restrict`, `pre`, `guard`, `post` đều trả về một callable gỡ chính nó — đúng nguyên tắc reversible registration mà [kernel và plugin](/bai-viet/chuong-trinh-harness-engineer) đã chốt từ bài trước: plugin chết thì tool của plugin phải mất theo. Không có registration toàn cục không dọn được.
+
+Nhờ vậy `request/header` giờ ghi danh sách tool mỗi request được offer: log tự minh chứng scope nhìn thấy gì. Scope B bị restrict còn `["where"]` thì transcript của B chỉ thấy `where`, trong khi scope A vẫn thấy hết — và sự khác biệt ấy nằm ngay trong log, không cần đoán.
+
+### Pipeline 5 giai đoạn: pre → ask → guard → execute → post
+
+Pipeline là một cái phễu. Mỗi giai đoạn có quyền quay call lại, và mọi lối thoát đều cùng một cửa:
+
+```
+call {"id", "name", "args"}
+  │ resolve    tên lạ ──────────────────────────────────────┐
+  │ pre        vote allow / ask / deny, chỉ siết không nới ─┤
+  │ ask        không asker, không duyệt ─────────────────────┤
+  │ guard      lý do chặn (deny-only) ───────────────────────┤
+  │ execute    sai tham số, body raise ──────────────────────┤
+  ▼                                                           ▼
+{"is_error": false, "content"}           {"is_error": true, "content"}
+        └────────────────────┬───────────────────────────────┘
+                           post (review, có thể thay result)
+                             ▼
+                  một shape duy nhất, append làm tool/result
+```
+
+| Giai đoạn | Nhận gì | Làm gì | Câu trả lời khi từ chối |
+| --- | --- | --- | --- |
+| **pre** | call | Vote `allow` / `ask` / `deny` theo chính sách; vote chỉ siết, không nới | `denied before execution` |
+| **ask** | vote `ask` từ pre | Xin phép con người qua seam `asker`; không có asker = deny (fail closed) | `approval was asked and not given` |
+| **guard** | call đã qua chốt duyệt | Chặn theo quy tắc code — deny-only, không có quyền cho phép | `denied: <lý do>` |
+| **execute** | call qua hết chốt | Validate tham số (thiếu/thừa) rồi chạy body; body raise thì bắt lại | `invalid args: ...` hoặc `TypeError: ...` |
+| **post** | (call, result) | Review hậu xử lý — có thể thay result bằng result khác | đổi nội dung result, không sinh row mới |
+
+Ba quy tắc giữ pipeline không tự cãi nhau:
+
+1. **Vote chỉ siết**: `_RANK = {"allow": 0, "ask": 1, "deny": 2}` — hook sau không thể nới quyết định của hook trước. Nhiều chính sách cùng áp dụng thì đường nghiêm nhất thắng.
+2. **Ask fail closed**: mặc định cho phép biến một harness chưa cấu hình thành harness permissions nhất. Gate này phải tắt đúng hướng: `ask` mà không ai duyệt là `deny`.
+3. **Guard deny-only và đơn điệu**: bất kỳ guard nào cũng chỉ thu nhỏ những gì được chạy, nên thứ tự đăng ký không đổi kết quả. Guard có quyền approve sẽ ghi đè deny của guard khác tuỳ thứ tự — nên nó không được tồn tại.
+
+⚠️ Phân biệt hai lớp này trước khi nhầm: **guard là quy tắc code tự chặn** (cấm ghi file ngoài thư mục X), **ask là quyết định của con người** (xin duyệt trước khi chạy). Một call có thể qua guard mà vẫn cần ask, hoặc bị guard chặn cứng không cần hỏi ai.
+
+### Permission nằm ở harness, không nằm ở model
+
+Vì sao không ghi chính sách vào system prompt kiểu "đừng gọi tool nguy hiểm"? Vì model chỉ **đề xuất** call — nó có thể bị prompt injection đẩy sang gọi thứ không nên gọi. Chỉ harness — code thật sự chạy tool — mới có quyền nói không. Pipeline nằm trong registry của harness, không nằm trong prompt.
+
+Câu hỏi phân loại nhanh khi debug:
+
+| Triệu chứng | Sửa ở đâu | Lớp |
+| --- | --- | --- |
+| Model chọn sai tool, điền sai tham số | Tên, description, schema trong `ToolDefinition` | prompt |
+| Model muốn gọi thứ nguy hiểm | pre / guard / ask trong registry | code |
+| Tool chậm hoặc đụng state chung | khai báo an toàn + scheduler | code — bài kế |
+
+Nếu bạn đã đọc bài [Tool use và Routing](/bai-viet/kien-truc-ai-agent-cam-nang), đây là cùng một kết luận mở rộng thêm một tầng: schema và mô tả là prompt — model đọc để chọn đúng; registry và pipeline là code — harness dùng để chặn đúng. Model chọn sai tool thì sửa mô tả; model muốn chạy thứ nguy hiểm thì sửa pipeline. Hai công cụ, hai lớp, không thay thế nhau.
+
+### Code rút gọn, chạy được ngay
+
+Bản Mini-dsh đầy đủ nằm trong repo kèm test offline. Bản rút gọn dưới đây giữ đúng pipeline và scoped registry, chỉ dùng stdlib — lưu thành `pipeline.py`, chạy `python3 pipeline.py`, không cần API key:
+
+```python
+# pipeline.py — scoped registry + pipeline pre/ask/guard/execute/post
+# Chỉ stdlib: python3 pipeline.py chạy ngay, không cần API key.
+
+_RANK = {"allow": 0, "ask": 1, "deny": 2}
+
+
+class ToolRegistry:
+    """Layer tool theo scope, các hook chính sách, và pipeline 5 giai đoạn.
+
+    Mọi lối ra của execute() đều là result dict {call_id, name, is_error,
+    content}: deny, crash, sai tham số hay tên lạ không bao giờ raise qua
+    biên giới này, vì model phải đọc được một transcript trọn vẹn.
+    """
+
+    def __init__(self):
+        self._layers = {None: {}}  # scope None = global; scope khác = layer riêng
+        self._restrictions = []    # (scope, frozenset tên được phép còn lại)
+        self._pre = []             # call -> "allow" | "ask" | "deny" | None
+        self._guards = []          # call -> lý do chặn (string) | None
+        self._post = []            # (call, result) -> result thay thế | None
+        self.asker = None          # call -> bool; không có asker thì "ask" = deny
+
+    # -- đăng ký: mỗi hàm trả về một undo, registration luôn hồi được -----
+    def register(self, tool, scope=None):
+        layer = self._layers.setdefault(scope, {})
+        layer[tool["name"]] = tool
+        return lambda: layer.pop(tool["name"])
+
+    def restrict(self, names, scope=None):
+        entry = (scope, frozenset(names))
+        self._restrictions.append(entry)
+        return lambda: self._restrictions.remove(entry)
+
+    def pre(self, hook):
+        self._pre.append(hook)
+        return lambda: self._pre.remove(hook)
+
+    def guard(self, check):
+        self._guards.append(check)
+        return lambda: self._guards.remove(check)
+
+    def post(self, hook):
+        self._post.append(hook)
+        return lambda: self._post.remove(hook)
+
+    # -- resolution: layer scope shadow global, restriction intersect -----
+    def _visible(self, scope):
+        merged = dict(self._layers.get(None, {}))
+        merged.update(self._layers.get(scope, {}))
+        return {
+            name: tool
+            for name, tool in merged.items()
+            if all(
+                name in allowed
+                for for_scope, allowed in self._restrictions
+                if for_scope is None or for_scope == scope
+            )
+        }
+
+    # -- pipeline: pre -> ask -> guard -> execute -> post -----------------
+    def execute(self, call, scope=None):
+        return self._review(call, self._run(call, scope))
+
+    def _run(self, call, scope):
+        name = call["name"]
+        tool = self._visible(scope).get(name)
+        if tool is None:
+            return self._result(call, True, f"unknown tool '{name}'")
+        decision = "allow"
+        for hook in list(self._pre):
+            vote = hook(call)
+            if vote is not None and _RANK[vote] > _RANK[decision]:
+                decision = vote  # vote chỉ siết, không bao giờ nới
+        if decision == "deny":
+            return self._result(call, True, "denied before execution")
+        if decision == "ask":
+            approved = self.asker is not None and self.asker(call)
+            if not approved:
+                return self._result(call, True, "approval was asked and not given")
+        for check in list(self._guards):
+            reason = check(call)
+            if reason:
+                return self._result(call, True, f"denied: {reason}")
+        args = dict(call.get("args", {}))
+        missing = sorted(set(tool["params"]) - set(args))
+        unknown = sorted(set(args) - set(tool["params"]))
+        if missing or unknown:
+            return self._result(
+                call, True, f"invalid args: missing {missing}, unknown {unknown}"
+            )
+        try:
+            return self._result(call, False, str(tool["execute"](args)))
+        except Exception as exc:  # body có thể lỗi; pipeline thì không
+            return self._result(call, True, f"{type(exc).__name__}: {exc}")
+
+    def _review(self, call, result):
+        for hook in list(self._post):
+            result = hook(call, result) or result
+        return result
+
+    @staticmethod
+    def _result(call, is_error, content):
+        return {
+            "call_id": call.get("id"),
+            "name": call["name"],
+            "is_error": is_error,
+            "content": content,
+        }
+
+
+if __name__ == "__main__":
+    reg = ToolRegistry()
+
+    reg.register({
+        "name": "read_note",
+        "params": {"key": "khoá cần đọc"},
+        "execute": lambda a: {"wifi": "hunter2"}.get(a["key"], "không có ghi chú"),
+    })
+    reg.register({
+        "name": "write_note",
+        "params": {"key": "khoá cần ghi", "value": "nội dung"},
+        "execute": lambda a: f"đã ghi '{a['key']}'",
+    })
+    reg.register({
+        "name": "delete_all",
+        "params": {},
+        "execute": lambda a: "XOÁ TOÀN BỘ",  # sẽ không bao giờ được chạy tới
+    })
+
+    # Chính sách 1: ghi dữ liệu phải xin phép (pre vote "ask") — nhưng
+    # chưa cắm asker: ask mà không ai duyệt là deny, fail closed.
+    reg.pre(lambda c: "ask" if c["name"] == "write_note" else None)
+    # Chính sách 2: delete_all là tool phá hoại, guard chặn cứng.
+    reg.guard(lambda c: "delete_all chặn cứng" if c["name"] == "delete_all" else None)
+    # Post: review mọi result, kể cả result lỗi, gắn một nhãn cuối.
+    reg.post(lambda c, r: {**r, "content": r["content"] + " [đã review]"})
+
+    calls = [
+        {"id": "c1", "name": "read_note", "args": {"key": "wifi"}},
+        {"id": "c2", "name": "write_note", "args": {"key": "note", "value": "x"}},
+        {"id": "c3", "name": "delete_all", "args": {}},
+        {"id": "c4", "name": "read_note", "args": {"sai": 1}},
+        {"id": "c5", "name": "no_such_tool", "args": {}},
+    ]
+    for call in calls:
+        r = reg.execute(call)
+        print(f"{r['call_id']} {r['name']}: is_error={r['is_error']} -> {r['content']}")
+```
+
+Kết quả chạy thật — năm call, năm lối ra, một shape:
+
+> c1 read_note: is_error=False -> hunter2 [đã review]
+> c2 write_note: is_error=True -> approval was asked and not given [đã review]
+> c3 delete_all: is_error=True -> denied: delete_all chặn cứng [đã review]
+> c4 read_note: is_error=True -> invalid args: missing ['key'], unknown ['sai'] [đã review]
+> c5 no_such_tool: is_error=True -> unknown tool 'no_such_tool' [đã review]
+
+Cái vòng loop cắm pipeline vào đâu? Đúng vào socket mà [agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) để trống ở bài trước:
+
+```python
+def run_tool_arm(session, tools, reply):
+    """Rút gọn từ agent_loop.py: socket reason None của bài trước."""
+    for call in reply.tool_calls:
+        session.append("tool/call", call)      # log-only: ghi trước khi chạy
+        result = tools.execute(call)           # 5 giai đoạn, mọi lối ra là result
+        session.append("tool/result", result)  # surface: model đọc ở lượt derive kế
+    session.append("step/end", {"reason": None})
+    return None  # còn tool call chưa được trả lời: quay lại một step nữa
+```
+
+Hai loại row, hai vai trò: `tool/call` **log-only** — ghi trước khi dispatch để replay có thứ tự gọi; `tool/result` **surface** — append sau khi có kết quả để lượt derive kế model đọc được. Reply có calls thì step kết thúc với `reason: None` → quay lại một step nữa. Model nhận cả call và result như lịch sử thường, không có nhánh đặc biệt nào cho "lệnh bị từ chối".
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Raise khi bị deny → transcript rách | coi từ chối là lỗi ngôn ngữ | trả result `is_error: true` kèm lý do |
+| Bỏ qua call denied một cách im lặng | nghĩ "không chạy thì thôi" | model đợi hoặc reissue vô hạn — luôn phải trả lời |
+| `ask` mà default allow | muốn "tiện" khi chưa có UI duyệt | fail closed: không asker là deny |
+| Guard có nhánh approve | muốn linh hoạt hơn | deny-only, đơn điệu — thứ tự không đổi kết quả |
+| Body raise làm chết cả loop | thiếu try/except ở biên pipeline | bắt mọi exception trong `execute`, trả thành result |
+| Plugin chết mà tool còn nguyên | registration không undo | mọi đăng ký trả về undo, người đăng ký thu gom |
+| Scope chỉ nới không siết | chỉ shadow, không restrict | intersect mọi restriction áp dụng cho scope |
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy file trên, đọc kỹ 5 result. Rồi gắn `reg.asker = lambda call: True` và chạy lại — `write_note` giờ qua chốt ask. Mục đích: thấy seam `asker` là điểm duy nhất cần cắm UI duyệt thật vào.
+
+**Mức 2 — Tự sửa**: thêm một pre hook vote `deny` cho mọi tool có tên bắt đầu bằng `delete`, rồi kiểm chứng call bị pre-deny **không** chạm tới guard cũng không chạm tới body (thêm một biến đếm số lần body chạy). Mục đích: hiểu vote chỉ siết và pipeline dừng sớm ngay giai đoạn vi phạm.
+
+**Mức 3 — Mở rộng**: dựng `ToolScope` cho một subagent — register một layer riêng shadow tên global, rồi `restrict(["read_note"])` cho scope đó; gọi một tool bị restrict từ scope này và xác nhận trả về `unknown tool` như một result bình thường. Đây chính là tiền đề mà bài [capabilities và subagents](/bai-viet/chuong-trinh-harness-engineer) dựa vào khi subagent chỉ nhận một tập con tool của cha.
+
+### Tài liệu gốc
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — tutorial rebuild DeepSeek Harness từ số 0 bằng Python stdlib. Bài này từ **section 05-tools**: `src/tools.py` là registry + pipeline đầy đủ, `src/test.py` là check offline không cần API key — `python sections/05-tools/src/test.py`.
+- Trong real dsh (packages/core/tools): `ToolRuntime` là registry scoped layers; `tools/pre-execute` là waterfall trả `PreToolDecision = allow | deny | ask`; `ToolGuard` deny-only chạy sau approval; `tools/post-execute` là waterfall `accept | block` kèm enrichment; result thật cũng tách `isError: false | true` giống hệt Mini-dsh.
+- Docs của dsh: `docs/tool-execution-pipeline.md` (pipeline từng giai đoạn) và `docs/subsystems/scope.md` (scoped layers, shadowing, restrictions).
+
+Đọc tiếp trong series:
+
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — bài trước: vòng turn/step và socket `reason None` mà pipeline cắm vào.
+- [Scheduler song song và steering inbox](/bai-viet/chuong-trinh-harness-engineer) — bài kế: pipeline chạy thế nào khi model xuất 4 call một lượt, và nói chuyện với agent đang bận ra sao.
+- [Lộ trình: Xây dựng Agent Harness từ số 0](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ 8 bài của series.
+
+---
+
+### Bài 19. Session log và compaction: nhớ của agent mà không phình context
+
+Cùng một lượt hội thoại của agent được đọc theo ba cách khác nhau: model cần history sạch để gọi tiếp, việc lưu đĩa cần từng row kể cả streamed chunk, và compaction cần nén cái model nhìn thấy mà không mất dấu vết. Một list `messages` dùng chung không thể phục vụ cả ba — chunk làm bẩn nó, compaction phải sửa nó một cách phá hủy, và sau một crash bạn chỉ cầm được cái list đúng lúc đó, không cách nào dựng lại nó đã đi qua những gì.
+
+Harness production đi đường khác. Bài này mổ xẻ cơ chế đó từ Mini-dsh — bản rebuild nhỏ của DeepSeek Harness bằng Python thuần: append-only log, surface, và `derive_messages()`. Code chỉ dùng stdlib, chạy được ngay, không cần API key.
+
+> **Design question: tại sao derive history từ log thay vì lưu message list trực tiếp?**
+>
+> Vì một list message là trạng thái đã *hình thành*: không ghi lại cách nó được tạo ra, không biết ai đổi gì, và không chỉnh được mà không phá hủy. Log ghi **mọi sự kiện xảy ra** một lần duy nhất, append-only; lịch sử model chỉ là một *surface* — danh sách các row được chọn để chiếu thành message. Compaction, replay, audit: tất cả chỉ là cách derive khác trên cùng một dữ liệu gốc.
+
+### Append-only log: ghi một lần, đọc ba cách
+
+Một turn của agent sinh ra nhiều hơn message: streamed chunk, tool call và kết quả, turn marker, request header. Toàn bộ trở thành event.
+
+Event có shape `{seq, type, payload}` — và quan trọng nhất: **seq của event chính là index của nó trong log, mãi mãi**. Không event nào bị sửa, bị xóa, bị đẩy chỗ khác. Mọi thứ trỏ về seq — surface, event feed, dữ liệu đã lưu đĩa — nên thứ tự này là hằng số của toàn hệ thống.
+
+Ba thành phần chuyển động:
+
+- **Log**: list append-only của frozen events.
+- **Surface**: list các seq có thứ tự, được duy trì lúc append — đúng và chỉ đúng 3 event type sinh message: `user/message`, `assistant/message`, `tool/result`.
+- **`derive_messages()`**: chiếu surface thành `Message` objects, tính lại mỗi lần gọi. Không lưu đâu cả.
+
+Việc append là phép ghi duy nhất, và nó làm hết phần canh gác:
+
+```python
+# session_log.py — rút gọn từ Mini-dsh section 02, chỉ stdlib
+import json
+from dataclasses import dataclass
+from types import MappingProxyType
+
+
+@dataclass(frozen=True)
+class Message:
+    role: str  # "user" | "assistant" | "tool"
+    content: str
+
+
+# Ba event type duy nhất model nhìn thấy. Mọi thứ khác
+# (assistant/chunk, turn marker, header) chỉ nằm trong log.
+SURFACE_TYPES = {
+    "user/message": "user",
+    "assistant/message": "assistant",
+    "tool/result": "tool",
+}
+
+
+def _freeze(value):
+    """Đóng băng đệ quy: dict -> MappingProxyType, list -> tuple."""
+    if isinstance(value, dict):
+        return MappingProxyType({k: _freeze(v) for k, v in value.items()})
+    if isinstance(value, list):
+        return tuple(_freeze(v) for v in value)
+    return value
+
+
+class Session:
+    """Append-only log của frozen events, cộng surface chiếu trên nó."""
+
+    def __init__(self, session_id, on_event=None):
+        self.id = session_id
+        self.log = []      # frozen events; seq của event chính là index, mãi mãi
+        self.surface = []  # các seq của event sinh message, theo thứ tự hội thoại
+        self._on_event = on_event
+
+    def append(self, event_type, payload):
+        # Validate-and-copy tại biên: payload phải là JSON thuần,
+        # log giữ bản sao riêng nên không caller nào sửa được history.
+        payload = json.loads(json.dumps(payload))
+        seq = len(self.log)
+        event = _freeze({"seq": seq, "type": event_type, "payload": payload})
+        self.log.append(event)
+        if event_type in SURFACE_TYPES:
+            self.surface.append(seq)
+        if self._on_event is not None:
+            self._on_event(self, event)
+        return event
+
+    def derive_messages(self):
+        """Chiếu surface thành history của model. Không lưu, luôn derive."""
+        return [
+            Message(role=SURFACE_TYPES[e["type"]], content=e["payload"]["content"])
+            for e in (self.log[seq] for seq in self.surface)
+        ]
+```
+
+Hai chi tiết nhỏ mà giữ toàn bộ đảm bảo:
+
+- `json.loads(json.dumps(payload))` — validate-and-copy tại biên. Payload không phải JSON thuần sẽ raise; payload hợp lệ được **sao chép**, nên caller đổi object gốc sau đó cũng không ảnh hưởng gì log.
+- `_freeze` đóng băng đệ quy: dict thành `MappingProxyType`, list thành tuple. Event sau khi vào log không thể bị sửa — cố gắng gán là `TypeError`.
+
+Trên kernel của bài trước, session log được mount như một service thông qua plugin: `ctx.provide("sessions", SessionStore(ctx))`. Mount được thì gỡ được — một `dispose()` là sạch.
+
+### Lưu message list trực tiếp vs derive từ log
+
+| Tiêu chí | Lưu message list trực tiếp | Derive từ log |
+| --- | --- | --- |
+| Streamed chunk | Làm bẩn list hoặc phải bỏ đi — mất dấu vết | Là event thật trong log, replay được; model không thấy vì không phải surface type |
+| Compaction | Phải sửa list tại chỗ — phá hủy, mất dữ liệu gốc | Chỉ đổi cách derive; log giữ nguyên mọi row |
+| Crash | Còn lại gì dùng nấy, không dựng lại được | Replay log từ đầu, dựng lại chính xác |
+| Audit "model đã thấy gì" | Phỏng đoán — list đã đổi nhiều lần | Derive lại bất kỳ lúc nào, từ cùng một log |
+| Sự thật nằm ở đâu | Trải trong list và trong đầu caller | Một chỗ duy nhất: log. Mọi thứ khác là projection |
+| Cost mỗi step | Đọc list có sẵn | Tính lại projection — rẻ, chỉ là duyệt surface |
+
+Cột phải đắt thêm một phép duyệt list seq mỗi step — chi phí không đáng kể so với cái mua được: không có state nào cần giữ đồng bộ.
+
+### Liên hệ context engineering
+
+Bài [Memory và Context Engineering](/bai-viet/kien-truc-ai-agent-cam-nang) đã nói compaction ở tầng kỹ thuật: nén lịch sử cũ thành tóm tắt trước khi hết window, kèm nguyên tắc *own your context window*. Mini-dsh đưa nguyên tắc đó xuống tầng dữ liệu: compaction ở đây là một **cơ chế của harness**, không phải một hàm tiện ích gọi trước khi gửi request.
+
+Điểm khác then chốt: bản compaction kiểu context engineering **thay thế** list cũ bằng list mới — dữ liệu chi tiết biến mất khỏi hệ thống. Trong session log, cái bị thay chỉ là projection. Cái log giữ: mọi message gốc, mọi chunk, mọi marker. Khi tóm tắt viết sai — mất con số, gộp nhầm hai yêu cầu — dữ liệu gốc vẫn còn để kiểm tra và để replay. ⚠️ Trách nhiệm về chất lượng tóm tắt vẫn như cũ: instruction tóm tắt phải ghi rõ giữ nguyên con số và tên riêng; không cơ chế nào cứu được một summary kém.
+
+### Compaction: replace op trên surface
+
+Câu hỏi tưởng khó: log append-only thì compaction lấy cái gì đi? Câu trả lời nằm trong thiết kế: **model không bao giờ đọc log.** Model đọc message derive từ surface — và surface chỉ là một list seq. Nén view = sửa surface, không phải sửa log.
+
+Cụ thể: mỗi append mang một **surface op**. Không truyền → mặc định theo type (`"append"` cho 3 surface type, `None` cho phần còn lại). Truyền tường minh → dạng `{"op": "replace", "start": s, "end": e}`: event mới che một run surface entry có seq nằm trong khoảng nửa đóng `[start, end)`.
+
+Hai phương thức thay thế trong `Session` — toàn bộ phần diff so với code trên:
+
+```python
+def append(self, event_type, payload, surface_op=None):
+    payload = json.loads(json.dumps(payload))
+    if surface_op is None and event_type in SURFACE_TYPES:
+        surface_op = "append"
+    seq = len(self.log)
+    # Validate transition TRƯỚC khi commit: op hỏng thì cả log lẫn
+    # surface phải nguyên vẹn — không có row ghi một op chưa từng chạy.
+    surface = self._surface_after(event_type, seq, surface_op)
+    event = _freeze(
+        {"seq": seq, "type": event_type, "payload": payload, "surface_op": surface_op}
+    )
+    self.log.append(event)
+    self.surface = surface
+    if self._on_event is not None:
+        self._on_event(self, event)
+    return event
+
+
+def _surface_after(self, event_type, seq, surface_op):
+    """Surface sẽ trông thế nào sau khi append này commit. Raise nếu op hỏng."""
+    if surface_op is None:
+        return self.surface
+    if event_type not in SURFACE_TYPES:
+        raise ValueError(f"'{event_type}' không derive message; không thể lên surface")
+    if surface_op == "append":
+        return self.surface + [seq]
+    if not isinstance(surface_op, dict) or surface_op.get("op") != "replace":
+        raise ValueError(f"surface op không rõ: {surface_op!r}")
+    # {"op": "replace", "start": s, "end": e}: nửa đóng [start, end)
+    start, end = surface_op["start"], surface_op["end"]
+    covered = [i for i, s in enumerate(self.surface) if start <= s < end]
+    if not covered:
+        raise ValueError(f"replace [{start}, {end}) không phủ surface entry nào")
+    if covered != list(range(covered[0], covered[-1] + 1)):
+        raise ValueError(f"replace [{start}, {end}) phủ một run surface không liền kề")
+    return self.surface[: covered[0]] + [seq] + self.surface[covered[-1] + 1 :]
+```
+
+Ba quy ước làm cái replace op này đứng vững:
+
+- **Validate rồi mới commit.** `_surface_after()` chạy trước `self.log.append`. Op bị từ chối raise ra ngoài với log và surface y nguyên — không để lại row ghi một op chưa từng có hiệu lực (sai chỗ này là replay dựng ra surface khác với surface đang chạy).
+- **Op nằm trên record.** Mỗi event mang `surface_op` của mình, đóng băng cùng event. Surface vì thế là hàm thuần của log: append lại toàn bộ log là dựng lại đúng surface. Đây là điều kiện để log đơn lẻ kể được cả câu chuyện.
+- **Sự thay thế phải tự là message.** Chỉ surface type được phép mang op — `assistant/chunk` mang replace op bị từ chối. Cái đặt vào chỗ của message phải là message.
+
+Và một quirk đáng nhìn kỹ: sau compaction, surface **không còn sort theo seq**. Nó là thứ tự hội thoại, không phải thứ tự log:
+
+```
+log      0:user   1:chunk  2:assistant  3:tool  4:user  5:assistant
+surface  [0, 2, 3, 4, 5]
+
+append("user/message", {"content": "Summary: ..."},
+       surface_op={"op": "replace", "start": 0, "end": 4})
+
+log      0:user  1:chunk  2:assistant  3:tool  4:user  5:assistant  6:user
+surface  [6, 4, 5]
+
+derive_messages() ──► "Summary: ..."   "and now?"   "Now this."
+```
+
+Summary (seq 6, mới nhất trong log) đứng **trước** các seq cũ trong surface — vì model đọc theo trình tự hội thoại. Đây cũng là lý do replace bị từ chối khi khoảng seq phủ một run có lỗ hổng: range `[5, 7)` trên surface `[6, 4, 5]` lấy được seq 6 và 5 nhưng bỏ sót 4 — commit nó là cắt summary đè lên những message nó không hề phủ.
+
+### Chạy được ngay
+
+Lưu phần code trên vào một file, thêm demo này vào cuối rồi chạy `python3 session_demo.py` — không key, không network:
+
+```python
+model_text = "Xin chào, mình đã đọc dữ liệu."
+
+session = Session("demo")
+session.append("user/message", {"content": "tổng hợp số liệu Q3"})   # seq 0
+for i in range(0, len(model_text), 10):                              # streaming thật
+    session.append("assistant/chunk", {"text": model_text[i:i+10]})
+session.append("assistant/message", {"content": model_text})          # seq 2
+session.append("tool/result", {"content": "42"})                      # seq 3
+
+print("surface:", session.surface)              # [0, 4, 5] — chunk không lên surface
+for m in session.derive_messages():
+    print("  ", m.role, "→", m.content)
+
+# Compaction: một append thường, mang replace op [0, 6) — nén mọi message
+# trông thấy (seq 0, 4, 5), dù chunk row ở giữa chỉ nằm trong log
+session.append(
+    "user/message",
+    {"content": "Summary: người dùng hỏi Q3; tool trả 42."},
+    surface_op={"op": "replace", "start": 0, "end": 6},
+)
+print("log:", len(session.log), "events — không xóa row nào")
+for m in session.derive_messages():
+    print("  ", m.role, "→", m.content)         # chỉ còn summary
+```
+
+Kết quả: trước compaction model thấy 3 message (`user → assistant → tool`); sau compaction chỉ còn summary. Log tăng từ 6 lên 7 events, row seq 0 vẫn nằm nguyên tại chỗ với payload `"tổng hợp số liệu Q3"`.
+
+### Failure modes
+
+Năm lỗi thiết kế nguồn đã chỉ đích danh, chuyển thẳng sang đây:
+
+- **Event sinh message mà surface bỏ sót là vô hình.** Thêm event type mới muốn model thấy mà quên đăng ký vào `SURFACE_TYPES` — `derive_messages()` âm thầm bỏ qua nó, không báo lỗi. Real dsh tập trung mapping vào một chỗ (`deriveEventMessage`) vì cùng lý do.
+- **Subscriber ném exception chặn append.** Feed `session/event` là synchronous: một listener hỏng raise xuyên qua `append()` làm kẹt cả log. Persistence coordinator của real dsh bọc exception theo từng listener vì vậy.
+- **Validate-and-copy là JSON-shaped, không phải meaning-shaped.** Round trip `json` lặng lẽ biến tuple thành list và chấp nhận `NaN`. Payload đi qua được là đảm bảo là dữ liệu thuần — không đảm bảo là dữ liệu bạn muốn.
+- **Seq reference khiến cắt log tại chỗ bất khả thi — chủ đích.** Surface, feed, dữ liệu đã lưu đều trỏ seq. Xóa hay xếp lại row là phá tất cả; "xóa" chỉ được phép thực hiện như thay đổi projection, không bao giờ là phẫu thuật log.
+- **State ngoài log sẽ không replay được.** Bất kỳ consumer nào cache message list hay giữ aggregate mutable đều lệch ngay khi history được derive lại. Log chỉ là sự thật durable duy nhất nếu mọi ghi đều đi qua `append()`.
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| `ValueError: replace [s, e) không phủ surface entry nào` | Khoảng đó đã bị replace trước đó, hoặc start/end tính sai | Tính range từ surface hiện tại, không cache seq đã bị thay |
+| Summary nằm cạnh message nó nói đã thay | `end` là nửa đóng — off-by-one | `[0, 4)` thay seq 0–3 và giữ seq 4. `end` = seq cuối muốn nén + 1 |
+| `ValueError: ... run không liền kề` | Sau compaction surface không sort theo seq; range seq lấy hụt entry nằm giữa | Replace phải phủ một run liền của surface theo thứ tự hội thoại, không phải range seq nào cũng được |
+| `TypeError` khi sửa event trong log | Event đã frozen (`MappingProxyType`/tuple) | Không sửa log. Muốn đổi view → append một replace op |
+| Event type mới biến mất khỏi `derive_messages()` | Không đăng ký vào `SURFACE_TYPES` | Mỗi type muốn model thấy phải vào `SURFACE_TYPES`; type log-only thì để ngoài một cách chủ ý |
+
+> 📍 Bài này là bài 3 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — rebuild DeepSeek Harness bằng Python stdlib, mỗi cơ chế một bài. Toàn bộ source nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness), check offline không cần API key.
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy demo trên, rồi thêm event type mới `turn/start` (payload rỗng) bằng `session.append("turn/start", {})`. Chứng minh `derive_messages()` không đổi — type ngoài `SURFACE_TYPES` là log-only. Mục đích: thấy ranh giới log/surface là code, không phải quy ước.
+
+**Mức 2 — Tự sửa**: viết helper `compact_recent(session, keep_recent=2)` tự tính `start`/`end` từ surface hiện tại để nén mọi message trừ 2 lượt gần nhất, rồi gọi replace op. Cẩn thận hai cái bẫy: run phải liền kề và `end` là nửa đóng. Test trên hội thoại 8 lượt — kiểm tra derive sau khi nén đúng còn `keep_recent` message cộng summary.
+
+**Mức 3 — Mở rộng**: viết `replay(session)` — dựng Session mới bằng cách append lại từng event của log cũ (cần `thaw` payload và `surface_op` về JSON thuần trước), assert surface và `derive_messages()` của hai session identical. Sau đó thêm compaction thứ hai phủ cả summary cũ — thấy log vẫn giữ nguyên row đầu tiên "tổng hợp số liệu Q3".
+
+### Tài liệu gốc
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo gốc của lộ trình Mini-dsh; cơ chế trong bài là section 02 và 03, kèm đối chiếu từng file với DeepSeek Harness thật (pinned `99f6f02`).
+- [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer) — nền tảng trước đó: session log được mount như service `sessions` trên kernel này.
+- [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/chuong-trinh-harness-engineer) — bài kế tiếp: loop nào tiêu thụ cái log này mỗi step.
+- [Memory và Context Engineering](/bai-viet/kien-truc-ai-agent-cam-nang) — compaction nhìn từ tầng kỹ thuật context, và nguyên tắc own your context window.
+- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — tổng quan 8 bài của lộ trình.
+
+---
+
+### Bài 20. Scheduler song song và steering inbox: chạy nhanh mà không giẫm chân
+
+Bài trước, pipeline permission đã chốt được call nào được phép chạy. Nhưng còn một giả định ngầm phải bỏ: mỗi reply chỉ gom một call. Thực tế model được bảo "đọc ba ghi chú" sẽ xin cả ba trong một lượt — và vòng for tuần tự biến ba giây đọc thành ba giây chờ. Bài này xử lý hai vấn đề nằm cạnh nhau trong Mini-dsh: **chạy nhanh** (scheduler 4 giai đoạn) và **nói chuyện với agent trong khi nó đang bận** (steering inbox). Cả hai chung một ràng buộc từ các bài trước: nhanh cỡ nào cũng không được phá hợp đồng transcript. Nguồn là [tutorial learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness), section 06-scheduler và 07-inbox — link đầy đủ ở cuối bài.
+
+### Câu hỏi thiết kế của scheduler
+
+> **Tại sao parallel-safe được chạy chồng nhau, exclusive tạo barrier, còn call chưa kịp chạy nhận synthetic result khi hủy?** Vì concurrency chỉ được phép trả giá bằng thời gian, không được trả bằng transcript: cùng một turn phải sinh cùng một thứ tự sự kiện mỗi lần chạy để replay tái dựng được, và mọi call đã ghi `tool/call` phải có `tool/result` — kể cả call chưa từng được dispatch.
+
+Sáu ràng buộc scheduler phải giữ:
+
+1. **Log trước, chạy sau** — hàng `tool/call` append đủ trước khi dispatch bất kỳ gì.
+2. **An toàn là khai báo** — tool tự nhận `is_concurrency_safe`; mặc định exclusive, vì chỉ tác giả biết body đụng vào state gì.
+3. **Chỉ chồng trong batch** — call safe liên tiếp gom một batch; exclusive là batch một phần tử, một barrier.
+4. **Không bỏ rơi work đã chạy** — cancel chỉ hiệu lực giữa các batch; body đã dispatch chạy đến cùng.
+5. **Call bị bỏ qua vẫn được trả lời** — synthetic result, vì replay phải tái dựng transcript không lủng.
+6. **Một writer duy nhất** — chỉ thread loop append log; worker chỉ tính result và trả về.
+
+### Scheduler 4 giai đoạn: prepare → dispatch → finalize → finish
+
+Bản rút gọn giữ đúng 4 giai đoạn và quy tắc gom batch, chỉ dùng stdlib:
+
+```python
+# scheduler.py — 4 giai đoạn: prepare, dispatch, finalize, finish
+# Chỉ stdlib: chạy ngay, không cần API key.
+from concurrent.futures import ThreadPoolExecutor
+
+ABORTED_BEFORE_DISPATCH = "aborted before dispatch"
+
+
+def execute_tool_calls(session, tools, calls, aborted):
+    """Đưa calls của một reply qua 4 giai đoạn; log luôn theo thứ tự model."""
+    # prepare: mỗi call một hàng tool/call (log-only) + verdict an toàn
+    plan = [(i, call, tools.is_safe(call)) for i, call in enumerate(calls)]
+    for _i, call, _safe in plan:
+        session.append("tool/call", call)
+    outcomes = {}  # index -> result, đầy dần theo từng batch finalize
+    with ThreadPoolExecutor(max_workers=max(1, len(plan))) as pool:
+        for batch in _batches(plan):
+            # dispatch: batch mới chỉ bắt đầu khi turn chưa bị hủy
+            if aborted.is_set():
+                break
+            futures = [
+                (i, pool.submit(tools.execute, call))
+                for i, call, _safe in batch
+            ]
+            # finalize: barrier — work đã chạy không bị bỏ rơi
+            for i, future in futures:
+                outcomes[i] = future.result()
+    # finish: một tool/result mỗi call, thứ tự model; bị skip vẫn được trả lời
+    for i, call, _safe in plan:
+        if i not in outcomes:
+            outcomes[i] = {
+                "call_id": call["id"],
+                "name": call["name"],
+                "is_error": True,
+                "content": ABORTED_BEFORE_DISPATCH,
+            }
+        session.append("tool/result", outcomes[i])
+
+
+def _batches(plan):
+    """Call safe liên tiếp gom một batch; exclusive là batch một phần tử."""
+    safe_run = []
+    for entry in plan:
+        if entry[2]:  # safe
+            safe_run.append(entry)
+            continue
+        if safe_run:
+            yield safe_run
+            safe_run = []
+        yield [entry]  # exclusive: barrier hai bên
+    if safe_run:
+        yield safe_run
+```
+
+Timeline cho một reply bốn call:
+
+```
+reply: a (safe)   b (safe)   c (exclusive)   d (safe)
+
+prepare   tool/call a, b, c, d   ◄ đủ 4 hàng, thứ tự model, chưa chạy gì
+dispatch  batch [a b]    a ═════╗
+                         b ═════╬═╗   safe: chạy chồng nhau
+finalize                 ── barrier ─┘
+dispatch  batch [c]      c ═════╗      exclusive: batch một phần tử
+finalize                 ── barrier
+dispatch  batch [d]      d ═══╗
+finalize                 ── barrier
+finish    tool/result a, b, c, d ◄ thứ tự model, dù b xong trước a
+```
+
+| Giai đoạn | Làm gì |
+| --- | --- |
+| **prepare** | Mỗi call một hàng `tool/call` (log-only) + verdict an toàn từ `is_safe()`; tên lạ tính exclusive |
+| **dispatch** | Batch lên worker thread; trước mỗi batch hỏi một câu: turn đã bị hủy chưa? Có thì ngừng dispatch |
+| **finalize** | Barrier — chờ cả batch xong; work đã chạy không bị bỏ rơi, kể cả sau cancel |
+| **finish** | Một `tool/result` mỗi call, theo thứ tự model; call chưa dispatch nhận synthetic result |
+
+Demo đo được trên đồng hồ — 2 đọc song song + 1 save exclusive, kèm một kịch bản hủy:
+
+```python
+if __name__ == "__main__":
+    import threading
+    import time
+
+    class Log:
+        def __init__(self):
+            self.rows = []
+
+        def append(self, kind, payload):
+            self.rows.append((kind, payload))
+
+    def _ok(call, content):
+        return {"call_id": call["id"], "name": call["name"],
+                "is_error": False, "content": content}
+
+    # ---- 1. Overlap và barrier: 2 đọc song song + 1 save exclusive ----
+    class Tools:
+        def is_safe(self, call):
+            return call["name"] != "save"  # mặc định exclusive nếu không khai
+
+        def execute(self, call):
+            if call["name"] == "read":
+                time.sleep(0.4)
+                return _ok(call, "nội dung ghi chú")
+            time.sleep(0.4)
+            return _ok(call, "đã ghi file")
+
+    calls = [
+        {"id": "c1", "name": "read", "args": {}},
+        {"id": "c2", "name": "read", "args": {}},
+        {"id": "c3", "name": "save", "args": {}},
+    ]
+    log = Log()
+    t0 = time.perf_counter()
+    execute_tool_calls(log, Tools(), calls, threading.Event())
+    print(f"2 đọc + 1 save: {time.perf_counter() - t0:.2f}s (tuần tự sẽ là 1.20s)")
+    for kind, payload in log.rows:
+        print(kind, payload["name"])
+
+    # ---- 2. Cancel: call chưa dispatch nhận synthetic result ----
+    ev = threading.Event()
+
+    class Tools2:
+        def is_safe(self, call):
+            return call["name"] != "late"  # late exclusive => batch riêng
+
+        def execute(self, call):
+            if call["name"] == "stop":
+                ev.set()  # hủy từ trong body, chạy trên worker thread
+                time.sleep(0.2)
+                return _ok(call, "stopping")
+            time.sleep(0.4)
+            return _ok(call, "đã dispatch nên chạy hết")
+
+    calls2 = [
+        {"id": "c1", "name": "stop", "args": {}},
+        {"id": "c2", "name": "sibling", "args": {}},
+        {"id": "c3", "name": "late", "args": {}},
+    ]
+    log2 = Log()
+    execute_tool_calls(log2, Tools2(), calls2, ev)
+    for kind, payload in log2.rows:
+        print(kind, payload["name"], payload.get("content", ""))
+```
+
+Kết quả chạy thật:
+
+> 2 đọc + 1 save: 0.81s (tuần tự sẽ là 1.20s)
+> tool/call read
+> tool/call read
+> tool/call save
+> tool/result read
+> tool/result read
+> tool/result save
+> tool/call stop
+> tool/call sibling
+> tool/call late
+> tool/result stop stopping
+> tool/result sibling đã dispatch nên chạy hết
+> tool/result late aborted before dispatch
+
+Đọc kết quả: hai `read` chạy chồng nhau nên tổng thời gian xấp xỉ 0.8s chứ không phải 1.2s — concurrency rút ngắn thời gian thật. Nhưng thứ tự log không đổi: đủ 3 hàng `tool/call` trước bất kỳ `tool/result` nào, và results ra theo đúng thứ tự model. Trong kịch bản hủy, `sibling` đã được dispatch nên chạy đến cùng; `late` đứng sau barrier, chưa kịp chạy, và vẫn được trả lời bằng synthetic result — [pipeline permission của bài trước](/bai-viet/chuong-trinh-harness-engineer) không hề bị động vào: mọi call có câu trả lời như bình thường.
+
+### Ba khái niệm đặt cạnh nhau
+
+| Khái niệm | Nghĩa là gì | Ai quyết định | Hệ quả trên log |
+| --- | --- | --- | --- |
+| **parallel-safe** | body không đụng state chung, chồng được | tác giả tool khai `is_concurrency_safe: True` | call safe liên tiếp gom một batch |
+| **exclusive** | phải chạy một mình | mặc định — không khai là exclusive | batch một phần tử = barrier hai bên |
+| **synthetic result** | câu trả lời cho call chưa kịp dispatch | scheduler sinh khi turn bị hủy | `tool/result` với `is_error: true` và "aborted before dispatch" |
+
+Một chi tiết đáng chú ý: verdict an toàn được chốt ngay ở prepare. Tool bị unload giữa chừng vẫn giữ slot của nó — body đã chạy hoặc result nói ra chuyện gì xảy ra. Re-resolve giữa chừng nghĩa là plan có thể đổi dưới barrier — điều pipeline dùng để nói "call này không được chạy" thì scheduler không cho phép xảy ra ngược lại.
+
+### Steering inbox: input không được gửi thẳng vào log
+
+Scheduler giải quyết tốc độ; nhưng agent chạy nhanh tạo ra vấn đề mới. Người xem tool results stream qua muốn đổi hướng ngay, không đợi machine rảnh. Cách làm hiển nhiên — append text đến thẳng vào log thành `user/message` — phá transcript theo hai đường:
+
+- Request đang bay đã derive history rồi: hàng mới khẳng định model đọc những từ nó chưa từng nhận, và replay tái dựng một request không hề được gửi.
+- Sender thường là tool body trên worker thread — và bài trước vừa chốt log single-writer, worker không được append.
+
+> **Tại sao cần 2 inbox target, và tại sao message chỉ được claim ở step boundary?** Vì input phải được **route, không được apply**, và routing phải mang ý định của người gửi. Text đến nằm trong pending list — insert có lock, hợp lệ từ thread nào cũng được, không sinh log row. Pending chỉ biến thành hàng `user/message` ở step boundary — chính là nơi request kế được re-derive từ log, nên transcript không bao giờ khẳng định model thấy điều nó không thấy. Hai target cho hai ý định: một prompt đáng có turn riêng (`next-turn`) khác một dòng steer cho việc đang chạy dở (`next-step`) — chỉ người gửi mới biết đó là cái nào.
+
+Ba preset của `send()` — chỉ khác target và wakeup:
+
+```python
+# Ba preset của send() — rút gọn từ agent_loop.py, chỉ khác target và wakeup
+def followup(self, text):
+    self.send(text, "next-turn", True)   # prompt riêng, đáng có một turn
+
+
+def steer(self, text):
+    self.send(text, "next-step", True)   # input cho việc đang chạy dở
+
+
+def inject(self, text):
+    self.send(text, "next-step", False)  # đỗ context cho step sau, không đánh thức
+```
+
+Claim ở boundary — đúng chỗ request kế được re-derive:
+
+```python
+def claim_at_boundary(session, inbox, target):
+    """Đúng chỗ request kế được re-derive: claim biến pending thành log row."""
+    session.append("step/start", {})
+    for message in inbox.claim(target):
+        session.append("user/message", message)
+    messages = session.derive_messages()  # re-derive, không cache
+```
+
+Vòng turn — turn không đóng sớm khi có steering mới:
+
+```python
+def _turn(self):
+    self.session.append("turn/start", {})
+    target = "next-turn"  # chỉ step đầu của turn mới tiêu thụ một prompt
+    while True:
+        reason = self._step(target)
+        target = "next-step"
+        if reason == "aborted":
+            break  # cancel: inbox đã bị dọn trước đó
+        if reason is not None and not self.inbox.has("next-step"):
+            break  # steering mới đổ vào: đi thêm một step, cùng turn
+    self.session.append("turn/end", {})
+```
+
+Claim đồ — insert từ thread nào cũng được, claim chỉ ở boundary:
+
+```
+insert: thread nào cũng được, lúc nào cũng được    claim: loop thread, chỉ ở boundary
+
+steer("s")     → next-step [s]        mỗi step:   ăn toàn bộ next-step
+followup("B")  → next-turn [B]        mở turn:    thêm đúng 1 prompt
+
+turn A   step1             step2             step3
+         claim [A, s]      claim []          claim []
+         model gọi tool    model trả lời     completed, next-step rỗng
+              ▲                             → turn đóng
+              s được steer giữa step: đợi ở inbox
+turn B   step1 claim [B]                   1 prompt = 1 turn
+```
+
+### next-turn vs next-step
+
+| | **next-turn** | **next-step** |
+| --- | --- | --- |
+| Ý định của người gửi | prompt đáng có một turn riêng | input cho công việc đang chạy dở |
+| Gửi lúc nào | user hỏi follow-up khi agent đang bận | user steer, tool body nộp kết quả, `inject()` đỗ context |
+| Claim ở boundary nào | chỉ boundary mở turn — đúng 1 tin | mọi boundary — toàn bộ hàng đợi |
+| Hệ quả trên transcript | 3 prompt xếp hàng = 3 turn, không merge | turn không đóng sớm: steering mới ăn thêm một step |
+
+Code inbox và demo claim:
+
+```python
+# inbox.py — route, không apply: insert từ thread nào cũng được, claim ở boundary
+import threading
+
+TARGETS = ("next-turn", "next-step")
+
+
+class Inbox:
+    """Hai pending list sau một lock; insert từ thread nào cũng được,
+    claim chỉ từ loop thread ở step boundary."""
+
+    def __init__(self):
+        self._lock = threading.Lock()  # tool body insert từ worker thread
+        self._pending = {t: [] for t in TARGETS}
+
+    def insert(self, target, message):
+        """File một message theo target. Không log row: được route, không apply."""
+        if target not in TARGETS:
+            raise ValueError(f"unknown inbox target: {target!r}")
+        with self._lock:
+            self._pending[target].append(message)
+
+    def claim(self, target):
+        """Toàn bộ next-step; nếu boundary này mở turn thì thêm đúng 1 prompt."""
+        with self._lock:
+            claimed = self._pending["next-step"]
+            self._pending["next-step"] = []
+            if target == "next-turn" and self._pending["next-turn"]:
+                claimed.append(self._pending["next-turn"].pop(0))
+            return claimed
+
+    def has(self, target):
+        with self._lock:
+            return bool(self._pending[target])
+
+    def clear(self):
+        """Dọn toàn bộ pending: next-step trước, next-turn sau."""
+        with self._lock:
+            self._pending["next-step"] = []
+            self._pending["next-turn"] = []
+
+
+if __name__ == "__main__":
+    box = Inbox()
+    # Ba nguồn gửi lúc machine đang bận — insert là thread-safe, không đụng log
+    box.insert("next-step", "steer: kiểm tra thêm ngày tháng")
+    box.insert("next-turn", "followup: tóm tắt lại")
+    box.insert("next-turn", "followup: chào tạm biệt")
+
+    print("turn A step 1 (mở turn):", box.claim("next-turn"))
+    print("turn A step 2:", box.claim("next-step"))
+    print("turn A step 3:", box.claim("next-step"))
+    print("turn B step 1 (mở turn):", box.claim("next-turn"))
+    print("turn C step 1 (mở turn):", box.claim("next-turn"))
+```
+
+Kết quả chạy thật:
+
+> turn A step 1 (mở turn): ['steer: kiểm tra thêm ngày tháng', 'followup: tóm tắt lại']
+> turn A step 2: []
+> turn A step 3: []
+> turn B step 1 (mở turn): ['followup: chào tạm biệt']
+> turn C step 1 (mở turn): []
+
+Đọc kết quả: boundary mở turn ăn toàn bộ `next-step` **cộng đúng một** `next-turn` prompt — hai followup xếp hàng không merge thành một mega-prompt; mỗi prompt một turn với một câu trả lời riêng. Turn A bước 3 kết thúc với reason "completed", nhưng turn chỉ được khép khi `next-step` rỗng lúc đó — nếu giữa chừng còn có steering đổ vào, nó đi thêm một bước nữa trong cùng turn. Turn C rỗng chứng minh không sinh turn ma. Một run thật khi tool body tự steer, log ghi thế này:
+
+```
+send("read my note")
+  │   2  user/message   "read my note"                        ◄ claim ở boundary mở turn
+  │   4  assistant/message {"tool_calls": [read]}
+  │   5  tool/call     read
+  │        ...body steer + queue 2 prompt từ worker thread...
+  │   6  tool/result   read
+  │   7  step/end      {"reason": null}                       ◄ còn call: quay lại
+  │   9  user/message   "while reading: also check the dates"  ◄ steer ăn step kế
+  │  15  step/end      {"reason": "completed"}
+  │  16  turn/end                                             ◄ next-step rỗng: đóng
+  │  17  turn/start                                           ◄ prompt 1 có turn riêng
+  │  27  turn/start                                           ◄ prompt 2 có turn riêng
+```
+
+Steer vào turn đang chạy đúng một boundary sau khi nó được gửi — không giữa chừng, không muộn hơn. Và dòng `user/message` giờ nằm **sau** `step/start`: input vào transcript bằng cách được claim, không bằng cách append. Trong real dsh, steering thường đến từ UI; Mini-dsh nhấn nó từ tool body và bus listener — cùng một seam, cùng một quy tắc. `cancel()` còn dọn inbox trước khi hủy turn: input xếp hàng trước cancel bị bỏ cùng turn đó, không hồi sinh công việc đã hủy.
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Workers tự append khi xong → log là race | để concurrency rò ra ngoài batch | chỉ loop thread append; finish theo thứ tự model |
+| Safe-by-default → corrupt state | tác giả quên khai | exclusive-by-default: quên khai mất tốc độ, không mất dữ liệu |
+| Giết work đã dispatch khi cancel | coi abort là viên đạn | abort là quyết định barrier: chỉ ngừng mở batch mới |
+| Call bị skip không có row | coi abort là xoá call | synthetic result "aborted before dispatch" |
+| Apply input ngay giữa step | nghĩ input là message | route vào inbox, claim ở boundary re-derive |
+| Một hàng đợi chung cho 2 intent | flatten prompts và steering | 2 target, người gửi khai báo |
+| Claim cả hàng prompt một lượt | merge hội thoại | boundary mở turn ăn đúng 1 prompt |
+| Đóng turn quên re-check next-step | steering tới sát cuối step | re-check trước `turn/end`: steering mới ăn thêm step |
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: chạy demo scheduler, tăng sleep của `read` lên 0.8s và xác nhận tổng thời gian vẫn xấp xỉ 0.8 + 0.4 chứ không phải 2.0s. Mục đích: thấy overlap là thật, đo được trên đồng hồ, trong khi thứ tự log không đổi.
+
+**Mức 2 — Tự sửa**: trong demo hủy, đổi `is_safe` của `late` thành `True` để nó join batch 1. Chạy lại — `late` được dispatch trước khi cờ abort bật, chạy đến cùng và không còn synthetic result. Mục đích: thấy barrier do exclusive tạo ra chính là điểm kiểm tra cancel.
+
+**Mức 3 — Mở rộng**: ghép inbox vào agent loop của bạn — một tool body gọi `steer()` giữa step; xác nhận log có `user/message` ngay sau `step/start` của step kế, và turn chỉ khép khi `next-step` rỗng. Đây là đường ray nền cho các bài sau, khi agent cần nhận thêm ngữ cảnh giữa chừng mà không phá session.
+
+### Tài liệu gốc
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — tutorial rebuild DeepSeek Harness bằng Python stdlib. Bài này từ **section 06-scheduler** (`src/scheduler.py`, check offline: `python sections/06-scheduler/src/test.py`) và **section 07-inbox** (`src/inbox.py`, check offline: `python sections/07-inbox/src/test.py`) — cả hai chạy không cần API key.
+- Trong real dsh: `packages/core/agent-loop/src/tool-calls.ts` — `executeToolCalls` với cùng 4 giai đoạn prepare/dispatch/finalize/finish; `TOOL_ABORTED_BEFORE_DISPATCH` là mã riêng, phân biệt call bị skip với call bị gián đoạn; `packages/core/agent/src/inbox.ts` — `Inbox` hai list, `InboxTarget = 'next-turn' | 'next-step'`; `Agent.send` với ba preset giống hệt Mini-dsh; hook `agent/turn-stopping` được chốt một cơ hội steer cuối trước khi turn đóng.
+- Docs của dsh: `docs/tool-execution-pipeline.md` (pipeline mà scheduler drives), `docs/agent-lifecycle.md` (vị trí tool execution trong một turn, cancellation gồm claim points và inbox events), `docs/subsystems/core.md`.
+
+Đọc tiếp trong series:
+
+- [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer) — bài trước: pipeline 5 giai đoạn mà scheduler dispatch vào.
+- [System prompt và skills](/bai-viet/chuong-trinh-harness-engineer) — bài kế.
+- [Lộ trình: Xây dựng Agent Harness từ số 0](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ 8 bài của series.
+
+---
+
+### Bài 21. System prompt động và Skills: nạp đúng thứ tự, đúng lúc
+
+Bài [Scheduler và steering inbox](/bai-viet/chuong-trinh-harness-engineer) đã chốt điều kiện vào cửa: mọi thứ vào phiên qua boundary, mọi call trả lời trước khi step đóng. Nhưng nhìn lại request mà bài đó gửi model thì còn một khoảng trống to: không có system text nào. Model chưa từng được biết nó là ai, phải cư xử thế nào, hay thế giới ngoài đang trông ra sao.
+
+Đây không phải lỗi quên viết prompt — mà là không ai có quyền viết một mình. Nhiều bộ phận của harness cùng sở hữu một mẩu: Mini-dsh viết dòng identity của chính nó, một plugin persona viết giọng điệu, tầng tool viết danh sách schema. Mỗi bên muốn góp phần của mình mà không phối hợp với bên khác, và mẩu đó phải rơi vào đúng chỗ trong mọi request. Nhiệm vụ thứ hai còn khó hơn: một đống instruction text cho công việc chuyên môn (skill) — quá lớn để ship mỗi step, quá hữu ích để bỏ ra ngoài.
+
+Bài này trả lời hai design question của section 08 và 09 trong Mini-dsh, rồi đưa ra một registry chạy được bằng Python stdlib, không API key.
+
+### Design question 1: trạng thái động để đâu?
+
+> **Tại sao dynamic state là user message re-emitted thay vì system text?** Vì system text phải byte-identical giữa các step — provider cache trên một stable prompt prefix, và system text đứng đầu prefix đó. Một dòng timestamp render lại mỗi step là không request nào được dùng lại cache. Và vì log phải giữ trọn request history để replay xây lại đúng những gì model đã nhìn thấy. Re-emitted user message là "tình huống mới cho turn này": đúng ngữ nghĩa, giữ cache, và là một row thường trong log.
+
+Ba lý do chồng lên nhau:
+
+- **Cache**: provider cache theo prompt prefix ổn định. System text là phần đầu của prefix, nên nó phải ra nguyên vẹn từng byte mỗi step — bao gồm cả những step mà một provider vừa mount vào giữa phiên.
+- **Ngữ nghĩa**: system text là quy tắc — "bạn là ai, bạn phải làm gì". Trạng thái runtime — bây giờ là mấy giờ, cwd là đâu — không phải quy tắc, là hoàn cảnh của turn hiện tại. Nhét hoàn cảnh vào quy tắc là làm model đọc hoàn cảnh thành luật.
+- **Replay**: text patch vào request ngoài pipeline thông thường không bao giờ đến log, nên replay không thể xây lại những gì model thực sự thấy — vi phạm trọn vẹn điểm của [session log](/bai-viet/chuong-trinh-harness-engineer).
+
+### Cơ chế: ordered providers, ba artifact mỗi step
+
+Một file mới, `system_prompt.py`, và luồng request bị kéo qua nó. Registry `SystemPrompt` giữ bốn loại provider:
+
+- **sections** — static system text: identity, persona, quy tắc.
+- **contexts** — dynamic runtime state: đồng hồ, cwd, catalog skill.
+- **variables** — giá trị cho `{{name}}`.
+- **tool-schema providers** — schema tool của request, qua một bridge: tool list cũng là một prompt output.
+
+Mỗi registration trả về undo của nó — mọi thứ đều có thể đảo ngược, đúng tinh thần kernel/plugin của bài [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer). Hàm `assemble()` resolve mọi provider theo `(order, registration order)` và trả về đúng ba artifact:
+
+```python
+def assemble(self, assemble_context):
+    """Resolve mọi provider theo order: ba artifact của request."""
+    sections = [self._render(e["text"], assemble_context)
+                for e in _ordered(self._sections)]
+    contexts = [e["provider"](assemble_context) for e in _ordered(self._contexts)]
+    return {
+        "system": "\n\n".join(text for text in sections if text),
+        "tools": [s for provider in self._tools for s in provider(assemble_context)],
+        "runtime_context": "\n".join(text for text in contexts if text),
+    }
+```
+
+Ba quy tắc vận hành assembly:
+
+1. **Order là một số, tiebreak theo registration order.** Đăng ký giống nhau luôn render text giống nhau. Dict order hay thread timing là cách chắc chắn miss prefix cache.
+2. **Interpolation nghiêm ngặt.** Một `{{name}}` unknown hoặc unset refuse-to-ship — raise, và step dừng trước `request/header`. Không ship prompt có lỗ hổng cho model.
+3. **Snapshot dedupe lấy sự thật từ log.** Snapshot giữ lại là row `user/message` mang `"kind": "runtime-context"` cuối cùng trong log — một projection của log, không phải state riêng. Sau resume, memory rỗng nhưng log còn; đạo snapshot từ log là dedupe và replay khớp nhau by construction.
+
+Trong `_step()`, assembly xảy ra ngay sau inbox claim — đúng boundary nơi [agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) đã re-derive mọi thứ. Snapshot chỉ append khi khác snapshot cuối:
+
+```python
+assembly = self.prompt.assemble({"tools": self.tools})
+snapshot = assembly["runtime_context"]
+if snapshot and snapshot != latest_snapshot(self.session):
+    self.session.append("user/message",
+                        {"content": snapshot, "kind": "runtime-context"})
+```
+
+Toàn bộ luồng, từ đăng ký đến request:
+
+```text
+registered, ordered              assemble(...), mỗi step
+
+sections  -100 harness:identity ─┐
+             0 persona           ├─► system text ────► request, byte-identical
+variables  {{user}} = "Ada"     ─┘                     mỗi step
+tool providers  bridge ──────────► tool list ─────────► request
+contexts     0 time: 10:01      ─┐
+            10 cwd: /home/ada    ├─► snapshot ─► khác snapshot cuối?
+                                 ┘               ├─ có: user/message row
+                                                 └─ không: không append gì
+```
+
+Một run thật như log ghi lại: tool `tick` đẩy đồng hồ giữa turn; system text 61 ký tự trong cả hai request, từng byte giống nhau, còn snapshot re-emit đúng một lần:
+
+```text
+  │   3  user/message   "time: 10:00"         ◄ snapshot, lần đọc đầu
+  │   4  request/header system 61 chars, tools ["tick"]
+  │   7  tool/result   "ticked"               ◄ đồng hồ giờ là 10:01
+  │  10  user/message   "time: 10:01"         ◄ đã đổi: re-emit
+  │  11  request/header system 61 chars       ◄ byte-identical
+```
+
+### System text và runtime-context snapshot: so sánh
+
+| Tiêu chí | System text (sections) | Runtime-context snapshot (contexts) |
+| --- | --- | --- |
+| Loại nội dung | Identity, persona, quy tắc — không đổi giữa các step | Đồng hồ, cwd, catalog skill — thay đổi theo runtime |
+| Cam kết cache | Byte-identical mỗi step, giữ prefix cache | Không nằm trong system text — không động vào prefix |
+| Nơi vào request | Phần đầu, ghi trên `request/header` | Row `user/message`, `"kind": "runtime-context"` |
+| Khi thay đổi | Không bao giờ — đây là design constraint | Re-emit đúng một row khi khác snapshot cuối |
+| Nguồn sự thật | Registry provider | Log projection — row snapshot cuối trong log |
+| Replay | Ghi trên `request/header` | Là row user thường trong derived history |
+
+### Design question 2: catalog hay body?
+
+> **Tại sao inject catalog làm context nhưng load full skill body qua tool call?** Vì "cái gì tồn tại" phải rẻ và luôn hiển thị, còn "nó nói gì" chỉ trả giá khi dùng. Catalog — tên và một dòng mô tả — đi vào mỗi request với chi phí hằng số; body chỉ đi qua một tool call khi model hỏi.
+
+Cả hai vị trí quen thuộc đều không dùng được. Bake mọi instruction vào system text: mỗi request trả tiền cho toàn bộ, dùng hay không. Bỏ hẳn: model không thể dùng cái nó chưa từng nghe nói tới. Instruction text không vừa với ngân sách đó — một harness tích lũy how-to text cho công việc chuyên môn, và một turn dùng gần như không tới phần nào.
+
+Khó hơn nữa: bộ skill không cố định. Skill text đến từ nhiều nguồn cùng lúc — built-in, workspace, plugin — mỗi nguồn mount, unmount hoặc override tên giữa phiên chạy, và không bên nào được sửa text của bên khác.
+
+### Cơ chế: layered provider registry
+
+Registry không giữ skills; giữ providers. Mỗi provider có hai verb: `list()` trả summaries `{name, description}`, `get(name)` trả một body. Providers xếp thành layers theo registration order; layer sau đè tên của layer trước — workspace override built-in mà không chạm vào nó — và `get()` đi ngược từ layer gần nhất. Mỗi registration trả undo.
+
+```python
+def catalog(self):
+    """Một summary cho mỗi tên hiện thấy; dòng của layer sau thắng."""
+    merged = {}
+    for provider in self._providers:
+        for summary in provider.list():
+            merged[summary["name"]] = summary
+    return list(merged.values())
+
+def get(self, name):
+    """Một body đầy đủ, layer gần nhất trước; None nếu không ai biết tên này."""
+    for provider in reversed(self._providers):
+        body = provider.get(name)
+        if body is not None:
+            return body
+    return None
+```
+
+Catalog không cần cơ chế giao hàng mới. Nó là một context provider của section 08 (order=100), nên snapshot dedupe đã quyết định giúp: catalog đổi → re-emit một row; catalog yên → miễn phí. Body đi chiều ngược lại, qua [tool pipeline và permission](/bai-viet/chuong-trinh-harness-engineer) của section 05: model gọi tool `skill {"name": ...}` → `get(name)` → `tool/result`. Tên lạ raise trong body, pipeline trả về `is_error` result bình thường — turn tiếp tục, không sập loop. Catalog rỗng thì không ship gì cả.
+
+Một run thật như log ghi lại:
+
+```text
+send("hi")
+  │   3  user/message  "skills, load with ..."   ◄ catalog: tên + 1 dòng mỗi skill
+  │   4  request/header tools ["skill"]
+  │   5  assistant/message {"tool_calls": [skill "haiku"]}
+  │   7  tool/result   "Answer with one haiku: ..."  ◄ body, on demand
+  │   9  step/start    ◄ catalog không đổi: không row snapshot mới
+```
+
+Body ở seq 7 là derived history từ giờ: model trả giá cho nó trong mọi request sau của phiên — nhưng vì nó đã hỏi. Body của `greet` chưa từng được hỏi và chưa tốn một token nào.
+
+### Inject catalog vs load body on-demand
+
+| Tiêu chí | Inject catalog (context) | Load body (tool call) |
+| --- | --- | --- |
+| Nội dung | Tên + một dòng mô tả mỗi skill | Body đầy đủ của đúng một skill |
+| Ai quyết định | Registry render mỗi assembly | Model gọi tool `skill {"name": ...}` |
+| Chi phí token | Hằng số theo số skill, mỗi step | Một lần, đúng số skill được hỏi |
+| Nơi vào request | runtime-context snapshot | `tool/result` row |
+| Khi thay đổi | Catalog đổi → re-emit một row | Mỗi load là một row mới, catalog không đổi |
+| Tên lạ | Không thể — catalog luôn khớp registry | `is_error` result, turn tiếp tục |
+
+### Skills trong dsh thật
+
+| Mini-dsh | dsh thật | Ghi chú |
+| --- | --- | --- |
+| `SkillRegistry`, layers global theo registration order | `packages/skill`: `SkillRegistry` scope-aware | Real dùng `SkillLayer implements ScopeLayer` — subagent có thể thấy catalog khác parent |
+| `MemorySkillProvider` (dict) | `FileSystemSkillProvider` | Real đi thư mục skill trên disk, đọc summary không nạp body — token economy giữ tới tận I/O boundary |
+| Catalog qua section 08 context provider | Catalog publish qua `agent/pre-step` listeners | Cùng một plane log rows, hai đường khác nhau |
+| Re-resolve mỗi assembly | Bus event `skills/change` + cache invalidation | Mini không có cache để invalidate |
+
+Điểm quan trọng nhất để mang về: cả hai đều giữ đúng một đường ra cho body — tool call. Không chữ skill nào lọt vào system text, nên provider mount giữa phiên không bao giờ phá prefix cache.
+
+### Code thực hành: registry mini chạy được
+
+Toàn bộ chỉ dùng stdlib (`re`), không API key — rút gọn từ sections 08 + 09 của Mini-dsh. Lưu thành `system_prompt_skills_mini.py` rồi `python3 system_prompt_skills_mini.py`.
+
+```python
+# system_prompt_skills_mini.py — rút gọn từ sections 08 + 09 của Mini-dsh
+# Chỉ stdlib, không API key. Chạy: python3 system_prompt_skills_mini.py
+
+import re
+
+_VARIABLE = re.compile(r"\{\{(\w+)\}\}")
+IDENTITY = "You are mini-dsh, a small agent harness."
+
+
+# ------------------------------------------------------------------
+# 1. SystemPrompt: bốn loại provider, assemble() ra ba artifact
+# ------------------------------------------------------------------
+class SystemPrompt:
+    def __init__(self):
+        self._count = 0        # registration counter: tiebreak tất định
+        self._sections = []    # static system text
+        self._contexts = []    # dynamic runtime state
+        self._variables = {}   # {{name}} -> value
+        self._tools = []       # tool-schema providers
+
+    def section(self, name, text, order=0):
+        return self._add(self._sections, {"name": name, "text": text, "order": order})
+
+    def context(self, name, provider, order=0):
+        return self._add(self._contexts, {"name": name, "provider": provider, "order": order})
+
+    def variable(self, name, value):
+        if name in self._variables:
+            raise ValueError(f"prompt variable '{name}' already set")
+        self._variables[name] = value
+        return lambda: self._variables.pop(name)
+
+    def tools(self, provider):
+        self._tools.append(provider)
+        return lambda: self._tools.remove(provider)
+
+    def _add(self, entries, entry):
+        entry["seq"] = self._count
+        self._count += 1
+        entries.append(entry)
+        return lambda: entries.remove(entry)  # mỗi registration trả undo
+
+    def assemble(self, assemble_context):
+        """Resolve mọi provider theo (order, seq): ba artifact của request."""
+        sections = [self._render(e["text"], assemble_context)
+                    for e in _ordered(self._sections)]
+        contexts = [e["provider"](assemble_context) for e in _ordered(self._contexts)]
+        return {
+            "system": "\n\n".join(t for t in sections if t),
+            "tools": [s for p in self._tools for s in p(assemble_context)],
+            "runtime_context": "\n".join(t for t in contexts if t),
+        }
+
+    def _render(self, text, ctx):
+        if callable(text):
+            text = text(ctx)
+        return _VARIABLE.sub(self._value_of, text)
+
+    def _value_of(self, match):
+        name = match.group(1)
+        value = self._variables.get(name)
+        if value is None:  # unknown hoặc unset: refuse-to-ship
+            raise ValueError(f"prompt variable '{name}' is unknown or unset")
+        return str(value)
+
+
+def _ordered(entries):
+    return sorted(entries, key=lambda e: (e["order"], e["seq"]))
+
+
+# ------------------------------------------------------------------
+# 2. Snapshot dedupe: sự thật nằm trong log, không nằm trong memory
+# ------------------------------------------------------------------
+def latest_snapshot(log):
+    """Snapshot giữ lại = row 'kind: runtime-context' cuối cùng trong log."""
+    for event in reversed(log):
+        if (event["type"] == "user/message"
+                and event["payload"].get("kind") == "runtime-context"):
+            return event["payload"]["content"]
+    return None
+
+
+def append_snapshot(log, snapshot):
+    """Dedupe: chỉ append khi khác snapshot cuối — không thì không tốn gì."""
+    if snapshot and snapshot != latest_snapshot(log):
+        log.append({"type": "user/message",
+                    "payload": {"content": snapshot, "kind": "runtime-context"}})
+
+
+# ------------------------------------------------------------------
+# 3. SkillRegistry: layered providers; catalog inject, body on-demand
+# ------------------------------------------------------------------
+class SkillRegistry:
+    def __init__(self):
+        self._providers = []  # layers theo registration order; layer sau đè layer trước
+
+    def register(self, provider):
+        self._providers.append(provider)
+        return lambda: self._providers.remove(provider)
+
+    def catalog(self):
+        merged = {}
+        for provider in self._providers:
+            for summary in provider.list():
+                merged[summary["name"]] = summary
+        return list(merged.values())
+
+    def get(self, name):
+        for provider in reversed(self._providers):
+            body = provider.get(name)
+            if body is not None:
+                return body
+        return None
+
+    def catalog_text(self):
+        summaries = self.catalog()
+        if not summaries:  # catalog rỗng: không ship gì
+            return ""
+        lines = [f"- {s['name']}: {s['description']}" for s in summaries]
+        return "skills, load with the skill tool before use:\n" + "\n".join(lines)
+
+
+class MemorySkillProvider:
+    """Provider đơn giản nhất: dict name -> {"description", "body"}."""
+
+    def __init__(self, skills):
+        self._skills = dict(skills)
+
+    def list(self):
+        # summaries only: provider không bao giờ tự ngỏ body
+        return [{"name": n, "description": s["description"]}
+                for n, s in self._skills.items()]
+
+    def get(self, name):
+        skill = self._skills.get(name)
+        return skill["body"] if skill else None
+
+
+# ------------------------------------------------------------------
+# 4. Demo: system text đứng yên, snapshot re-emit đúng lúc
+# ------------------------------------------------------------------
+if __name__ == "__main__":
+    log = []
+    prompt = SystemPrompt()
+
+    prompt.section("harness:identity", IDENTITY, order=-100)
+    prompt.section("persona", "Answer {{user}} briefly.", order=0)
+    undo_var = prompt.variable("user", "Ada")  # đăng ký trước khi render
+
+    clock = {"now": "10:00"}
+    prompt.context("time", lambda ac: f"time: {clock['now']}", order=0)
+    prompt.tools(lambda ac: [{"name": "tick"}])
+
+    first = prompt.assemble({"tools": []})
+    append_snapshot(log, first["runtime_context"])
+    print("step 1 | system:", repr(first["system"]))
+    print("step 1 | tools:", first["tools"])
+
+    clock["now"] = "10:01"  # một tool giữa turn đã đổi trạng thái runtime
+    second = prompt.assemble({"tools": []})
+    append_snapshot(log, second["runtime_context"])
+    print("step 2 | system byte-identical:", first["system"] == second["system"])
+    print("step 2 | snapshot rows trong log:", sum(
+        1 for e in log if e["payload"].get("kind") == "runtime-context"))
+
+    append_snapshot(log, prompt.assemble({"tools": []})["runtime_context"])
+    print("step 3 | clock đứng yên -> log vẫn", len(log), "row")
+
+    # Skills: layer workspace đè layer built-in, body chỉ qua get()
+    skills = SkillRegistry()
+    skills.register(MemorySkillProvider({
+        "greet": {"description": "greet the user", "body": "Say hello."},
+        "haiku": {"description": "answer as a haiku", "body": "Answer with one haiku."},
+    }))
+    undo_workspace = skills.register(MemorySkillProvider({
+        "greet": {"description": "greet the user (workspace)", "body": "Proclaim a hello."},
+    }))
+
+    print("---")
+    print(skills.catalog_text())
+    print("body greet (layer workspace thắng):", skills.get("greet"))
+    print("body haiku (không ai đè):", skills.get("haiku"))
+    print("tên không tồn tại:", skills.get("nope"))
+    undo_workspace()  # undo gỡ đúng layer này thôi
+    print("sau undo workspace, greet về built-in:", skills.get("greet"))
+
+    # Strict interpolation: gỡ biến là refuse-to-ship, không ship prompt có lỗ
+    print("---")
+    undo_var()
+    try:
+        prompt.assemble({})
+    except ValueError as exc:
+        print("refuse-to-ship:", exc)
+```
+
+Kết quả chạy:
+
+```text
+step 1 | system: 'You are mini-dsh, a small agent harness.\n\nAnswer Ada briefly.'
+step 1 | tools: [{'name': 'tick'}]
+step 2 | system byte-identical: True
+step 2 | snapshot rows trong log: 2
+step 3 | clock đứng yên -> log vẫn 2 row
+---
+skills, load with the skill tool before use:
+- greet: greet the user (workspace)
+- haiku: answer as a haiku
+body greet (layer workspace thắng): Proclaim a hello.
+body haiku (không ai đè): Answer with one haiku.
+tên không tồn tại: None
+sau undo workspace, greet về built-in: Say hello.
+---
+refuse-to-ship: prompt variable 'user' is unknown or unset
+```
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Prompt cache miss ở mọi step | Timestamp hoặc cwd render trong system text | Đưa state sang context provider — section/context split giữ mọi byte đổi khỏi system text |
+| Snapshot re-emit dù không đổi | So sánh với state giữ trong memory | Đạo snapshot từ log (`latest_snapshot`) — dedupe và replay khớp by construction |
+| Model nhận chuỗi `{{typo}}` nguyên văn | Interpolation lỏng | Strict interpolation raise; log cho thấy step dừng trước `request/header` |
+| Catalog vẫn advertise skill đã gỡ | Cache kết quả render catalog | Re-resolve mỗi assembly; dedupe giữ quiet steps miễn phí |
+| Unknown skill làm crash loop | Raise thoát khỏi tool pipeline | Raise trong body → pipeline → `is_error` result; turn tiếp tục |
+| Cùng đăng ký nhưng render khác nhau mỗi run | Order theo dict hoặc thread timing | Một numeric order, tiebreak registration order |
+
+### Failure modes — những thất bại thiết kế lặp lại
+
+- **Đồng hồ trong system text phá cache mỗi step.** Providers cache trên stable prompt prefix và system text đứng đầu nó — một timestamp regenerate mỗi step là không request nào dùng lại prefix. Section/context split giữ mọi byte đổi ra khỏi system text by construction.
+- **Text ra ngoài pipeline biến mất khỏi record.** State patch vào request không có log row là replay không thể xây lại những gì model thấy. Snapshot là `user/message` row; thậm chí system text cũng ghi trên `request/header` — log giữ trọn request record.
+- **Re-emit snapshot không đổi làm phình history.** Append mỗi step là thêm một row cho không một bit thông tin mới, và mọi request sau trả giá. Boundary so với row snapshot cuối và chỉ append khi đổi.
+- **Snapshot giữ trong memory drift khỏi log.** Sau resume memory rỗng, log không rỗng — step đầu re-emit thứ model đã thấy rồi. Đạo snapshot từ log là dedupe và replay luôn khớp.
+- **Bodies trong catalog trả tiền cho mọi thứ luôn.** Inline mọi instruction là mỗi request mang toàn bộ trong khi một turn dùng tối đa một. `list()` chỉ yielding tên và một dòng; `get(name)` là cánh cửa duy nhất body lọt qua.
+- **Catalog nằm trong system text làm prefix chạy.** Provider mount giữa phiên sẽ rewrite system text và bust cache. Là context thì một provider đổi chỉ tốn một `user/message` row và prefix giữ nguyên.
+
+> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài này là bài 7 của 8 trong lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Section 08 + 09 của repo gốc là nguồn; bài 8 đóng lộ trình với capability seams, jobs, subagent và composition.
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: thêm context provider `cwd` (dùng `os.getcwd()`) vào demo, rồi `os.chdir()` giữa hai step. Xác nhận system text byte-identical và cwd re-emit đúng một row — rồi đổi lại thư mục cũ, xác nhận nó re-emit lần thứ hai.
+
+**Mức 2 — Tự sửa**: implement template có default: `{{name|fallback}}` — fallback dùng khi biến unset, nhưng vẫn raise cho tên hoàn toàn lạ. Trả lời bằng test: default có làm prefix cache bớt dự đoán được không? (Gợi ý: biến unset ở step 1 mà set ở step 2 vẫn đổi system text.)
+
+**Mức 3 — Mở rộng**: viết `FileSystemSkillProvider` đọc thư mục skill — mỗi skill một file, dòng đầu là description, phần còn lại là body. `list()` chỉ đọc dòng đầu của mỗi file, `get(name)` mới đọc cả file. Đây chính là cách `FileSystemSkillProvider` của dsh giữ token economy tới tận I/O boundary.
+
+### Tài liệu gốc
+
+Bài này dựng lại từ hai section của tutorial rebuild DeepSeek Harness:
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — full rebuild Mini-dsh bằng Python stdlib; nguồn của bài này là `sections/08-system-prompt` và `sections/09-skills`.
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — dsh thật; registry nằm ở `packages/core/system-prompt` và `packages/skill`.
+
+Đọc tiếp trong lộ trình:
+
+- [Scheduler và steering inbox](/bai-viet/chuong-trinh-harness-engineer) — bài trước: mọi thứ vào phiên qua boundary; catalog và snapshot cũng đi qua cùng cánh cửa đó.
+- [Capabilities, subagent và composition](/bai-viet/chuong-trinh-harness-engineer) — bài kế: ba seam cuối và cách ghép cả harness thành data.
+- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ lộ trình 8 bài.
+
+---
+
+### Bài 22. Capabilities, subagent và composition: ghép Mini-dsh thành hệ thống hoàn chỉnh
+
+Chín bài trước đã dựng Mini-dsh từ một kernel rỗng tới một agent có inbox, có system prompt động, có skill catalog ([bài trước](/bai-viet/chuong-trinh-harness-engineer)). Nhưng đến đây harness vẫn chưa chạm vào thế giới ngoài log của chính nó: không đọc được file, không chạy được lệnh, không trao được công việc chậm cho ai, không trao được nhiệm vụ lớn cho context window nào khác. Và thứ quyết định tất cả những mảnh đó được mount vào sản phẩm nào vẫn là một hàm Python ai đó sửa tay.
+
+Bài này đi qua bốn design question của sections 10–13. Mỗi câu hỏi đều có một câu trả lời phá trực giác: tách seam không phải vì đẹp, background không phải chỉ là thread, delegation không cần class, và patch không merge. Cuối bài, cả Mini-dsh đóng lại thành một hình và một danh sách 16 row data.
+
+### Capability seams: một capability, ba vai trò
+
+> **Định nghĩa.** Một capability là bất cứ thứ harness làm với thế giới ngoài log — đọc file, chạy lệnh, giới hạn quyền, gọi model.
+
+Capability đầu tiên phải để đâu? Đáp án trực tiếp nhất: trong tool body. Nhưng chọn đó là ghép ba quyết định vào một hàm: model nhìn thấy gì (schema), contract là gì (đọc file trả về text), machine nào làm (disk thật, memory, host khóa). Offline check cần file trong memory; laptop cần disk thật; host khóa cần cả hai trừ đi. Phục vụ cả ba từ một tool body là viết body đó ba lần — và schema mà model lập kế hoạch theo đổi mỗi lần sửa.
+
+Câu hỏi ngược lại cũng thật: tách mọi capability thành interface + backend package + tool package ngay ngày một là tích lũy abstraction chưa từng có implementation thứ hai.
+
+> **Khi nào một capability đáng trả giá tách ba lớp?** Khi có code không được biết machine nào trả lời: một consumer hướng model cần giữ schema ổn định qua backend swap, hoặc một backend thứ hai đang chờ lên ngôi. Không có ai trong hai đằng ấy thì giữ một package — tách sớm là dead weight, không phải kỹ thuật tốt.
+
+Ba vai trò, mỗi vai một nhiệm vụ:
+
+- **Definition** — một ABC, một ctx key, và vocabulary của seam. Nó sở hữu contract và không gì khác; một Definition không ship code nào làm việc cả.
+- **Provider** — plugin mount một implementation cụ thể dưới key. Kernel đã làm phần kế toán: `provide()` trả undo và refuse duplicate key, nên exclusive seam fail loud ngay tại mount. Bookkeeping này là của bài [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer).
+- **Consumer** — code resolve key qua `ctx.get()` tại execute time và chỉ nói verb của ABC — thường là tool hướng model. Không tool nào import provider. Kỷ luật import đó chính là seam.
+
+Bốn seam của Mini-dsh: **fs** (read, write), **shell** (run), **sandbox** (confine), **llm**. Hai seam bend hình dạng, và mỗi bend là một design question được trả lời theo một hướng khác.
+
+**Sandbox bend — fence, không phải tool.** Sandbox có provider nhưng không có tool. Một verb duy nhất, fail closed:
+
+```python
+def confine(self, argv, policy):
+    if policy not in self._policies:  # fail closed: không bao giờ chạy unfenced
+        raise ValueError(f"unknown sandbox policy '{policy}'")
+    return ["mini-sandbox", "--policy", policy, "--", *argv]
+```
+
+Không ai offer `confine` cho model. Consumer của sandbox là provider của seam khác — fence bọc công việc model đã xin qua schema khác, dưới schema, nơi không ai có thể xin nó đừng bọc:
+
+```python
+class SandboxedShellExecutor(ShellExecutor):
+    """Provider dựng trên seam khác: mọi run đi qua fence."""
+
+    def run(self, argv):
+        return self._inner.run(self._sandbox.confine(argv, self._policy))
+```
+
+**llm bend — Definition và Consumer gộp một.** Consumer của llm chính là agent loop — tham số `model` mà mọi Agent nhận từ section 04. Một Consumer home riêng sẽ vẽ ranh giới không swap nào đi qua. Model seam đã là contract: một plain callable stream chunks rồi một Message cuối, không cần ABC. Điều còn thiếu là tính plural — registry các adapter theo tên, resolved per call:
+
+```python
+def model(self, name):
+    """Model seam gắn tên adapter, resolved per call."""
+    def seam(messages, tools=(), system=""):
+        adapter = self._adapters.get(name)
+        if adapter is None:
+            raise LookupError(f"no llm adapter registered under '{name}'")
+        return adapter(messages, tools, system)
+    return seam
+```
+
+Bằng chứng của seam nằm ở log: đổi backend giữa hai turn, mọi `request/header` row byte-identical, chỉ `tool/result` row cho biết máy nào đã trả lời.
+
+### Hai lớp hay ba lớp?
+
+| Tiêu chí | 2 lớp — viết thẳng vào tool body | 3 lớp — Definition / Provider / Consumer |
+| --- | --- | --- |
+| Ai biết machine nào chạy | Tool body — contract và machine dính một mảnh | Consumer không biết, chỉ nói verb của ABC |
+| Đổi backend | Sửa tool body — schema model nhìn thấy đổi theo | Đổi provider mount, request byte-identical |
+| Nhiều môi trường (offline, laptop, host khóa) | Viết body cho từng môi trường | Một consumer, mount provider theo môi trường |
+| Provider thứ hai chưa tồn tại | Không phí gì | Dead weight — tách sớm là tích lũy abstraction |
+| Consumer không phải tool (sandbox) | Không có chỗ để bọc fence | Provider của seam khác consume fence, dưới schema |
+| Consumer là chính loop (llm) | Ranh giới không swap nào đi qua | Gộp: một service, adapter là callable thuần |
+
+Quy tắc của dsh thật ghi rõ trong architecture note: capability không tách phòng ngừa; một provider + một consumer ở lại một package cho tới khi backend thứ hai xuất hiện. `dsh-llm` là ngoại lệ đứng sẵn vì consumer của nó là loop.
+
+### Jobs: công việc nền thuộc về ai
+
+Scheduler contract từ section 06 nghiêm ngặt: started work never abandoned, every call answers before the step closes. Hỏi shell seam chạy lệnh chậm là block cả turn — model, inbox và user cùng chờ một lệnh echo.
+
+Workaround quen thuộc: tool body spawn một thread rồi trả về. Backgrounding dễ. Nhưng work đó thuộc về không ai: abort signal của turn chỉ vào call đã return; output của thread không có địa chỉ; session nào đoán được id đều đọc được, được kill được, được chờ được.
+
+> **Ai sở hữu cancellation sau khi job ID được publish?** Registry — fenced cho owner, và handoff phải trọn vẹn. Tại thời điểm `start()` trả về id, protocol triple `(cancel, done, read_output)` chuyển tay sang JobRegistry; abort signal của turn sản xuất từ đó không còn chạm được job. Cửa kill duy nhất còn lại là `job_kill`, và mọi accessor kiểm tra fence trước.
+
+Handoff gồm sáu điều:
+
+1. **Publish id ngay** — `start()` trả id trong khi work chạy trên thread riêng; producing call trả lời bằng result bình thường không mang gì ngoài id.
+2. **Nhận trọn protocol** — producer `run()` trả `(cancel, done, read_output)`; từ đó registry sở hữu ids, snapshots, settlement, delivery.
+3. **Fence mọi accessor** — read, kill, list chỉ trả lời session sở hữu job; caller identity baked tại mount, ambient, không bao giờ là model argument.
+4. **Settle first-wins, đúng một lần** — `completed`, `failed` hoặc `killed`, cái nào tới trước, mãi mãi.
+5. **Delivery qua inbox** — `wakeup`: owner idle → `followup()` mở turn riêng; owner busy → `inject()` park tới step boundary (hai preset của bài [scheduler và inbox](/bai-viet/chuong-trinh-harness-engineer)). `quiet`: chờ được poll. Background work không bao giờ tự append log row.
+6. **Controls viết một lần** — `job_output`, `job_kill`, `job_list` phục vụ mọi producer.
+
+Hai mảnh code là trái tim của thiết kế:
+
+```python
+def _fenced(self, job_id, caller_id):
+    with self._lock:
+        job = self._jobs.get(job_id)
+    if job is None or job.owner.id != caller_id:
+        # Một message cho id lạ và id giả mạo: người lạ không học được gì,
+        # kể cả việc id đó có tồn tại.
+        raise PermissionError(f"no job '{job_id}' owned by this session")
+    return job
+
+def _settle(self, job, status, detail=None):
+    with self._lock:
+        if job.outcome is not None:
+            return  # race đã chốt; tiếng nói sau không đổi kết quả
+        job.outcome = {"status": status, "detail": detail}
+    self._notify(job)  # ngoài lock: delivery có thể lái cả một turn
+```
+
+`caller_id` không bao giờ đến từ model: `job_tools(owner)` bake identity vào khi mount tools vào scope của owner. Agent B gõ id gì thì tool của B vẫn tự xưng tên B trước registry — job của A vô hình. Hủy turn sản xuất cũng không chạm job: signal của turn kết thúc tại scheduler; call mà abort bắt trước dispatch vẫn trả lời bằng synthetic error result.
+
+### Subagent: provider interface thay vì kế thừa
+
+Delegation trao task cho child có session, tool scope và context window riêng, thu về một câu trả lời. Gửi agent đi errand — summarize package, chase failing test — và toàn bộ transcript của errand không đè lên context parent.
+
+Điều đầu tiên hiện ra trong đầu là subclass: `class Subagent(Agent)` nghe như một lợi thế sẵn có. Nhưng cái trả lời delegation không phải lúc nào cũng là một agent trong process này. Dsh thật ship provider fork process, provider lái sản phẩm khác qua wire protocol, provider bọc cả một harness khác — base class là bắt mọi provider fake ruột của Agent chỉ để mount.
+
+> **Tại sao subagent dùng provider interface thay vì kế thừa Agent?** Vì parent-side contract chỉ là bốn verb, còn class là commitment với mọi thứ khác. Registry giữ tên, không giữ class: một provider là callable nhận resolved request và trả một run — registry không nhìn qua nó.
+
+Run là toàn bộ parent-side contract, và nó chủ đích là protocol triple của section 11:
+
+```python
+@dataclass(frozen=True)
+class SubagentRun:
+    cancel: callable        # yêu cầu child dừng; cooperative, best effort
+    done: callable          # block tới khi kết thúc: ("completed", None) | ("failed", detail)
+    read_output: callable   # câu trả lời của child tính đến hiện tại
+```
+
+Đó chính là payoff: foreground — tool call chờ `done()` và trả câu trả lời của child; background — trao cùng triple cho jobs registry unchanged, subagent thành producer thứ hai, peer với shell, và fence, settlement, controls của section 11 phục vụ nó với không một dòng code mới. Parent log chỉ mang hai row của errand — một `tool/call` và một `tool/result`; errand là một session hoàn chỉnh ở nơi khác, đúng như mọi thứ trong [session log](/bai-viet/chuong-trinh-harness-engineer) vốn thuộc về session của nó.
+
+### Inheritance vs provider interface
+
+| Tiêu chí | Kế thừa Agent | Provider interface |
+| --- | --- | --- |
+| Provider bắt buộc là gì | Một Agent trong process này | Bất kỳ callable nào trả SubagentRun |
+| Provider ngoài process | Phải fake ruột của Agent để mount | Tự nhiên — triple là đủ |
+| Contract | Mọi thứ class bộc lộ | Bốn verb: resolve, cancel, done, read_output |
+| Thêm provider mới (cache, subprocess, sản phẩm khác) | Fork logic hoặc thêm subclass | Register thêm một tên |
+| Chạy background | Phải tự bọc vào jobs | Triple trao thẳng jobs — producer peer với shell |
+| Child session | Dễ bị viết lẫn vào parent log | Hai log, một câu trả lời đi qua |
+
+### Composition: harness là data
+
+Sau mười hai sections, thứ quyết định sản phẩm mount gì vẫn là một hàm Python ai đó sửa. Products không ship được kiểu đó: web build và headless build là cùng những plugin trong list khác nhau; user muốn đổi một row của build người khác mà không fork. Mô tả harness phải thành data: một entry list phẳng, dựng bằng patch layers, mỗi layer thuộc về người nói hộ nó — base vendor trước, user sau.
+
+> **Tại sao patch replace toàn bộ config thay vì deep-merge?** Vì merge làm config hiệu dụng trở thành emergent: muốn biết một row nghĩa là gì phải replay mọi layer từng chạm nó, và default của base rò rỉ vào mode không hề xin. Replace giữ chân lý của mỗi row ở đúng một nơi — layer cuối cùng chạm nó chứa config hoàn chỉnh. Chi phí rơi vào bundle author, và đó là chủ ý: row có giá trị khác nhau theo mode không được nằm ở base, mỗi mode restate config trọn vẹn.
+
+Ba verb, tất cả keyed theo id: id lạ → insert; id đã có → replace whole config; `disabled` → remove. Nhánh replace là một assignment:
+
+```python
+row = next((r for r in entries if r["id"] == patch["id"]), None)
+if patch.get("disabled"):
+    if row is not None:
+        entries.remove(row)
+elif row is None:
+    entries.append({"id": patch["id"], "name": patch["name"],
+                    "config": dict(patch.get("config", {}))})
+else:
+    row["config"] = dict(patch.get("config", {}))  # whole, never a merge
+```
+
+Không có walk key-by-key để viết, vì một patch không bao giờ gặp config cũ: layer sau chạm row nói tất cả.
+
+Một nửa khác là loader. Row là data nên không thể tự nói "load mình sau row sessions"; thay vào đó mỗi factory khai báo services nó cần, loader mount thứ gì vừa mount được cho tới khi list settles, và audit refuse boot khi row còn chờ — nêu tên từng row và service nó chờ. Vị trí row vì thế không mang ngữ nghĩa load: MINI_BASE đảo ngược thứ tự vẫn boot y hệt.
+
+`MINI_BASE` — toàn bộ sections 00–12 — là 16 row data. Model row nằm ở base vì mọi mode đều cần một model, nhưng giá trị khác nhau theo mode: base ship stand-in không nói gì, và mọi profile restate whole config rồi insert adapter row riêng bên cạnh.
+
+### Kiến trúc hoàn chỉnh: cả Mini-dsh trong một hình
+
+```text
+MINI_BASE (16 row data) + profile patch + user patch
+        │ apply_layers() → 1 entry list phẳng → mount_entries() (availability-driven)
+        ▼
+┌────────────────────────────── kernel ctx ───────────────────────────────┐
+│ sessions  tools  system_prompt  skills  fs  sandbox  shell  llm         │
+│ agents  subagents  jobs  owner(a1)                                      │
+└───────────────────────────────┬─────────────────────────────────────────┘
+                                ▼
+ 1  inbox claim tại boundary ─► 2 _step() assemble: system + tools + snapshot
+                                ▼
+ 3  scheduler dispatch call (abort signal riêng cho từng call)
+                                ▼
+ 4  pipeline: permission + tool scope
+                                ▼
+ 5  tools: read/write/shell (qua seam) · skill (get body) · shell_job · subagent
+                                ▼
+ 6  JobRegistry: publish id → owner fence → settle first-wins
+                                ▼
+ 7  notice: followup() (idle) / inject() (busy) ─► quay về inbox, mở turn mới
+```
+
+Đọc hình từ trên xuống: sản phẩm là một diff over nothing — 16 row dựng lên từ một list rỗng, mount theo service availability, và một turn đi qua đúng chuỗi cửa đã học từ section 04: claim tại boundary, assemble, dispatch có abort signal, pipeline permission, tools, rồi công việc nền quay về inbox. Disable một row — skills chẳng hạn — và cùng harness trả lời cùng script bằng `unknown tool 'skill'`: một subsystem bị gỡ bằng data, không sửa một dòng code nào.
+
+> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài cuối của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Section 10–13 của repo gốc là nguồn; bài tổng hợp trong lộ trình gắn toàn bộ kiến trúc lại thành hình này — mỗi bài trước là một tầng của nó.
+
+### Code thực hành: bốn seam chạy được
+
+Môi trường: chỉ stdlib (`abc`, `dataclasses`, `threading`), không API key. Code rút gọn bốn mảnh: capability seams, jobs fence, subagent run, composition patch. Lưu thành `seams_jobs_composition_mini.py` rồi `python3 seams_jobs_composition_mini.py`.
+
+```python
+# seams_jobs_composition_mini.py — rút gọn từ sections 10 + 11 + 12 + 13
+# Chỉ stdlib, không API key. Chạy: python3 seams_jobs_composition_mini.py
+
+import threading
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+
+
+# ------------------------------------------------------------------
+# 1. Capability seams: Definition / Provider / Consumer
+# ------------------------------------------------------------------
+class FileSystem(ABC):
+    """Definition của fs seam, ctx key "fs". Exclusive: một provider."""
+
+    @abstractmethod
+    def read(self, path): ...
+
+    @abstractmethod
+    def write(self, path, text): ...
+
+
+class MemoryFileSystem(FileSystem):
+    def __init__(self, files=None):
+        self._files = dict(files or {})
+
+    def read(self, path):
+        if path not in self._files:
+            raise FileNotFoundError(path)
+        return self._files[path]
+
+    def write(self, path, text):
+        self._files[path] = str(text)
+
+
+class ShellExecutor(ABC):
+    """Definition của shell seam: một verb, một ctx key "shell"."""
+
+    @abstractmethod
+    def run(self, argv):
+        """Chạy một argv list; output của lệnh dưới dạng text."""
+
+
+class EchoShellExecutor(ShellExecutor):
+    """Provider stand-in: không chạy gì, trả lời bằng chính argv được xin."""
+
+    def run(self, argv):
+        return " ".join(argv)
+
+
+class SandboxProvider(ABC):
+    """Definition của sandbox seam: một verb, KHÔNG tool."""
+
+    @abstractmethod
+    def confine(self, argv, policy):
+        """argv mới, fenced theo policy. Fail closed."""
+
+
+class ArgvRewriteSandbox(SandboxProvider):
+    """Provider stub: rewrite argv, enforce không gì — nhưng fail closed."""
+
+    def __init__(self, policies):
+        self._policies = frozenset(policies)
+
+    def confine(self, argv, policy):
+        if policy not in self._policies:  # fail closed: không chạy unfenced
+            raise ValueError(f"unknown sandbox policy '{policy}'")
+        return ["mini-sandbox", "--policy", policy, "--", *argv]
+
+
+class SandboxedShellExecutor(ShellExecutor):
+    """Provider dựng trên seam khác: consumer của sandbox là provider shell."""
+
+    def __init__(self, inner, sandbox, policy):
+        self._inner, self._sandbox, self._policy = inner, sandbox, policy
+
+    def run(self, argv):
+        return self._inner.run(self._sandbox.confine(argv, self._policy))
+
+
+class LlmRuntime:
+    """llm seam: Definition và Consumer gộp một; adapter là callable thuần."""
+
+    def __init__(self):
+        self._adapters = {}
+
+    def register(self, name, adapter):
+        if name in self._adapters:
+            raise ValueError(f"llm adapter '{name}' already registered")
+        self._adapters[name] = adapter
+        return lambda: self._adapters.pop(name)
+
+    def model(self, name):
+        """Model seam gắn tên adapter, resolved per call."""
+        def seam(messages, tools=(), system=""):
+            adapter = self._adapters.get(name)
+            if adapter is None:
+                raise LookupError(f"no llm adapter registered under '{name}'")
+            return adapter(messages, tools, system)
+        return seam
+
+
+def read_tool_body(ctx, path):
+    """Consumer: resolve seam tại execute time, chỉ nói verb của ABC."""
+    fs = ctx.get("fs")
+    if fs is None:
+        raise RuntimeError("no provider mounted under 'fs'")
+    return fs.read(path)
+
+
+# ------------------------------------------------------------------
+# 2. Jobs: handoff ownership, owner fence, first-wins settlement
+# ------------------------------------------------------------------
+@dataclass(frozen=True)
+class JobOwner:
+    id: str
+
+
+@dataclass
+class Job:
+    id: str
+    kind: str
+    owner: JobOwner
+    cancel: callable
+    read_output: callable
+    outcome: dict = None
+
+
+class JobRegistry:
+    def __init__(self):
+        self._lock = threading.Lock()
+        self._jobs = {}
+        self._count = 0
+
+    def start(self, kind, owner, run, delivery="quiet"):
+        """run() trả protocol triple (cancel, done, read_output); registry nhận id.
+
+        delivery "wakeup" gửi notice qua inbox của owner — followup() nếu idle,
+        inject() nếu busy (section 07); "quiet" chờ được poll bằng job_output.
+        """
+        if delivery not in ("quiet", "wakeup"):
+            raise ValueError(f"unknown delivery '{delivery}'")
+        cancel, done, read_output = run()
+        with self._lock:
+            self._count += 1
+            job = Job(f"job-{self._count}", kind, owner, cancel, read_output)
+            self._jobs[job.id] = job
+        threading.Thread(target=lambda: self._settle(job, *done()),
+                         daemon=True).start()
+        return job.id
+
+    def _fenced(self, job_id, caller_id):
+        with self._lock:
+            job = self._jobs.get(job_id)
+        if job is None or job.owner.id != caller_id:
+            # Một message cho id lạ và id giả: người lạ không học được gì.
+            raise PermissionError(f"no job '{job_id}' owned by this session")
+        return job
+
+    def status(self, job_id, caller_id):
+        job = self._fenced(job_id, caller_id)
+        return job.outcome["status"] if job.outcome else "running"
+
+    def kill(self, job_id, caller_id):
+        job = self._fenced(job_id, caller_id)
+        job.cancel()
+        self._settle(job, "killed")
+        return self.status(job_id, caller_id)
+
+    def _settle(self, job, status, detail=None):
+        with self._lock:
+            if job.outcome is not None:
+                return  # race đã chốt; tiếng nói sau không đổi kết quả
+            job.outcome = {"status": status, "detail": detail}
+
+
+# ------------------------------------------------------------------
+# 3. Subagent: provider interface, run là toàn bộ contract
+# ------------------------------------------------------------------
+@dataclass(frozen=True)
+class SubagentRun:
+    cancel: callable
+    done: callable
+    read_output: callable
+
+
+class SubagentRuntime:
+    def __init__(self):
+        self._providers = {}
+        self._count = 0
+
+    def register(self, name, provider):
+        if name in self._providers:
+            raise ValueError(f"subagent provider '{name}' already registered")
+        self._providers[name] = provider
+        return lambda: self._providers.pop(name)
+
+    def start(self, name, task):
+        provider = self._providers.get(name)
+        if provider is None:
+            raise LookupError(f"no subagent provider registered under '{name}'")
+        self._count += 1
+        return provider({"id": f"sub-{self._count}", "task": task})
+
+
+def cached_provider(answer):
+    """Một provider không phải agent nào cả — và không ai phân biệt được."""
+    def start(request):
+        return SubagentRun(cancel=lambda: None,
+                           done=lambda: ("completed", None),
+                           read_output=lambda: answer)
+    return start
+
+
+# ------------------------------------------------------------------
+# 4. Composition: patch layers; replace whole config, never a merge
+# ------------------------------------------------------------------
+def apply_layers(layers):
+    entries = []
+    for layer in layers:
+        for patch in layer:
+            row = next((r for r in entries if r["id"] == patch["id"]), None)
+            if patch.get("disabled"):
+                if row is not None:
+                    entries.remove(row)
+            elif row is None:
+                entries.append({"id": patch["id"], "name": patch["name"],
+                                "config": dict(patch.get("config", {}))})
+            else:
+                row["config"] = dict(patch.get("config", {}))  # whole, never a merge
+    return entries
+
+
+# ------------------------------------------------------------------
+# 5. Demo
+# ------------------------------------------------------------------
+if __name__ == "__main__":
+    # fs seam: swap backend, consumer và contract không đổi
+    ctx = {"fs": MemoryFileSystem({"notes.txt": "alpha"})}
+    print("read qua seam:", read_tool_body(ctx, "notes.txt"))
+    ctx["fs"] = MemoryFileSystem({"notes.txt": "beta"})  # swap backend
+    print("sau swap, cùng body, máy khác:", read_tool_body(ctx, "notes.txt"))
+
+    # sandbox fence qua shell provider; policy lạ fail closed
+    shell = SandboxedShellExecutor(EchoShellExecutor(),
+                                   ArgvRewriteSandbox(["read-only"]), "read-only")
+    print("fenced run:", shell.run(["echo", "hi"]))
+    try:
+        SandboxedShellExecutor(EchoShellExecutor(),
+                               ArgvRewriteSandbox(["read-only"]),
+                               "network").run(["echo", "hi"])
+    except ValueError as exc:
+        print("fail closed:", exc)
+
+    # llm: adapters plural, late bound
+    llm = LlmRuntime()
+    undo = llm.register("main", lambda m, t=(), s="": iter(["from the first backend"]))
+    undo()  # gỡ adapter: swap tới nơi mà không đụng agent
+    llm.register("main", lambda m, t=(), s="": iter(["from the second backend"]))
+    print("llm main trả:", next(llm.model("main")([])))
+
+    # jobs: id sống qua turn; fence chặn session lạ; kill settle một lần
+    jobs = JobRegistry()
+    owner = JobOwner("a1")
+    stop = threading.Event()      # cancel: work tự kiểm tra cờ này
+    finished = threading.Event()  # done-gate: chưa set, work chưa kết thúc
+
+    def run():
+        def done():
+            finished.wait()
+            return ("completed", None)
+        return (stop.set, done, lambda: "echo hi")
+
+    job_id = jobs.start("shell", owner, run)
+    print("job published:", job_id)
+    try:
+        jobs.status(job_id, "b1")  # session B soi job của A
+    except PermissionError as exc:
+        print("fence:", exc)
+    print("kill chốt:", jobs.kill(job_id, owner.id))
+    print("status sau kill:", jobs.status(job_id, owner.id))
+
+    # subagent: provider không phải agent vẫn mount — registry không nhìn qua nó
+    subs = SubagentRuntime()
+    subs.register("cached", cached_provider("the log has 12 rows"))
+    reply = subs.start("cached", "summarize the log")
+    print("subagent reply:", reply.read_output())
+
+    # composition: replace whole config, disable, insert — không merge
+    base = [
+        {"id": "model", "name": "scripted-llm",
+         "config": {"name": "scripted", "responses": []}},
+        {"id": "agent", "name": "agent",
+         "config": {"agent": "a1", "session": "s1",
+                    "model": "scripted", "prompt": "shared"}},
+        {"id": "skills", "name": "skills"},
+    ]
+    profile = [
+        # replace whole: chỉ config mới đi vào — key "prompt" của base không sống sót
+        {"id": "agent", "config": {"agent": "a1", "session": "s1", "model": "live"}},
+        # đổi plugin thì disable row cũ + insert row mới: patch không đổi name
+        {"id": "model", "disabled": True},
+        {"id": "model-live", "name": "live-llm", "config": {"name": "live"}},
+        {"id": "skills", "disabled": True},          # remove subsystem bằng data
+        {"id": "worker", "name": "subagent-tools"},  # insert
+    ]
+    print("entries sau patch:", apply_layers([base, profile]))
+```
+
+Kết quả chạy:
+
+```text
+read qua seam: alpha
+sau swap, cùng body, máy khác: beta
+fenced run: mini-sandbox --policy read-only -- echo hi
+fail closed: unknown sandbox policy 'network'
+llm main trả: from the second backend
+job published: job-1
+fence: no job 'job-1' owned by this session
+kill chốt: killed
+status sau kill: killed
+subagent reply: the log has 12 rows
+entries sau patch: [{'id': 'agent', 'name': 'agent', 'config': {'agent': 'a1', 'session': 's1', 'model': 'live'}}, {'id': 'model-live', 'name': 'live-llm', 'config': {'name': 'live'}}, {'id': 'worker', 'name': 'subagent-tools', 'config': {}}]
+```
+
+Chú ý dòng cuối: config của row `agent` bị thay toàn bộ — key `prompt` của base không sống sót qua patch, đó là replace whole config, không merge. Còn đổi plugin model thì disable row cũ rồi insert row mới, vì patch trên id đã có chỉ thay `config`, không đổi `name` (plugin factory).
+
+#### Lỗi thường gặp
+
+| Lỗi | Nguyên nhân | Cách xử lý |
+| --- | --- | --- |
+| Đổi backend mà schema model đổi theo | Tool body import hoặc tự tạo provider | Body resolve ctx key per call, chỉ nói verb ABC — kỷ luật import là seam |
+| Hai provider mount cùng key êm ru | Không refuse duplicate | Exclusive key refuse tại mount qua kernel `provide()` — fail loud trước khi ai gọi nhầm |
+| Sandbox policy lạ vẫn chạy | `confine()` trả argv nguyên vẹn | Fail closed: raise → pipeline → `is_error` result; không gì chạy unfenced |
+| `job_kill` báo killed mà work vẫn chạy | Triple thiếu cancel thật | `cancel` phải gắn với máy thật (process group, cờ mà work kiểm tra); settlement first-wins chốt kết quả |
+| Job output đọc được từ session khác | Registry trả lời mọi người hỏi | Fence mọi accessor; identity baked tại mount, không bao giờ là model argument |
+| Background âm thầm chạy foreground | Không có jobs registry mà fallback | Optional lookup `ctx.get("jobs")`; không registry thì refuse loudly |
+| Config row "dính" key của base | Patch dạng deep-merge | Replace whole; row có giá trị khác theo mode không nằm ở base |
+
+### Failure modes — những thất bại thiết kế lặp lại
+
+- **Tool import provider là bypass interface.** Body tự mở disk hay tự tạo backend là đổi máy thành sửa tool, và mỗi môi trường fork schema. Kỷ luật import — resolve key per call, chỉ nói verb ABC — chính là seam.
+- **Provider thứ hai mount êm là config bug.** Hai shell cùng mount thì ai chạy lệnh phụ thuộc mount order không ai đọc. Exclusive key refuse ở mount time, trước khi bất kỳ call nào chọn sai.
+- **Sandbox fail open còn tệ hơn không có.** Trả argv nguyên vẹn cho policy không biết là mọi misconfig chạy unfenced, invisibly. `confine()` raise, pipeline trả `is_error`, không gì chạy.
+- **Fence model-facing sandbox tool là fence sai cửa.** Offer `confine` trong schema là fencing thành lựa chọn của model. Fence bọc công việc đã được authorize, dưới schema.
+- **Thread nền không registry là orphaned work.** Output không có địa chỉ, kill switch nối vào hư không; lệnh chậm kế tiếp background cùng kiểu và không ai list được cái gì đang chạy. `start()` nhỏ, nhưng id, fence và settlement là khoảng cách giữa background work và một leak.
+- **Settlement lần hai viết lại history.** Late completion ghi đè `killed` là owner đọc kết quả sai sau đó. First-wins trong registry chốt race một lần, cho mọi consumer.
+- **Notice append giữa step làm transcript mâu thuẫn.** Thread settlement không sở hữu boundary; notice phải đi qua inbox và vào ở boundary kế tiếp như mọi thứ khác.
+- **Subclass làm contract là cap cho provider list.** Fork, remote, other-product provider hoặc không tồn tại hoặc phải fake Agent. Bốn verb hỏi đúng những gì parent làm: start, stop, wait, read.
+- **Child dùng chung session parent là không phải delegation.** Transcript errand đè lên context parent — đúng cái chi phí delegation tồn tại để tránh. Hai log, một câu trả lời đi qua.
+- **Deep merge làm mọi layer thành nghi phạm.** Debug một key sai là replay cả stack. Replace giữ câu trả lời ở một row trong một layer: patch cuối là toàn bộ sự thật.
+
+### Bài tập tự làm (3 mức)
+
+**Mức 1 — Làm theo**: viết một `SubprocessShellExecutor(ShellExecutor)` chạy `sh -c` qua `subprocess.run` (stdlib) và mount nó thay `EchoShellExecutor` trong demo. Xác nhận tool concept không đổi — chỉ máy thay đổi, schema và consumer giữ nguyên.
+
+**Mức 2 — Tự sửa**: mount `JobRegistry` từ demo và viết background mode cho delegation: nếu jobs registry có mặt, trao triple vào `jobs.start("subagent", ...)`; nếu không có, refuse loudly. Xác nhận `job_list` liệt kê kind `subagent` và `job_kill`/`job_output` phục vụ nó mà không viết thêm controls.
+
+**Mức 3 — Mở rộng**: viết `mount_entries` theo availability-driven (mỗi factory khai báo `requires`) kèm audit refuse boot và nêu tên row đang chờ. Chứng minh MINI_BASE đảo ngược thứ tự vẫn boot y hệt, rồi thêm profile layer của bạn với đủ ba verb: insert một provider row, replace model row whole, disable skills row.
+
+### Tài liệu gốc
+
+Bài này dựng lại từ bốn section cuối của tutorial rebuild DeepSeek Harness:
+
+- [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — full rebuild Mini-dsh bằng Python stdlib; nguồn của bài này là `sections/10-capability-seams`, `sections/11-jobs`, `sections/12-subagent` và `sections/13-composition`.
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — dsh thật (pinned 99f6f02): `packages/fs`, `packages/shell`, `packages/sandbox`, `packages/llm`, `packages/jobs`, `packages/subagent`, và boot plane `packages/boot` + `packages/bundle`.
+
+Trên LearnWithHuy:
+
+- [System prompt động và Skills](/bai-viet/chuong-trinh-harness-engineer) — bài trước: catalog và snapshot của bài này đi qua đúng registry đó.
+- [Agent harness là gì?](/bai-viet/chuong-trinh-harness-engineer) — mở đầu series: harness là gì và vì sao phải tự dựng.
+- [12 nguyên tắc agent production](/bai-viet/12-nguyen-ly-agent-production) — các nguyên tắc mà từng seam trong bài này hiện thực hóa.
+- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ lộ trình 8 bài, kết thúc ở bài tổng hợp này.
 
 > **Nguồn chương trình giảng:** [walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering) — WalkingLab, giấy phép MIT. Toàn bộ bài giảng và code ví dụ thuộc repo gốc.

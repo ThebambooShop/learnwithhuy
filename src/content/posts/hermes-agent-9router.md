@@ -1,7 +1,7 @@
 ---
 title: "9Router và Hermes Agent: giới thiệu và cài đặt từ con số 0"
 description: "Cẩm nang gộp 2 bài về 9Router và Hermes Agent: hai công cụ AI mà dev nào cũng nên biết, kèm hướng dẫn cài đặt Hermes Agent chi tiết cho Windows, macOS và Linux."
-topic: "cong-cu-ai"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-24"
 cover: "/images/covers/posts/9router-va-hermes-agent.jpg"
 featured: false

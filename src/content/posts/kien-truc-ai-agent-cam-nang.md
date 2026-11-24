@@ -1,7 +1,7 @@
 ---
 title: "Kiến trúc AI Agent: cẩm nang từ agent loop đến multi-agent"
 description: "Cẩm nang gộp trọn 6 bài kiến trúc AI Agent trong một trang: agent loop từ con số 0, tool use và routing, memory và context engineering, planning và reflection, multi-agent orchestration, Agentic RAG đến GraphRAG."
-topic: "lap-trinh-va-cong-nghe"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-24"
 cover: "/images/covers/posts/nen-tang-agent-va-agent-loop.jpg"
 featured: false

@@ -1,7 +1,7 @@
 ---
 title: "Hello-Agents bản tiếng Việt: bộ sách 16 chương tự học AI Agent từ con số 0"
 description: "Bản dịch tiếng Việt trọn vẹn của Hello-Agents — giáo trình 87.000 sao nổi tiếng nhất về xây dựng AI Agent. Có lộ trình học 3 cấp, sơ đồ trực quan hóa, quiz tự kiểm tra và tải file Word miễn phí."
-topic: "generative-ai-llm"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-20"
 cover: "/images/covers/posts/hello-agents-ban-dich-tieng-viet.jpg"
 featured: true

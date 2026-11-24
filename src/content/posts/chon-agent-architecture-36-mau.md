@@ -1,7 +1,7 @@
 ---
 title: "Chọn architecture cho agent: bản đồ 36 mẫu từ Reflexion đến BrowserAgent"
 description: "Bản đồ 36 kiến trúc agent được dựng sẵn và benchmark trong kho all-agentic-architectures — xếp theo 8 gia đình, kèm decision matrix chọn architecture theo bài toán thật và pattern deterministic-picker."
-topic: "lap-trinh-va-cong-nghe"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-22"
 cover: "/images/covers/posts/chon-agent-architecture-36-mau.jpg"
 featured: false

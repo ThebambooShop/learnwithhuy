@@ -1,7 +1,7 @@
 ---
 title: "Google ML Crash Course: entry point nhanh nhất cho developer muốn hiểu Machine Learning"
 description: "Bài học elearning về Google Machine Learning Crash Course — free, interactive, hoàn thành trong vài tuần: nội dung khái niệm cốt lõi, phù hợp với ai, và vị trí trong lộ trình học AI tổng thể."
-topic: "ai-co-ban"
+topic: "machine-learning"
 date: "2026-11-19"
 cover: "/images/covers/posts/google-ml-crash-course.jpg"
 views: 240

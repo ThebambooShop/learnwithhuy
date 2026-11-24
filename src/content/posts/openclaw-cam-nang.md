@@ -1,7 +1,7 @@
 ---
 title: "OpenClaw: cẩm nang từ cài đặt đến 21 use case thực chiến"
 description: "Cẩm nang gộp trọn 6 bài OpenClaw trong một trang: OpenClaw là gì, cài đặt trong 30 phút, tools/skills/tích hợp kênh, chạy 24/7 trên VPS an toàn, 21 use case thực chiến và so sánh với Manus kèm lộ trình 30 ngày."
-topic: "cong-cu-ai"
+topic: "ai-agent-va-tu-dong-hoa"
 date: "2026-11-24"
 cover: "/images/covers/posts/openclaw-la-gi.jpg"
 featured: false
