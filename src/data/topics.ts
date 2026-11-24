@@ -57,12 +57,12 @@ export const topics: Topic[] = [
     description:
       'Đọc tin công nghệ một cách bình tĩnh, có chọn lọc — đánh giá xu hướng bằng bằng chứng thay vì theo hâm mộ.',
   },
-  // AI Agent — kiến trúc và vận hành agent: loop, tool, session, subagent, harness
+  // Harness Engineer — chương trình chuyên sâu về harness engineering: vì sao agent mạnh vẫn thất bại, 5 lớp phòng thủ, 14 bài giảng + chuỗi Mini-dsh tự tay dựng harness
   {
-    slug: 'ai-agent',
-    name: 'AI Agent',
+    slug: 'harness-engineer',
+    name: 'Harness Engineer',
     description:
-      'Kiến trúc và vận hành AI Agent: agent loop, tool use, session, subagent và agent harness — từ nguyên lý đến hệ thống chạy thực tế.',
+      'Chương trình Harness Engineer: vì sao agent mạnh vẫn thất bại, năm lớp phòng thủ của harness (đặc tả, ngữ cảnh, môi trường, xác minh, trạng thái) và tự tay dựng một agent harness hoàn chỉnh từ con số 0.',
   },
   // AI ứng dụng theo ngành — cách AI thay đổi công việc thực tế của từng nghề, gói trong chính ví dụ của nghề đó
   {

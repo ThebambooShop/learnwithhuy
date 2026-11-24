@@ -1,7 +1,7 @@
 ---
 title: "Capabilities, subagent và composition: ghép Mini-dsh thành hệ thống hoàn chỉnh"
 description: "Ba seam cuối của Mini-dsh: capability tách Definition/Provider/Consumer cho fs/shell/sandbox/llm, jobs fence quyền hủy công việc nền, subagent đi qua provider interface thay vì kế thừa Agent, và composition biến cả harness thành data — patch layer, replace whole config, không deep-merge."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/capabilities-subagents-composition.jpg"
 featured: false

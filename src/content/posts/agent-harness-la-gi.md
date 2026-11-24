@@ -1,7 +1,7 @@
 ---
 title: "Agent Harness là gì: tại sao model cần một cái khung"
 description: "Hiểu agent harness khác gì agent loop, tại sao mọi agent production cần một cái khung plugin, và chạy được cơ chế Message provider-agnostic đầu tiên của Mini-dsh — không cần API key."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/agent-harness-la-gi.jpg"
 featured: true

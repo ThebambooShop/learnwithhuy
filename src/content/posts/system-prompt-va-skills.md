@@ -1,7 +1,7 @@
 ---
 title: "System prompt động và Skills: nạp đúng thứ tự, đúng lúc"
 description: "System prompt của agent production không phải chuỗi tĩnh: ordered providers sinh system text + tool list + runtime context mỗi step, và skill chỉ inject catalog — body nạp on-demand qua tool call."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/system-prompt-va-skills.jpg"
 featured: false

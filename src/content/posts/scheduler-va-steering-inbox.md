@@ -1,7 +1,7 @@
 ---
 title: "Scheduler song song và steering inbox: chạy nhanh mà không giẫm chân"
 description: "Scheduler 4 giai đoạn prepare-dispatch-finalize-finish của Mini-dsh: parallel-safe overlap, exclusive barrier, synthetic result khi hủy — và steering inbox hai target next-turn/next-step với claim chỉ ở step boundary, để agent chạy nhanh mà transcript vẫn tái dựng được."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/scheduler-va-steering-inbox.jpg"
 featured: false

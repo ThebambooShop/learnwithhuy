@@ -1,7 +1,7 @@
 ---
 title: "Session log và compaction: nhớ của agent mà không phình context"
 description: "Tại sao harness production derive lịch sử hội thoại từ một append-only log thay vì lưu message list, và compaction lấy bớt context bằng replace op mà không xóa dấu vết nào."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/session-log-va-compaction.jpg"
 featured: false

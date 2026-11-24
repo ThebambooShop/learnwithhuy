@@ -1,7 +1,7 @@
 ---
 title: "Agent loop: state machine giữ log làm trạng thái duy nhất"
 description: "Vì sao harness production reassemble prompt và rederive history trước mỗi step thay vì giữ message list trong bộ nhớ — turn/step state machine mà session log là durable state duy nhất, resume được bằng replay."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/agent-loop-state-machine.jpg"
 featured: false

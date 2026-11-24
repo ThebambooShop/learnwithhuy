@@ -1,7 +1,7 @@
 ---
 title: "Kernel và nguyên tắc 'mọi thứ là plugin'"
 description: "Design question của kernel harness: vì sao framework phải sở hữu cleanup của plugin thay vì plugin tự dọn — cơ chế Fiber, effect() và reversible registration khiến mount/unmount đối xứng theo thiết kế, kèm code chạy được không API key."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/kernel-plugin-thiet-ke-harness.jpg"
 featured: false

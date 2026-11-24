@@ -1,7 +1,7 @@
 ---
 title: "Tools và permission pipeline: quyết định call nào được phép chạy"
 description: "Registry tool scoped và pipeline 5 giai đoạn pre-ask-guard-execute-post của Mini-dsh: vì sao tool call bị từ chối vẫn phải trả về tool/result, và permission nằm ở đâu trong harness."
-topic: "ai-agent"
+topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/tools-permission-pipeline.jpg"
 featured: false
