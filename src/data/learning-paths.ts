@@ -183,7 +183,7 @@ export const learningPaths: LearningPath[] = [
     title: 'Xây dựng Agent Harness từ số 0 với Mini-dsh',
     description:
       'Lộ trình 8 bài tổng hợp từ learn-deepseek-harness — tutorial rebuild DeepSeek Harness (dsh) của DeepSeek từ số 0 bằng Python stdlib, không cần API key. Đi xuyên qua 4 phase của một agent harness production: kernel plugin đảo ngược được, session log append-only với compaction, agent loop state machine, permission pipeline 5 giai đoạn, scheduler song song có barrier, steering inbox, skills nạp on-demand và composition bằng patch layers. Thời gian đọc toàn bộ khoảng 90 phút; làm đầy đủ bài tập thực hành cần thêm 4-6 giờ.',
-    topic: 'ai-agent',
+    topic: 'harness-engineer',
     level: 'Trung cấp',
     prerequisites: [
       'Python cơ bản: đã viết được script dùng class, dict, vòng lặp và xử lý lỗi (try/except)',
@@ -206,6 +206,39 @@ export const learningPaths: LearningPath[] = [
       'scheduler-va-steering-inbox',
       'system-prompt-va-skills',
       'capabilities-subagents-composition',
+    ],
+  },
+  {
+    slug: 'meridian-multimodal-rag',
+    title: 'Meridian: RAG multimodal cho tài liệu bảo trì công nghiệp',
+    description:
+      'Lộ trình 8 bài reverse-engineer hệ thống mở nguồn Meridian (MIT): RAG evidence-grounded chạy offline không cần API key — PDF bảng biểu thành row chunks + typed facts, chart digitiser đọc số liệu từ biểu đồ, hybrid retrieval 8 kênh hợp nhất bằng weighted RRF, conflict resolution theo provenance, CRAG grader, claim-level verifier chống hallucination, benchmark held-out và deploy Qdrant Docker. Thời gian đọc toàn bộ khoảng 110 phút; chạy demo hệ thống gốc thêm 30 phút.',
+    topic: 'lap-trinh-va-cong-nghe',
+    level: 'Nâng cao',
+    prerequisites: [
+      'Python trung cấp: dataclass, typing, pytest, quản lý venv bằng pip',
+      'Đã từng xây hoặc đọc pipeline RAG cơ bản — nên đọc xong lộ trình "RAG nâng cao: từ Hybrid Search đến đánh giá hệ thống"',
+      'Nắm BM25 và cosine similarity ở mức khái niệm',
+    ],
+    outcomes: [
+      'Giải thích được vì sao text-chunk RAG thất bại trên PDF công nghiệp và thiết kế pipeline decide-first theo 9 bước',
+      'Xây ingestion layout-aware biến bảng PDF thành row chunks + typed facts có citation bounding box',
+      'Digitize được số liệu từ biểu đồ ảnh và truy xuất figure theo visual descriptor',
+      'Ghép 8 kênh retrieval bằng weighted RRF, rerank late-interaction và MMR',
+      'Cài conflict resolution theo provenance và tools tính toán chính xác: pandas analytics, unit conversion, interpolation',
+      'Thiết kế CRAG grader + abstention và claim-level verifier chống hallucination',
+      'Đóng gói benchmark held-out với ablations, bootstrap CI và hallucination injection',
+      'Deploy offline với Qdrant Docker và cấu hình LLM local qua Ollama',
+    ],
+    lessons: [
+      'meridian-rag-bao-tri-cong-nghiep',
+      'meridian-ingest-pdf-bang-bieu-scan',
+      'meridian-chart-digitiser-doc-bieu-do',
+      'meridian-hybrid-retrieval-8-kenh',
+      'meridian-fact-index-conflict-resolution',
+      'meridian-crag-grader-abstention',
+      'meridian-claim-verifier-hallucination',
+      'meridian-benchmark-qdrant-deployment',
     ],
   },
 ];
