@@ -1,6 +1,6 @@
 ---
-title: "Agent Harness là gì: tại sao model cần một cái khung"
-description: "Hiểu agent harness khác gì agent loop, tại sao mọi agent production cần một cái khung plugin, và chạy được cơ chế Message provider-agnostic đầu tiên của Mini-dsh — không cần API key."
+title: "Agent Harness là gì: tại sao model cần một lớp điều phối"
+description: "Hiểu agent harness khác gì agent loop, tại sao mọi agent production cần một lớp điều phối plugin, và chạy được cơ chế Message provider-agnostic đầu tiên của Mini-dsh — không cần API key."
 topic: "harness-engineer"
 date: "2026-11-22"
 cover: "/images/covers/posts/agent-harness-la-gi.jpg"
@@ -8,7 +8,7 @@ featured: true
 views: 320
 faq:
   - q: "Agent harness khác agent loop như thế nào?"
-    a: "Agent loop là vòng lặp model-decide-code-execute. Agent harness là toàn bộ cái khung bao quanh loop: kernel quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent. Loop chỉ là một cơ chế trong harness — harness production của DeepSeek (dsh) built trên nguyên tắc 'everything is a plugin'."
+    a: "Agent loop là vòng lặp model-decide-code-execute. Agent harness là toàn bộ lớp điều phối bao quanh loop: kernel quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent. Loop chỉ là một cơ chế trong harness — harness production của DeepSeek (dsh) built trên nguyên tắc 'everything is a plugin'."
   - q: "Bài này có cần API key để chạy code không?"
     a: "Không. Toàn bộ Mini-dsh dùng Python stdlib, cơ chế model được thay bằng scripted stand-in (giả lập model theo kịch bản). Chạy offline check với python sections/00-setup/src/test.py không cần mạng hay API key."
   - q: "Message format tự định nghĩa có phải reinvent the wheel?"
@@ -17,13 +17,13 @@ faq:
     a: "Mini-dsh là bản giáo dục rút gọn nhưng giữ đúng các design question và seam của dsh 0.1.0-rc.7. Học xong bạn đọc source dsh thật dễ hơn nhiều vì đã biết cơ chế đứng sau từng phần."
 ---
 
-Bài trước bạn đã tự dựng được agent loop — model quyết định, code thực thi, kết quả quay về model ([Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop)). Nhưng loop chỉ là một cơ chế. Đưa agent đó ra production: bạn cần ghi log từng lượt, quản lý tool registry, permission, sandbox, skills, subagent — và một cách thay model mà không đụng lại toàn bộ code. Toàn bộ cái khung bao quanh loop đó có tên riêng: **agent harness**.
+Bài trước bạn đã tự dựng được agent loop — model quyết định, code thực thi, kết quả quay về model ([Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop)). Nhưng loop chỉ là một cơ chế. Đưa agent đó ra production: bạn cần ghi log từng lượt, quản lý tool registry, permission, sandbox, skills, subagent — và một cách thay model mà không đụng lại toàn bộ code. Toàn bộ lớp điều phối bao quanh loop đó có tên riêng: **agent harness**.
 
 Bài này mở lộ trình 8 bài **Xây dựng Agent Harness từ số 0 với Mini-dsh** — rebuild bản rút gọn của dsh, agent harness production của DeepSeek, chỉ bằng Python stdlib. Bài đầu tiên dựng cơ chế sơ khai nhất mà cả harness đứng trên đó: cách gọi model mà không để format của provider nào chảy vào core. Không API key, không mạng — chạy được ngay sau khi clone.
 
 ## Agent harness là gì?
 
-> **Agent harness là toàn bộ cái khung chạy quanh model call: kernel quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent. Model chỉ là một plugin cắm vào khung.**
+> **Agent harness là toàn bộ lớp điều phối chạy quanh model call: kernel quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent. Model chỉ là một plugin cắm vào lớp điều phối.**
 
 dsh — harness mà DeepSeek dùng thật — là một codebase TypeScript lớn, trong đó tools, prompts và cả những subsystem nguyên vẹn đều là plugin mounted onto a running kernel. Ẩn sau tất cả chỉ là một thao tác lặp đi lặp lại: hỏi model một response. Mỗi lần như vậy, harness derive history, expose tools, assemble prompt, rồi gọi.
 
@@ -35,13 +35,13 @@ Loop là trái tim — nhưng tim không chạy một mình.
 
 | | Agent loop | Agent harness |
 | --- | --- | --- |
-| Bản chất | Một cơ chế: model → tool call → execute → append context | Toàn bộ khung chứa cơ chế đó |
+| Bản chất | Một cơ chế: model → tool call → execute → append context | Toàn bộ lớp điều phối chứa cơ chế đó |
 | Quy mô | ~100 dòng Python là đủ | Codebase lớn, tách package rõ |
 | Biết gì về thế giới | Chỉ biết messages và tool schema | Quản lý plugin, session log, tool registry, permission, sandbox, skills, subagent |
 | Đổi model | Sửa trực tiếp vòng lặp | Thay một plugin — loop không đổi |
 | Có thể thiếu không? | Không — không loop thì không có agent | Không — không harness thì production không có log, teardown sạch, swap model |
 
-dsh xây trên nguyên tắc "everything is a plugin": tools, prompts, cả subsystems đều cắm vào kernel đang chạy. Agent loop trong dsh cũng chỉ là một plugin có đặc quyền điều phối. Tách loop ra khỏi khung là quyết định kiến trúc đầu tiên bạn phải hiểu trước khi đọc source harness thật.
+dsh xây trên nguyên tắc "everything is a plugin": tools, prompts, cả subsystems đều cắm vào kernel đang chạy. Agent loop trong dsh cũng chỉ là một plugin có đặc quyền điều phối. Tách loop ra khỏi lớp điều phối là quyết định kiến trúc đầu tiên bạn phải hiểu trước khi đọc source harness thật.
 
 ## Bản đồ Mini-dsh: 4 phase lõi
 

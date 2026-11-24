@@ -274,7 +274,7 @@ Test này đứng trên 6 nhận định, mỗi nhận định chặn một lo�
 
 Section này chưa gọi model nên không có demo API-key — kernel thuần quy luật vòng đời.
 
-> 📍 Section kế copy nguyên `src/` của section này rồi thêm đúng một cơ chế: session log sẽ mount lên kernel như một service — lần đầu tiên bạn thấy một plugin thật cắm vào khung vừa dựng.
+> 📍 Section kế copy nguyên `src/` của section này rồi thêm đúng một cơ chế: session log sẽ mount lên kernel như một service — lần đầu tiên bạn thấy một plugin thật cắm vào lớp điều phối vừa dựng.
 
 ## Registration một chiều vs reversible
 
@@ -315,7 +315,7 @@ Năm cách thiết kế này hỏng khi dùng sai — ghi chú trực tiếp t�
 
 **Mức 2 — Tự sửa**: thêm API `ctx.on_once(event, callback)` — listener tự gỡ sau lần phát đầu. Gợi ý: dùng chính disposer trả về từ `ctx.on()` để tự gỡ bên trong callback. Điểm cần thấy: bạn viết được API mới mà không đụng vào Fiber — mọi thứ đã reversible sẵn.
 
-**Mức 3 — Mở rộng**: mount một `logging_plugin` đăng ký `ctx.on("log", ...)` ghi mọi sự kiện vào list, rồi unmount và chứng minh list dừng đúng lúc — khung cho bài session log. Bonus: viết mini-HMR — unmount rồi mount lại cùng plugin và chứng minh service quay lại nguyên trạng: reload chỉ là dispose-then-mount.
+**Mức 3 — Mở rộng**: mount một `logging_plugin` đăng ký `ctx.on("log", ...)` ghi mọi sự kiện vào list, rồi unmount và chứng minh list dừng đúng lúc — lớp điều phối cho bài session log. Bonus: viết mini-HMR — unmount rồi mount lại cùng plugin và chứng minh service quay lại nguyên trạng: reload chỉ là dispose-then-mount.
 
 ## Tài liệu gốc
 
