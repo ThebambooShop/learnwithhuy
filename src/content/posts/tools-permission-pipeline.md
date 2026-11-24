@@ -46,7 +46,7 @@ Trước khi chạy được, call phải resolve được tên. Registry của 
 Hai chi tiết thiết kế dễ bỏ sót:
 
 - **Tool bị restrict không phải bị "denied"** — nó đơn giản không tồn tại với scope đó. Gọi nó trả về `unknown tool`, một result bình thường như mọi result khác. Model không cần biết khái niệm permission để hiểu transcript của mình.
-- **Mọi đăng ký đều trả về undo.** `register`, `restrict`, `pre`, `guard`, `post` đều trả về một callable gỡ chính nó — đúng nguyên tắc reversible registration mà [kernel và plugin](/bai-viet/kernel-plugin-thiet-ke-harness) đã chốt từ bài trước: plugin chết thì tool của plugin phải mất theo. Không có registration toàn cục không dọn được.
+- **Mọi đăng ký đều trả về undo.** `register`, `restrict`, `pre`, `guard`, `post` đều trả về một callable gỡ chính nó — đúng nguyên tắc reversible registration mà [kernel và plugin](/bai-viet/chuong-trinh-harness-engineer) đã chốt từ bài trước: plugin chết thì tool của plugin phải mất theo. Không có registration toàn cục không dọn được.
 
 Nhờ vậy `request/header` giờ ghi danh sách tool mỗi request được offer: log tự minh chứng scope nhìn thấy gì. Scope B bị restrict còn `["where"]` thì transcript của B chỉ thấy `where`, trong khi scope A vẫn thấy hết — và sự khác biệt ấy nằm ngay trong log, không cần đoán.
 
@@ -97,7 +97,7 @@ Câu hỏi phân loại nhanh khi debug:
 | Model muốn gọi thứ nguy hiểm | pre / guard / ask trong registry | code |
 | Tool chậm hoặc đụng state chung | khai báo an toàn + scheduler | code — bài kế |
 
-Nếu bạn đã đọc bài [Tool use và Routing](/bai-viet/agent-routing-va-tool-design), đây là cùng một kết luận mở rộng thêm một tầng: schema và mô tả là prompt — model đọc để chọn đúng; registry và pipeline là code — harness dùng để chặn đúng. Model chọn sai tool thì sửa mô tả; model muốn chạy thứ nguy hiểm thì sửa pipeline. Hai công cụ, hai lớp, không thay thế nhau.
+Nếu bạn đã đọc bài [Tool use và Routing](/bai-viet/kien-truc-ai-agent-cam-nang), đây là cùng một kết luận mở rộng thêm một tầng: schema và mô tả là prompt — model đọc để chọn đúng; registry và pipeline là code — harness dùng để chặn đúng. Model chọn sai tool thì sửa mô tả; model muốn chạy thứ nguy hiểm thì sửa pipeline. Hai công cụ, hai lớp, không thay thế nhau.
 
 ## Code rút gọn, chạy được ngay
 
@@ -261,7 +261,7 @@ Kết quả chạy thật — năm call, năm lối ra, một shape:
 > c4 read_note: is_error=True -> invalid args: missing ['key'], unknown ['sai'] [đã review]
 > c5 no_such_tool: is_error=True -> unknown tool 'no_such_tool' [đã review]
 
-Cái vòng loop cắm pipeline vào đâu? Đúng vào socket mà [agent loop state machine](/bai-viet/agent-loop-state-machine) để trống ở bài trước:
+Cái vòng loop cắm pipeline vào đâu? Đúng vào socket mà [agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) để trống ở bài trước:
 
 ```python
 def run_tool_arm(session, tools, reply):
@@ -294,7 +294,7 @@ Hai loại row, hai vai trò: `tool/call` **log-only** — ghi trước khi disp
 
 **Mức 2 — Tự sửa**: thêm một pre hook vote `deny` cho mọi tool có tên bắt đầu bằng `delete`, rồi kiểm chứng call bị pre-deny **không** chạm tới guard cũng không chạm tới body (thêm một biến đếm số lần body chạy). Mục đích: hiểu vote chỉ siết và pipeline dừng sớm ngay giai đoạn vi phạm.
 
-**Mức 3 — Mở rộng**: dựng `ToolScope` cho một subagent — register một layer riêng shadow tên global, rồi `restrict(["read_note"])` cho scope đó; gọi một tool bị restrict từ scope này và xác nhận trả về `unknown tool` như một result bình thường. Đây chính là tiền đề mà bài [capabilities và subagents](/bai-viet/capabilities-subagents-composition) dựa vào khi subagent chỉ nhận một tập con tool của cha.
+**Mức 3 — Mở rộng**: dựng `ToolScope` cho một subagent — register một layer riêng shadow tên global, rồi `restrict(["read_note"])` cho scope đó; gọi một tool bị restrict từ scope này và xác nhận trả về `unknown tool` như một result bình thường. Đây chính là tiền đề mà bài [capabilities và subagents](/bai-viet/chuong-trinh-harness-engineer) dựa vào khi subagent chỉ nhận một tập con tool của cha.
 
 ## Tài liệu gốc
 
@@ -304,6 +304,6 @@ Hai loại row, hai vai trò: `tool/call` **log-only** — ghi trước khi disp
 
 Đọc tiếp trong series:
 
-- [Agent loop state machine](/bai-viet/agent-loop-state-machine) — bài trước: vòng turn/step và socket `reason None` mà pipeline cắm vào.
-- [Scheduler song song và steering inbox](/bai-viet/scheduler-va-steering-inbox) — bài kế: pipeline chạy thế nào khi model xuất 4 call một lượt, và nói chuyện với agent đang bận ra sao.
-- [Lộ trình: Xây dựng Agent Harness từ số 0](/lo-trinh/xay-dung-agent-harness) — toàn bộ 8 bài của series.
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — bài trước: vòng turn/step và socket `reason None` mà pipeline cắm vào.
+- [Scheduler song song và steering inbox](/bai-viet/chuong-trinh-harness-engineer) — bài kế: pipeline chạy thế nào khi model xuất 4 call một lượt, và nói chuyện với agent đang bận ra sao.
+- [Lộ trình: Xây dựng Agent Harness từ số 0](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ 8 bài của series.

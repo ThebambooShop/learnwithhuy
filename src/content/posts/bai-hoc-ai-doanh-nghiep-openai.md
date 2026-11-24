@@ -188,12 +188,12 @@ Với khách hàng doanh nghiệp, không gì quan trọng hơn security, privac
 
 ## Áp dụng cho doanh nghiệp Việt
 
-Đọc guide này, ba điểm đáng mang về ngay cho bối cảnh Việt Nam: *(1)* **evals trước rồi mới scale** — đừng chờ "đủ chắc chắn mới thử" mà đánh giá nghiêm ngặt từng use case nhỏ như Morgan Stanley; *(2)* **trao AI cho chuyên gia nghiệp vụ** thay vì gom việc cho đội IT — BBVA chứng minh 2.900 use case đến từ chính nhân viên khi họ có công cụ và ranh giới an toàn; *(3)* **nhúng AI vào workflow hiện có** — OpenAI tự động hóa Gmail thay vì bắt đội support đổi hệ thống, tinh thần đúng như bài [Claude cho 8 phòng ban](/bai-viet/claude-8-phong-ban-lo-trinh-30-ngay/): tự động hóa quy trình đã chuẩn hóa, không tự động hóa sự hỗn loạn.
+Đọc guide này, ba điểm đáng mang về ngay cho bối cảnh Việt Nam: *(1)* **evals trước rồi mới scale** — đừng chờ "đủ chắc chắn mới thử" mà đánh giá nghiêm ngặt từng use case nhỏ như Morgan Stanley; *(2)* **trao AI cho chuyên gia nghiệp vụ** thay vì gom việc cho đội IT — BBVA chứng minh 2.900 use case đến từ chính nhân viên khi họ có công cụ và ranh giới an toàn; *(3)* **nhúng AI vào workflow hiện có** — OpenAI tự động hóa Gmail thay vì bắt đội support đổi hệ thống, tinh thần đúng như bài [Claude cho 8 phòng ban](/bai-viet/claude-cho-doanh-nghiep/): tự động hóa quy trình đã chuẩn hóa, không tự động hóa sự hỗn loạn.
 
 ## Bài liên quan
 
 - [Hướng dẫn xây dựng Agent thực tế](/bai-viet/huong-dan-xay-dung-agent-thuc-te/) — bản dịch chi tiết guide kỹ thuật cùng nguồn OpenAI
-- [Claude cho doanh nghiệp: vì sao 'vài cá nhân giỏi dùng AI' chưa đủ](/bai-viet/claude-doanh-nghiep-tu-duy-va-he-sinh-thai/) — góc nhìn hệ thống thay vì cá nhân
+- [Claude cho doanh nghiệp: vì sao 'vài cá nhân giỏi dùng AI' chưa đủ](/bai-viet/claude-cho-doanh-nghiep/) — góc nhìn hệ thống thay vì cá nhân
 - [7 cách dùng AI tiết kiệm thời gian](/bai-viet/7-cach-dung-ai-tiet-kiem-thoi-gian/) — bắt đầu ở tầm cá nhân
 
 ## Nguồn

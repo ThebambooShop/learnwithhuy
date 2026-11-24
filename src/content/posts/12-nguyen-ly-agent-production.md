@@ -31,7 +31,7 @@ Tài liệu viết cho team không muốn ôm framework nặng: mỗi nguyên l�
 
 ### 1. Natural Language to Tool Calls
 
-LLM không chạy logic — nó xuất JSON tool call, code của bạn thực thi tool đó, append kết quả vào context rồi lặp. Agent thực chất chỉ là một vòng lặp `while` + gọi LLM + switch theo tool call. Đây là nguyên lý số 1 vì nó phá vỡ illusion "agent là sản phẩm đặc biệt": chính là code thường. Ví dụ áp dụng: agent đổi tên file chạy trên khoảng 100 dòng Python không framework — cùng kiến trúc với agent loop bạn đã xây ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop).
+LLM không chạy logic — nó xuất JSON tool call, code của bạn thực thi tool đó, append kết quả vào context rồi lặp. Agent thực chất chỉ là một vòng lặp `while` + gọi LLM + switch theo tool call. Đây là nguyên lý số 1 vì nó phá vỡ illusion "agent là sản phẩm đặc biệt": chính là code thường. Ví dụ áp dụng: agent đổi tên file chạy trên khoảng 100 dòng Python không framework — cùng kiến trúc với agent loop bạn đã xây ở [bài 1](/bai-viet/kien-truc-ai-agent-cam-nang).
 
 ### 2. Own your prompts
 
@@ -288,7 +288,7 @@ Cascade này thống nhất với nguyên lý 9 và 12: lỗi được nén lạ
 
 **Mức 1 — làm theo:** viết agent hoàn tiền mini dùng tool `ask_human`: transaction dưới 5 triệu agent tự duyệt, từ 5 triệu trở lên bắt buộc hỏi. Log toàn bộ events ra file JSON.
 
-**Mức 2 — tự sửa:** chuyển agent loop ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop) thành stateless reducer — giữ nguyên hành vi, chạy lại từ danh sách events cũ và so khớp state cuối.
+**Mức 2 — tự sửa:** chuyển agent loop ở [bài 1](/bai-viet/kien-truc-ai-agent-cam-nang) thành stateless reducer — giữ nguyên hành vi, chạy lại từ danh sách events cũ và so khớp state cuối.
 
 **Mức 3 — mở rộng:** viết eval trace-based với 5 test case, đưa vào CI (GitHub Actions), fail build khi score dưới 0.8. Thêm một bài test idempotency thật: chạy replay reducer với danh sách events chứa event trùng `id` — assert state không đổi sau lần phát lại thứ hai.
 

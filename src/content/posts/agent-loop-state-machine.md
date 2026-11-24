@@ -113,7 +113,7 @@ Năm marker — `turn/start`, `step/start`, `step/end`, `turn/end`, `request/hea
 
 ## Khác gì agent loop 100 dòng
 
-Vòng lặp bạn viết trong bài [Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop) và vòng lặp này cùng một bản chất: model quyết định, code thực thi, kết quả quay về model. Khác nhau là nơi loop sống và state nào được thừa nhận:
+Vòng lặp bạn viết trong bài [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) và vòng lặp này cùng một bản chất: model quyết định, code thực thi, kết quả quay về model. Khác nhau là nơi loop sống và state nào được thừa nhận:
 
 | Tiêu chí | Agent loop 100 dòng | Loop trong harness |
 | --- | --- | --- |
@@ -129,7 +129,7 @@ Cột phải không "tốt hơn" một cách trừu tượng — nó đánh đ�
 
 ## Chạy được ngay
 
-Ghép hai bài: paste code Session của bài [session log và compaction](/bai-viet/session-log-va-compaction) vào trước, rồi thêm block này:
+Ghép hai bài: paste code Session của bài [session log và compaction](/bai-viet/chuong-trinh-harness-engineer) vào trước, rồi thêm block này:
 
 ```python
 # loop_demo.py — chỉ stdlib. Ghép code Session + Message của bài trước vào
@@ -194,7 +194,7 @@ Sáu lỗi nguồn đã liệt kê cho cái loop này:
 | Resume ra kết quả lệch | Append thủ công nhưng lộn thứ tự, hoặc sửa event trong log | Replay đúng thứ tự log, giữ nguyên `surface_op`; hoặc để `Agent.send()` tự làm mọi thứ |
 | Turn chỉ chạy 1 step dù đã thêm tool | Quên arm `None`: step trả `"completed"` cho cả lượt có tool | Step có tool call phải trả `None` để while-loop quay lại |
 
-> 📍 Bài này là bài 4 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness). Source đầy đủ của section nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — `test.py` chạy offline, `demo.py` là bản đầu tiên cắm API thật vào Model seam.
+> 📍 Bài này là bài 4 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Source đầy đủ của section nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — `test.py` chạy offline, `demo.py` là bản đầu tiên cắm API thật vào Model seam.
 
 ## Bài tập tự làm (3 mức)
 
@@ -207,7 +207,7 @@ Sáu lỗi nguồn đã liệt kê cho cái loop này:
 ## Tài liệu gốc
 
 - [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo gốc của lộ trình; cơ chế trong bài là section 04, đối chiếu trực tiếp với `packages/core/agent-loop` của DeepSeek Harness thật (pinned `99f6f02`).
-- [Session log và compaction](/bai-viet/session-log-va-compaction) — bài trước: log, surface, `derive_messages()` và replace op mà loop này tiêu thụ mỗi step.
-- [Tools và permission pipeline](/bai-viet/tools-permission-pipeline) — bài kế tiếp: arm `None` của step được lấp, turn thành nhiều step thật.
-- [Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop) — agent loop 100 dòng, bản chất mà bài này đưa lên shape production.
-- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness) — tổng quan 8 bài của lộ trình.
+- [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer) — bài trước: log, surface, `derive_messages()` và replace op mà loop này tiêu thụ mỗi step.
+- [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer) — bài kế tiếp: arm `None` của step được lấp, turn thành nhiều step thật.
+- [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) — agent loop 100 dòng, bản chất mà bài này đưa lên shape production.
+- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — tổng quan 8 bài của lộ trình.

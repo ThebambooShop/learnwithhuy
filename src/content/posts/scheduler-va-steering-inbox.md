@@ -197,7 +197,7 @@ Kết quả chạy thật:
 > tool/result sibling đã dispatch nên chạy hết
 > tool/result late aborted before dispatch
 
-Đọc kết quả: hai `read` chạy chồng nhau nên tổng thời gian xấp xỉ 0.8s chứ không phải 1.2s — concurrency rút ngắn thời gian thật. Nhưng thứ tự log không đổi: đủ 3 hàng `tool/call` trước bất kỳ `tool/result` nào, và results ra theo đúng thứ tự model. Trong kịch bản hủy, `sibling` đã được dispatch nên chạy đến cùng; `late` đứng sau barrier, chưa kịp chạy, và vẫn được trả lời bằng synthetic result — [pipeline permission của bài trước](/bai-viet/tools-permission-pipeline) không hề bị động vào: mọi call có câu trả lời như bình thường.
+Đọc kết quả: hai `read` chạy chồng nhau nên tổng thời gian xấp xỉ 0.8s chứ không phải 1.2s — concurrency rút ngắn thời gian thật. Nhưng thứ tự log không đổi: đủ 3 hàng `tool/call` trước bất kỳ `tool/result` nào, và results ra theo đúng thứ tự model. Trong kịch bản hủy, `sibling` đã được dispatch nên chạy đến cùng; `late` đứng sau barrier, chưa kịp chạy, và vẫn được trả lời bằng synthetic result — [pipeline permission của bài trước](/bai-viet/chuong-trinh-harness-engineer) không hề bị động vào: mọi call có câu trả lời như bình thường.
 
 ## Ba khái niệm đặt cạnh nhau
 
@@ -400,6 +400,6 @@ Steer vào turn đang chạy đúng một boundary sau khi nó được gửi �
 
 Đọc tiếp trong series:
 
-- [Tools và permission pipeline](/bai-viet/tools-permission-pipeline) — bài trước: pipeline 5 giai đoạn mà scheduler dispatch vào.
-- [System prompt và skills](/bai-viet/system-prompt-va-skills) — bài kế.
-- [Lộ trình: Xây dựng Agent Harness từ số 0](/lo-trinh/xay-dung-agent-harness) — toàn bộ 8 bài của series.
+- [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer) — bài trước: pipeline 5 giai đoạn mà scheduler dispatch vào.
+- [System prompt và skills](/bai-viet/chuong-trinh-harness-engineer) — bài kế.
+- [Lộ trình: Xây dựng Agent Harness từ số 0](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ 8 bài của series.

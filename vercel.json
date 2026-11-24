@@ -1,0 +1,524 @@
+{
+  "redirects": [
+    {
+      "source": "/bai-viet/meridian-rag-bao-tri-cong-nghiep",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-rag-bao-tri-cong-nghiep/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-ingest-pdf-bang-bieu-scan",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-ingest-pdf-bang-bieu-scan/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-chart-digitiser-doc-bieu-do",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-chart-digitiser-doc-bieu-do/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-hybrid-retrieval-8-kenh",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-hybrid-retrieval-8-kenh/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-fact-index-conflict-resolution",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-fact-index-conflict-resolution/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-crag-grader-abstention",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-crag-grader-abstention/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-claim-verifier-hallucination",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-claim-verifier-hallucination/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-benchmark-qdrant-deployment",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/meridian-benchmark-qdrant-deployment/",
+      "destination": "/bai-viet/meridian-rag-multimodal/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/bat-dau-hoc-tieng-anh-voi-ai",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/bat-dau-hoc-tieng-anh-voi-ai/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/5-phuong-phap-hoc-tieng-anh-hieu-qua",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/5-phuong-phap-hoc-tieng-anh-hieu-qua/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/chatgpt-gia-su-tieng-anh-ca-nhan",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/chatgpt-gia-su-tieng-anh-ca-nhan/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-nghe-tieng-anh-tu-podcast-va-youtube",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-nghe-tieng-anh-tu-podcast-va-youtube/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-doc-tai-lieu-ky-thuat-tieng-anh",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-doc-tai-lieu-ky-thuat-tieng-anh/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-noi-voi-ai-speaking-coach",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/luyen-noi-voi-ai-speaking-coach/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/viet-tieng-anh-voi-ai-writing-assistant",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/viet-tieng-anh-voi-ai-writing-assistant/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/kho-tu-vung-tech-voi-anki-va-ai",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/kho-tu-vung-tech-voi-anki-va-ai/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/ke-hoach-30-ngay-hoc-tieng-anh-voi-ai",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/ke-hoach-30-ngay-hoc-tieng-anh-voi-ai/",
+      "destination": "/bai-viet/tieng-anh-cho-dan-ai-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-doanh-nghiep-tu-duy-va-he-sinh-thai",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-doanh-nghiep-tu-duy-va-he-sinh-thai/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-kienc-truc-7-tang-6-tai-san-tri-thuc",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-kienc-truc-7-tang-6-tai-san-tri-thuc/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-claude-md-project-skills",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-claude-md-project-skills/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-connectors-mcp-sub-agents",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-connectors-mcp-sub-agents/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/prompt-giao-viec-6-lop-best-practices",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/prompt-giao-viec-6-lop-best-practices/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-8-phong-ban-lo-trinh-30-ngay",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-8-phong-ban-lo-trinh-30-ngay/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-content-marketing-9-prompt",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/claude-content-marketing-9-prompt/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/co-may-content-claude-4-agent",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/co-may-content-claude-4-agent/",
+      "destination": "/bai-viet/claude-cho-doanh-nghiep/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/nen-tang-agent-va-agent-loop",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/nen-tang-agent-va-agent-loop/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-routing-va-tool-design",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-routing-va-tool-design/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-memory-va-context-engineering",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-memory-va-context-engineering/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-planning-va-reflection",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-planning-va-reflection/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-multi-agent-orchestration",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-multi-agent-orchestration/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-rag-va-graphrag",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-rag-va-graphrag/",
+      "destination": "/bai-viet/kien-truc-ai-agent-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/hybrid-search-bm25-dense-rrf",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/hybrid-search-bm25-dense-rrf/",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/graphrag-knowledge-graph",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/graphrag-knowledge-graph/",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multi-hop-rag-langgraph",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multi-hop-rag-langgraph/",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multimodal-rag-pdf-tieng-viet",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multimodal-rag-pdf-tieng-viet/",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/danh-gia-chat-luong-rag-ragas",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/danh-gia-chat-luong-rag-ragas/",
+      "destination": "/bai-viet/rag-nang-cao-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/openclaw-la-gi",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/openclaw-la-gi/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/cai-dat-va-cau-hinh-openclaw",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/cai-dat-va-cau-hinh-openclaw/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/tools-skills-va-tich-hop-kenh-openclaw",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/tools-skills-va-tich-hop-kenh-openclaw/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multi-agent-bao-mat-vps-openclaw",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/multi-agent-bao-mat-vps-openclaw/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/21-use-case-openclaw-thuc-chien",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/21-use-case-openclaw-thuc-chien/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/openclaw-vs-manus-lo-trinh-30-ngay",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/openclaw-vs-manus-lo-trinh-30-ngay/",
+      "destination": "/bai-viet/openclaw-cam-nang/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/9router-va-hermes-agent",
+      "destination": "/bai-viet/hermes-agent-9router/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/9router-va-hermes-agent/",
+      "destination": "/bai-viet/hermes-agent-9router/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/cai-dat-hermes-agent-tu-so-0",
+      "destination": "/bai-viet/hermes-agent-9router/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/cai-dat-hermes-agent-tu-so-0/",
+      "destination": "/bai-viet/hermes-agent-9router/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-harness-la-gi",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-harness-la-gi/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/kernel-plugin-thiet-ke-harness",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/kernel-plugin-thiet-ke-harness/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-loop-state-machine",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/agent-loop-state-machine/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/tools-permission-pipeline",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/tools-permission-pipeline/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/session-log-va-compaction",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/session-log-va-compaction/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/scheduler-va-steering-inbox",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/scheduler-va-steering-inbox/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/system-prompt-va-skills",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/system-prompt-va-skills/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/capabilities-subagents-composition",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    },
+    {
+      "source": "/bai-viet/capabilities-subagents-composition/",
+      "destination": "/bai-viet/chuong-trinh-harness-engineer/",
+      "permanent": true
+    }
+  ]
+}

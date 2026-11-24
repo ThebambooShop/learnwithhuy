@@ -17,7 +17,7 @@ faq:
     a: "Không, và không phải mục đích. Mini-dsh giữ đúng shape của từng seam và từng protocol để học cơ chế bằng Python stdlib; sandbox thật (bwrap/landlock/seatbelt), continuable subagent, HMR và bundle 78 row của dsh nằm ngoài Ceiling của tutorial và được link về repo gốc để đọc tiếp."
 ---
 
-Chín bài trước đã dựng Mini-dsh từ một kernel rỗng tới một agent có inbox, có system prompt động, có skill catalog ([bài trước](/bai-viet/system-prompt-va-skills)). Nhưng đến đây harness vẫn chưa chạm vào thế giới ngoài log của chính nó: không đọc được file, không chạy được lệnh, không trao được công việc chậm cho ai, không trao được nhiệm vụ lớn cho context window nào khác. Và thứ quyết định tất cả những mảnh đó được mount vào sản phẩm nào vẫn là một hàm Python ai đó sửa tay.
+Chín bài trước đã dựng Mini-dsh từ một kernel rỗng tới một agent có inbox, có system prompt động, có skill catalog ([bài trước](/bai-viet/chuong-trinh-harness-engineer)). Nhưng đến đây harness vẫn chưa chạm vào thế giới ngoài log của chính nó: không đọc được file, không chạy được lệnh, không trao được công việc chậm cho ai, không trao được nhiệm vụ lớn cho context window nào khác. Và thứ quyết định tất cả những mảnh đó được mount vào sản phẩm nào vẫn là một hàm Python ai đó sửa tay.
 
 Bài này đi qua bốn design question của sections 10–13. Mỗi câu hỏi đều có một câu trả lời phá trực giác: tách seam không phải vì đẹp, background không phải chỉ là thread, delegation không cần class, và patch không merge. Cuối bài, cả Mini-dsh đóng lại thành một hình và một danh sách 16 row data.
 
@@ -34,7 +34,7 @@ Câu hỏi ngược lại cũng thật: tách mọi capability thành interface 
 Ba vai trò, mỗi vai một nhiệm vụ:
 
 - **Definition** — một ABC, một ctx key, và vocabulary của seam. Nó sở hữu contract và không gì khác; một Definition không ship code nào làm việc cả.
-- **Provider** — plugin mount một implementation cụ thể dưới key. Kernel đã làm phần kế toán: `provide()` trả undo và refuse duplicate key, nên exclusive seam fail loud ngay tại mount. Bookkeeping này là của bài [Kernel và plugin: thiết kế harness](/bai-viet/kernel-plugin-thiet-ke-harness).
+- **Provider** — plugin mount một implementation cụ thể dưới key. Kernel đã làm phần kế toán: `provide()` trả undo và refuse duplicate key, nên exclusive seam fail loud ngay tại mount. Bookkeeping này là của bài [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer).
 - **Consumer** — code resolve key qua `ctx.get()` tại execute time và chỉ nói verb của ABC — thường là tool hướng model. Không tool nào import provider. Kỷ luật import đó chính là seam.
 
 Bốn seam của Mini-dsh: **fs** (read, write), **shell** (run), **sandbox** (confine), **llm**. Hai seam bend hình dạng, và mỗi bend là một design question được trả lời theo một hướng khác.
@@ -100,7 +100,7 @@ Handoff gồm sáu điều:
 2. **Nhận trọn protocol** — producer `run()` trả `(cancel, done, read_output)`; từ đó registry sở hữu ids, snapshots, settlement, delivery.
 3. **Fence mọi accessor** — read, kill, list chỉ trả lời session sở hữu job; caller identity baked tại mount, ambient, không bao giờ là model argument.
 4. **Settle first-wins, đúng một lần** — `completed`, `failed` hoặc `killed`, cái nào tới trước, mãi mãi.
-5. **Delivery qua inbox** — `wakeup`: owner idle → `followup()` mở turn riêng; owner busy → `inject()` park tới step boundary (hai preset của bài [scheduler và inbox](/bai-viet/scheduler-va-steering-inbox)). `quiet`: chờ được poll. Background work không bao giờ tự append log row.
+5. **Delivery qua inbox** — `wakeup`: owner idle → `followup()` mở turn riêng; owner busy → `inject()` park tới step boundary (hai preset của bài [scheduler và inbox](/bai-viet/chuong-trinh-harness-engineer)). `quiet`: chờ được poll. Background work không bao giờ tự append log row.
 6. **Controls viết một lần** — `job_output`, `job_kill`, `job_list` phục vụ mọi producer.
 
 Hai mảnh code là trái tim của thiết kế:
@@ -143,7 +143,7 @@ class SubagentRun:
     read_output: callable   # câu trả lời của child tính đến hiện tại
 ```
 
-Đó chính là payoff: foreground — tool call chờ `done()` và trả câu trả lời của child; background — trao cùng triple cho jobs registry unchanged, subagent thành producer thứ hai, peer với shell, và fence, settlement, controls của section 11 phục vụ nó với không một dòng code mới. Parent log chỉ mang hai row của errand — một `tool/call` và một `tool/result`; errand là một session hoàn chỉnh ở nơi khác, đúng như mọi thứ trong [session log](/bai-viet/session-log-va-compaction) vốn thuộc về session của nó.
+Đó chính là payoff: foreground — tool call chờ `done()` và trả câu trả lời của child; background — trao cùng triple cho jobs registry unchanged, subagent thành producer thứ hai, peer với shell, và fence, settlement, controls của section 11 phục vụ nó với không một dòng code mới. Parent log chỉ mang hai row của errand — một `tool/call` và một `tool/result`; errand là một session hoàn chỉnh ở nơi khác, đúng như mọi thứ trong [session log](/bai-viet/chuong-trinh-harness-engineer) vốn thuộc về session của nó.
 
 ## Inheritance vs provider interface
 
@@ -208,7 +208,7 @@ MINI_BASE (16 row data) + profile patch + user patch
 
 Đọc hình từ trên xuống: sản phẩm là một diff over nothing — 16 row dựng lên từ một list rỗng, mount theo service availability, và một turn đi qua đúng chuỗi cửa đã học từ section 04: claim tại boundary, assemble, dispatch có abort signal, pipeline permission, tools, rồi công việc nền quay về inbox. Disable một row — skills chẳng hạn — và cùng harness trả lời cùng script bằng `unknown tool 'skill'`: một subsystem bị gỡ bằng data, không sửa một dòng code nào.
 
-> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài cuối của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness). Section 10–13 của repo gốc là nguồn; bài tổng hợp trong lộ trình gắn toàn bộ kiến trúc lại thành hình này — mỗi bài trước là một tầng của nó.
+> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài cuối của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Section 10–13 của repo gốc là nguồn; bài tổng hợp trong lộ trình gắn toàn bộ kiến trúc lại thành hình này — mỗi bài trước là một tầng của nó.
 
 ## Code thực hành: bốn seam chạy được
 
@@ -583,7 +583,7 @@ Bài này dựng lại từ bốn section cuối của tutorial rebuild DeepSeek
 
 Trên LearnWithHuy:
 
-- [System prompt động và Skills](/bai-viet/system-prompt-va-skills) — bài trước: catalog và snapshot của bài này đi qua đúng registry đó.
-- [Agent harness là gì?](/bai-viet/agent-harness-la-gi) — mở đầu series: harness là gì và vì sao phải tự dựng.
+- [System prompt động và Skills](/bai-viet/chuong-trinh-harness-engineer) — bài trước: catalog và snapshot của bài này đi qua đúng registry đó.
+- [Agent harness là gì?](/bai-viet/chuong-trinh-harness-engineer) — mở đầu series: harness là gì và vì sao phải tự dựng.
 - [12 nguyên tắc agent production](/bai-viet/12-nguyen-ly-agent-production) — các nguyên tắc mà từng seam trong bài này hiện thực hóa.
-- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness) — toàn bộ lộ trình 8 bài, kết thúc ở bài tổng hợp này.
+- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ lộ trình 8 bài, kết thúc ở bài tổng hợp này.

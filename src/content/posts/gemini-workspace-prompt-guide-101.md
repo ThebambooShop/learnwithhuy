@@ -396,7 +396,7 @@ the team using an upbeat and friendly tone. (Gemini in Gmail)
 
 ## So với khung prompt 6 lớp trên blog này
 
-Guide của Google dạy khung **4 thành phần cho cuộc hội thoại hàng ngày trong Workspace** (Persona–Task–Context–Format) — tối ưu cho người dùng cá nhân làm việc nhanh trong app. Nếu bạn cần giao việc phức tạp, có hệ thống hơn cho Claude hoặc các agent, đọc thêm [cấu trúc prompt 6 lớp](/bai-viet/prompt-giao-viec-6-lop-best-practices/) (thêm Data, Constraints và Validation) và [cách viết prompt rõ ràng](/bai-viet/viet-prompt-ro-rang/). Hai khung không mâu thuẫn — một cái cho tốc độ hằng ngày, một cái cho tác vụ quan trọng.
+Guide của Google dạy khung **4 thành phần cho cuộc hội thoại hàng ngày trong Workspace** (Persona–Task–Context–Format) — tối ưu cho người dùng cá nhân làm việc nhanh trong app. Nếu bạn cần giao việc phức tạp, có hệ thống hơn cho Claude hoặc các agent, đọc thêm [cấu trúc prompt 6 lớp](/bai-viet/claude-cho-doanh-nghiep/) (thêm Data, Constraints và Validation) và [cách viết prompt rõ ràng](/bai-viet/viet-prompt-ro-rang/). Hai khung không mâu thuẫn — một cái cho tốc độ hằng ngày, một cái cho tác vụ quan trọng.
 
 ## Nguồn
 

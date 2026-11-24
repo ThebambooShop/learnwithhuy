@@ -122,7 +122,7 @@ Cột phải đắt thêm một phép duyệt list seq mỗi step — chi phí k
 
 ## Liên hệ context engineering
 
-Bài [Memory và Context Engineering](/bai-viet/agent-memory-va-context-engineering) đã nói compaction ở tầng kỹ thuật: nén lịch sử cũ thành tóm tắt trước khi hết window, kèm nguyên tắc *own your context window*. Mini-dsh đưa nguyên tắc đó xuống tầng dữ liệu: compaction ở đây là một **cơ chế của harness**, không phải một hàm tiện ích gọi trước khi gửi request.
+Bài [Memory và Context Engineering](/bai-viet/kien-truc-ai-agent-cam-nang) đã nói compaction ở tầng kỹ thuật: nén lịch sử cũ thành tóm tắt trước khi hết window, kèm nguyên tắc *own your context window*. Mini-dsh đưa nguyên tắc đó xuống tầng dữ liệu: compaction ở đây là một **cơ chế của harness**, không phải một hàm tiện ích gọi trước khi gửi request.
 
 Điểm khác then chốt: bản compaction kiểu context engineering **thay thế** list cũ bằng list mới — dữ liệu chi tiết biến mất khỏi hệ thống. Trong session log, cái bị thay chỉ là projection. Cái log giữ: mọi message gốc, mọi chunk, mọi marker. Khi tóm tắt viết sai — mất con số, gộp nhầm hai yêu cầu — dữ liệu gốc vẫn còn để kiểm tra và để replay. ⚠️ Trách nhiệm về chất lượng tóm tắt vẫn như cũ: instruction tóm tắt phải ghi rõ giữ nguyên con số và tên riêng; không cơ chế nào cứu được một summary kém.
 
@@ -248,7 +248,7 @@ Năm lỗi thiết kế nguồn đã chỉ đích danh, chuyển thẳng sang đ
 | `TypeError` khi sửa event trong log | Event đã frozen (`MappingProxyType`/tuple) | Không sửa log. Muốn đổi view → append một replace op |
 | Event type mới biến mất khỏi `derive_messages()` | Không đăng ký vào `SURFACE_TYPES` | Mỗi type muốn model thấy phải vào `SURFACE_TYPES`; type log-only thì để ngoài một cách chủ ý |
 
-> 📍 Bài này là bài 3 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness) — rebuild DeepSeek Harness bằng Python stdlib, mỗi cơ chế một bài. Toàn bộ source nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness), check offline không cần API key.
+> 📍 Bài này là bài 3 của lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — rebuild DeepSeek Harness bằng Python stdlib, mỗi cơ chế một bài. Toàn bộ source nằm ở [repo learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness), check offline không cần API key.
 
 ## Bài tập tự làm (3 mức)
 
@@ -261,7 +261,7 @@ Năm lỗi thiết kế nguồn đã chỉ đích danh, chuyển thẳng sang đ
 ## Tài liệu gốc
 
 - [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo gốc của lộ trình Mini-dsh; cơ chế trong bài là section 02 và 03, kèm đối chiếu từng file với DeepSeek Harness thật (pinned `99f6f02`).
-- [Kernel và plugin: thiết kế harness](/bai-viet/kernel-plugin-thiet-ke-harness) — nền tảng trước đó: session log được mount như service `sessions` trên kernel này.
-- [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/agent-loop-state-machine) — bài kế tiếp: loop nào tiêu thụ cái log này mỗi step.
-- [Memory và Context Engineering](/bai-viet/agent-memory-va-context-engineering) — compaction nhìn từ tầng kỹ thuật context, và nguyên tắc own your context window.
-- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness) — tổng quan 8 bài của lộ trình.
+- [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer) — nền tảng trước đó: session log được mount như service `sessions` trên kernel này.
+- [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/chuong-trinh-harness-engineer) — bài kế tiếp: loop nào tiêu thụ cái log này mỗi step.
+- [Memory và Context Engineering](/bai-viet/kien-truc-ai-agent-cam-nang) — compaction nhìn từ tầng kỹ thuật context, và nguyên tắc own your context window.
+- [Lộ trình: Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — tổng quan 8 bài của lộ trình.

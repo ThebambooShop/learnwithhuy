@@ -17,7 +17,7 @@ faq:
     a: "Không. Benchmark dùng để sàng lọc: loại architecture rõ ràng không hợp trước khi đầu tư thời gian. Sau khi còn lại 1-2 ứng viên, bạn vẫn phải viết eval trên dữ liệu và tiêu chí thật của mình — chuẩn là kết hợp trace-based như bài 12 nguyên lý đã nói, chạy trong CI cho mọi commit."
 ---
 
-Bảy bài trước trong lộ trình, mỗi bài dạy một pattern riêng: agent loop ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop), routing và tool design ở [bài 2](/bai-viet/agent-routing-va-tool-design), planning và reflection ở [bài 3](/bai-viet/agent-planning-va-reflection), memory ở [bài 4](/bai-viet/agent-memory-va-context-engineering), multi-agent ở [bài 5](/bai-viet/agent-multi-agent-orchestration), RAG trong agent ở [bài 6](/bai-viet/agent-rag-va-graphrag), và 12 nguyên lý production ở [bài 7](/bai-viet/12-nguyen-ly-agent-production). Câu hỏi còn lại là câu khó nhất: đứng trước một bài toán thật, chọn pattern nào?
+Bảy bài trước trong lộ trình, mỗi bài dạy một pattern riêng: agent loop ở [bài 1](/bai-viet/kien-truc-ai-agent-cam-nang), routing và tool design ở [bài 2](/bai-viet/kien-truc-ai-agent-cam-nang), planning và reflection ở [bài 3](/bai-viet/kien-truc-ai-agent-cam-nang), memory ở [bài 4](/bai-viet/kien-truc-ai-agent-cam-nang), multi-agent ở [bài 5](/bai-viet/kien-truc-ai-agent-cam-nang), RAG trong agent ở [bài 6](/bai-viet/kien-truc-ai-agent-cam-nang), và 12 nguyên lý production ở [bài 7](/bai-viet/12-nguyen-ly-agent-production). Câu hỏi còn lại là câu khó nhất: đứng trước một bài toán thật, chọn pattern nào?
 
 Bài này trả lời bằng một bản đồ. Kho [all-agentic-architectures](https://github.com/FareedKhan-dev/all-agentic-architectures) của Fareed Khan (4.8k sao) dựng **36 architecture agent chạy được trên LangGraph** — mỗi architecture một notebook, cùng một giao diện thống nhất, hỗ trợ 11 provider LLM, kèm benchmark trên 17 task. Thay vì đọc lý thuyết 36 papers, bạn chạy 36 notebook và so số.
 
@@ -109,17 +109,17 @@ Bản đồ trên trả lời "có gì"; bảng dưới trả lời "chọn gì"
 
 | Bài toán thật | Gia đình | Architecture gợi ý | Bài đã học |
 | --- | --- | --- | --- |
-| Trả lời QA cần chính xác cao, chấm được | Retrieval | Self-RAG, Corrective RAG | [bài 6](/bai-viet/agent-rag-va-graphrag) |
-| QA trên tài liệu nội bộ có quan hệ chằng chịt | Retrieval | GraphRAG | [bài 6](/bai-viet/agent-rag-va-graphrag) |
-| Câu hỏi mơ hồ, khó đoán pipeline nào hợp | Retrieval | Adaptive RAG | [bài 6](/bai-viet/agent-rag-va-graphrag) |
-| Tác vụ nhiều bước hay fail giữa chừng | Tools & Actions | Plan-Execute-Verify | [bài 3](/bai-viet/agent-planning-va-reflection) |
-| Lỗi logic lặp lại qua nhiều lần chạy | Reasoning & Reflection | Reflexion | [bài 3](/bai-viet/agent-planning-va-reflection) |
-| Tác vụ lặp lại cần nhớ recipe | Memory | Agent Workflow Memory | [bài 4](/bai-viet/agent-memory-va-context-engineering) |
-| Context dài cần quản lý chặt | Memory | MemGPT | [bài 4](/bai-viet/agent-memory-va-context-engineering) |
+| Trả lời QA cần chính xác cao, chấm được | Retrieval | Self-RAG, Corrective RAG | [bài 6](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| QA trên tài liệu nội bộ có quan hệ chằng chịt | Retrieval | GraphRAG | [bài 6](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Câu hỏi mơ hồ, khó đoán pipeline nào hợp | Retrieval | Adaptive RAG | [bài 6](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Tác vụ nhiều bước hay fail giữa chừng | Tools & Actions | Plan-Execute-Verify | [bài 3](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Lỗi logic lặp lại qua nhiều lần chạy | Reasoning & Reflection | Reflexion | [bài 3](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Tác vụ lặp lại cần nhớ recipe | Memory | Agent Workflow Memory | [bài 4](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Context dài cần quản lý chặt | Memory | MemGPT | [bài 4](/bai-viet/kien-truc-ai-agent-cam-nang) |
 | Hành động rủi ro cần duyệt | Safety & Specialty | Dry-Run | [bài 7](/bai-viet/12-nguyen-ly-agent-production) |
-| Độ khó vượt 1 agent | Multi-Agent | Supervisor | [bài 5](/bai-viet/agent-multi-agent-orchestration) |
-| Agent cần thao tác web, điền form | Tools & Actions | BrowserAgent | [bài 2](/bai-viet/agent-routing-va-tool-design) |
-| Task đầu vào đa dạng, khó đoán trước | Meta & Mixture | Meta-Controller | [bài 2](/bai-viet/agent-routing-va-tool-design) |
+| Độ khó vượt 1 agent | Multi-Agent | Supervisor | [bài 5](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Agent cần thao tác web, điền form | Tools & Actions | BrowserAgent | [bài 2](/bai-viet/kien-truc-ai-agent-cam-nang) |
+| Task đầu vào đa dạng, khó đoán trước | Meta & Mixture | Meta-Controller | [bài 2](/bai-viet/kien-truc-ai-agent-cam-nang) |
 
 Cách dùng bảng: bắt đầu từ mô tả bài toán gần nhất với của bạn, mở notebook của architecture gợi ý, chạy trên dữ liệu thật trước khi chuyển code vào hệ thống. Đừng đọc dọc bảng theo thứ tự — bài toán của bạn quyết định hàng nào để đọc.
 
@@ -176,17 +176,17 @@ Nguyên tắc đứng sau: giữ model lo ngôn ngữ, code lo logic. Đây chí
 
 ## Meta-Controller: router chọn architecture
 
-Gia đình Meta & Mixture là hướng kết hợp của cả lộ trình. **Meta-Controller** đứng ở tầng cao nhất: nhận task, phân loại (chính là một deterministic-picker), rồi gọi đúng architecture như gọi một tool. Không ngẫu nhiên mà nó cùng kiểu với routing trong [bài 2](/bai-viet/agent-routing-va-tool-design) — chỉ khác một cấp: thay vì route giữa các tool, nó route giữa các architecture.
+Gia đình Meta & Mixture là hướng kết hợp của cả lộ trình. **Meta-Controller** đứng ở tầng cao nhất: nhận task, phân loại (chính là một deterministic-picker), rồi gọi đúng architecture như gọi một tool. Không ngẫu nhiên mà nó cùng kiểu với routing trong [bài 2](/bai-viet/kien-truc-ai-agent-cam-nang) — chỉ khác một cấp: thay vì route giữa các tool, nó route giữa các architecture.
 
-Cách triển khai gọn nhất: mỗi architecture đóng gói thành một "tool" với mô tả rõ ràng, Meta-Controller là agent supervisor ở [bài 5](/bai-viet/agent-multi-agent-orchestration) với danh sách tool đó. Bạn chỉ cần một phần tử nữa — eval để biết từng architecture chạy tốt trên loại task nào — và hệ thống tự chọn đường đi hợp lý.
+Cách triển khai gọn nhất: mỗi architecture đóng gói thành một "tool" với mô tả rõ ràng, Meta-Controller là agent supervisor ở [bài 5](/bai-viet/kien-truc-ai-agent-cam-nang) với danh sách tool đó. Bạn chỉ cần một phần tử nữa — eval để biết từng architecture chạy tốt trên loại task nào — và hệ thống tự chọn đường đi hợp lý.
 
 ## Học tiếp thế nào
 
 Đừng học 36 notebook theo thứ tự thư mục. Khuyến nghị path của repo, khớp với lộ trình này:
 
-1. **Beginner** — Reflection, Tool Use, ReAct: nền đã có ở [bài 1](/bai-viet/nen-tang-agent-va-agent-loop) và [bài 2](/bai-viet/agent-routing-va-tool-design).
-2. **RAG** — Agentic RAG, Corrective RAG, Self-RAG: nối tiếp [bài 6](/bai-viet/agent-rag-va-graphrag).
-3. **Multi-agent** — supervisor, Debate, STORM: nối tiếp [bài 5](/bai-viet/agent-multi-agent-orchestration).
+1. **Beginner** — Reflection, Tool Use, ReAct: nền đã có ở [bài 1](/bai-viet/kien-truc-ai-agent-cam-nang) và [bài 2](/bai-viet/kien-truc-ai-agent-cam-nang).
+2. **RAG** — Agentic RAG, Corrective RAG, Self-RAG: nối tiếp [bài 6](/bai-viet/kien-truc-ai-agent-cam-nang).
+3. **Multi-agent** — supervisor, Debate, STORM: nối tiếp [bài 5](/bai-viet/kien-truc-ai-agent-cam-nang).
 4. **Safety** — Dry-Run, Reflexive Metacognitive: nối tiếp [bài 7](/bai-viet/12-nguyen-ly-agent-production).
 
 Hai nguyên tắc khi học:
@@ -219,4 +219,4 @@ Chọn 1-2 architecture khớp bài toán của bạn rồi đào sâu — khôn
 - [FareedKhan-dev/all-agentic-architectures](https://github.com/FareedKhan-dev/all-agentic-architectures) — nguồn chính: 36 architecture, notebook, benchmark.
 - [microsoft/ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners) — các lesson nền mà bài 1-7 của lộ trình đã đi qua.
 
-Đây là bài cuối của lộ trình **Kiến trúc AI Agent: từ agent loop đến production** — [bài 1](/bai-viet/nen-tang-agent-va-agent-loop) đến [bài 7](/bai-viet/12-nguyen-ly-agent-production). Nếu bạn quay lại cần tra nhanh: bản đồ 8 gia đình ở trên là bảng tra cứu, decision matrix là bảng chọn, và deterministic-picker là cầu nối về code — thứ bài 7 đã dựng nền.
+Đây là bài cuối của lộ trình **Kiến trúc AI Agent: từ agent loop đến production** — [bài 1](/bai-viet/kien-truc-ai-agent-cam-nang) đến [bài 7](/bai-viet/12-nguyen-ly-agent-production). Nếu bạn quay lại cần tra nhanh: bản đồ 8 gia đình ở trên là bảng tra cứu, decision matrix là bảng chọn, và deterministic-picker là cầu nối về code — thứ bài 7 đã dựng nền.

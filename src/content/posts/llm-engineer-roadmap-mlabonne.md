@@ -131,7 +131,7 @@ Kết hợp với bài [Xây dựng LLM từ scratch](/bai-viet/xay-dung-llm-tu-
     <p class="sc-name">mlabonne/llm-course</p>
     <p class="sc-desc">85k sao — roadmap + notebooks, cập nhật liên tục.</p>
   </a>
-  <a class="src-card" href="/lo-trinh/rag-nang-cao/">
+  <a class="src-card" href="/bai-viet/rag-nang-cao-cam-nang/">
     <span class="sc-tag">LearnWithHuy</span>
     <p class="sc-name">Lộ trình RAG nâng cao</p>
     <p class="sc-desc">Đi sâu phần RAG của curriculum này bằng tiếng Việt.</p>

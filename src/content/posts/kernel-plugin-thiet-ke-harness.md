@@ -17,7 +17,7 @@ faq:
     a: "Đây là bản giáo dục của Cordis — kernel thật mà dsh vendored trong dsh 0.1.0-rc.7. Cordis có 6 state fiber, effect nhận Promise và AsyncIterable, inject-driven reload và 5 chế độ dispatch event; Mini-dsh giữ đúng một primitive effect() và emit. Nắm kernel nhỏ này là đọc source Cordis dễ hơn nhiều."
 ---
 
-Bài trước kết thúc ở một seam chưa ai cắm vào: Message và contract `model(messages)` đang chờ người dùng đầu tiên ([Agent harness là gì](/bai-viet/agent-harness-la-gi)). Người dùng đó không phải agent loop — mà là kernel: phần sở hữu vòng đời của mọi thứ cắm vào harness.
+Bài trước kết thúc ở một seam chưa ai cắm vào: Message và contract `model(messages)` đang chờ người dùng đầu tiên ([Agent harness là gì](/bai-viet/chuong-trinh-harness-engineer)). Người dùng đó không phải agent loop — mà là kernel: phần sở hữu vòng đời của mọi thứ cắm vào harness.
 
 Bài này trả lời đúng một design question: **ai phải sở hữu cleanup của plugin?** Câu trả lời của dsh — kernel thật mà DeepSeek dùng — là framework giữ hết, và nó đắt giá hơn bạn nghĩ: cùng một cơ chế này chặn được leak, và mở đường cho hot reload, test teardown, subagent shutdown.
 
@@ -322,8 +322,8 @@ Năm cách thiết kế này hỏng khi dùng sai — ghi chú trực tiếp t�
 - [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — section `01-kernel` là nguồn code bài này; bảng "In real dsh" map từng chi tiết vào Cordis vendored trong dsh pinned commit `99f6f02`.
 - [cordiverse/cordis](https://github.com/cordiverse/cordis) — upstream framework mà dsh vendored và patch 18 chỗ; `Fiber`, `effect()`, `inject` đều đến từ đây.
 
-Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness):
+Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer):
 
-- [Agent harness là gì](/bai-viet/agent-harness-la-gi) — bài trước: Message và Model seam, cái kernel này cắm vào.
-- [Session log và compaction](/bai-viet/session-log-va-compaction) — service đầu tiên mount lên kernel này.
-- [Agent loop state machine](/bai-viet/agent-loop-state-machine) — phase cuối của bản đồ 4 phase.
+- [Agent harness là gì](/bai-viet/chuong-trinh-harness-engineer) — bài trước: Message và Model seam, cái kernel này cắm vào.
+- [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer) — service đầu tiên mount lên kernel này.
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — phase cuối của bản đồ 4 phase.

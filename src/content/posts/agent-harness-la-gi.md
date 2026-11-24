@@ -17,7 +17,7 @@ faq:
     a: "Mini-dsh là bản giáo dục rút gọn nhưng giữ đúng các design question và seam của dsh 0.1.0-rc.7. Học xong bạn đọc source dsh thật dễ hơn nhiều vì đã biết cơ chế đứng sau từng phần."
 ---
 
-Bài trước bạn đã tự dựng được agent loop — model quyết định, code thực thi, kết quả quay về model ([Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop)). Nhưng loop chỉ là một cơ chế. Đưa agent đó ra production: bạn cần ghi log từng lượt, quản lý tool registry, permission, sandbox, skills, subagent — và một cách thay model mà không đụng lại toàn bộ code. Toàn bộ lớp điều phối bao quanh loop đó có tên riêng: **agent harness**.
+Bài trước bạn đã tự dựng được agent loop — model quyết định, code thực thi, kết quả quay về model ([Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang)). Nhưng loop chỉ là một cơ chế. Đưa agent đó ra production: bạn cần ghi log từng lượt, quản lý tool registry, permission, sandbox, skills, subagent — và một cách thay model mà không đụng lại toàn bộ code. Toàn bộ lớp điều phối bao quanh loop đó có tên riêng: **agent harness**.
 
 Bài này mở lộ trình 8 bài **Xây dựng Agent Harness từ số 0 với Mini-dsh** — rebuild bản rút gọn của dsh, agent harness production của DeepSeek, chỉ bằng Python stdlib. Bài đầu tiên dựng cơ chế sơ khai nhất mà cả harness đứng trên đó: cách gọi model mà không để format của provider nào chảy vào core. Không API key, không mạng — chạy được ngay sau khi clone.
 
@@ -238,8 +238,8 @@ Bài này viết từ source thật của lộ trình:
 - [hardness1020/learn-deepseek-harness](https://github.com/hardness1020/learn-deepseek-harness) — repo tutorial; section `00-setup` là nguồn code, và bảng "In real dsh" map từng chi tiết vào dsh pinned commit `99f6f02`.
 - [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — harness production của DeepSeek; seam này map vào `packages/llm` (`types.ts` với `ToolSchema`, `index.ts` với `LlmAdapter`).
 
-Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness):
+Đọc tiếp lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer):
 
-- [Nền tảng agent và agent loop](/bai-viet/nen-tang-agent-va-agent-loop) — loop là một cơ chế nằm trong harness.
-- [Agent loop state machine](/bai-viet/agent-loop-state-machine) — phase 4 của bản đồ: loop dựng như một state machine.
-- Bài kế: [Kernel và nguyên tắc 'mọi thứ là plugin'](/bai-viet/kernel-plugin-thiet-ke-harness) — phase 2: chỗ để cắm mọi thứ khác của harness.
+- [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) — loop là một cơ chế nằm trong harness.
+- [Agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) — phase 4 của bản đồ: loop dựng như một state machine.
+- Bài kế: [Kernel và nguyên tắc 'mọi thứ là plugin'](/bai-viet/chuong-trinh-harness-engineer) — phase 2: chỗ để cắm mọi thứ khác của harness.

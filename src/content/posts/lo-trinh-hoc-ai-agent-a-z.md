@@ -144,8 +144,8 @@ Lộ trình 47 tài nguyên không cần học theo đúng số thứ tự — g
 ## Bài liên quan trên LearnWithHuy
 
 - [Hướng dẫn xây dựng Agent thực tế](/bai-viet/huong-dan-xay-dung-agent-thuc-te/) — bản đọc nhanh của guide OpenAI trong lộ trình này
-- [9Router và Hermes Agent: 2 công cụ AI mà dev nào cũng nên biết](/bai-viet/9router-va-hermes-agent/) — hạ tầng và agent thực thi thực tế
-- [Series OpenClaw (6 bài)](/bai-viet/openclaw-la-gi/) — nếu bạn muốn chạy Agent tự động hóa trên máy của mình
+- [9Router và Hermes Agent: 2 công cụ AI mà dev nào cũng nên biết](/bai-viet/hermes-agent-9router/) — hạ tầng và agent thực thi thực tế
+- [Series OpenClaw (6 bài)](/bai-viet/openclaw-cam-nang/) — nếu bạn muốn chạy Agent tự động hóa trên máy của mình
 - [Lộ trình Vibe Coding 6 tháng](/bai-viet/lo-trinh-vibe-coding-6-thang/) — lộ trình xây sản phẩm bằng AI cho người kinh doanh
 
 ## Nguồn

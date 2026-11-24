@@ -2646,13 +2646,13 @@ Không phải mọi nhiệm vụ đều đáng để vẽ đồ thị. Năm tiê
 
 Lý thuyết của 14 bài giảng ghép với phần thực hành trong cùng chủ đề **Harness Engineer** — chuỗi 8 bài tự tay dựng agent harness (Mini-dsh) theo nguyên tắc *everything is a plugin*, khoảng 115 phút đọc. **Bắt đầu từ bài 1**, mỗi bài dựng một cơ chế rồi nối dần thành hệ thống chạy được:
 
-1. [Agent Harness là gì: tại sao model cần một lớp điều phối](/bai-viet/agent-harness-la-gi/) — ranh giới harness vs. loop, Message provider-agnostic *(11 phút)*
-2. [Kernel và nguyên tắc "mọi thứ là plugin"](/bai-viet/kernel-plugin-thiet-ke-harness/) — Fiber, effect(), đăng ký đối xứng với unmount *(11 phút)*
-3. [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/agent-loop-state-machine/) — rebuild từ log, không có state riêng *(11 phút)*
-4. [Tools và permission pipeline](/bai-viet/tools-permission-pipeline/) — quyết định call nào được phép chạy *(14 phút)*
-5. [Session log và compaction](/bai-viet/session-log-va-compaction/) — nhớ của agent mà không phình context *(13 phút)*
-6. [System prompt động và Skills](/bai-viet/system-prompt-va-skills/) — nạp đúng thứ tự, đúng lúc *(17 phút)*
-7. [Scheduler song song và steering inbox](/bai-viet/scheduler-va-steering-inbox/) — chạy nhanh mà không giẫm chân *(15 phút)*
-8. [Capabilities, subagent và composition](/bai-viet/capabilities-subagents-composition/) — ghép thành hệ thống hoàn chỉnh *(24 phút)*
+1. [Agent Harness là gì: tại sao model cần một lớp điều phối](/bai-viet/chuong-trinh-harness-engineer/) — ranh giới harness vs. loop, Message provider-agnostic *(11 phút)*
+2. [Kernel và nguyên tắc "mọi thứ là plugin"](/bai-viet/chuong-trinh-harness-engineer/) — Fiber, effect(), đăng ký đối xứng với unmount *(11 phút)*
+3. [Agent loop: state machine giữ log làm trạng thái duy nhất](/bai-viet/chuong-trinh-harness-engineer/) — rebuild từ log, không có state riêng *(11 phút)*
+4. [Tools và permission pipeline](/bai-viet/chuong-trinh-harness-engineer/) — quyết định call nào được phép chạy *(14 phút)*
+5. [Session log và compaction](/bai-viet/chuong-trinh-harness-engineer/) — nhớ của agent mà không phình context *(13 phút)*
+6. [System prompt động và Skills](/bai-viet/chuong-trinh-harness-engineer/) — nạp đúng thứ tự, đúng lúc *(17 phút)*
+7. [Scheduler song song và steering inbox](/bai-viet/chuong-trinh-harness-engineer/) — chạy nhanh mà không giẫm chân *(15 phút)*
+8. [Capabilities, subagent và composition](/bai-viet/chuong-trinh-harness-engineer/) — ghép thành hệ thống hoàn chỉnh *(24 phút)*
 
 > **Nguồn chương trình giảng:** [walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering) — WalkingLab, giấy phép MIT. Toàn bộ bài giảng và code ví dụ thuộc repo gốc.

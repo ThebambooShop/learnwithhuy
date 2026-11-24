@@ -156,7 +156,7 @@ Chỉ có 10–15 giờ/tuần? Nhân thời gian lên khoảng 2,5 lần. Hai c
 
 - [Hướng dẫn xây dựng Agent thực tế](/bai-viet/huong-dan-xay-dung-agent-thuc-te/) — tài liệu nền đọc đầu tiên ở Phase 0
 - [Lộ trình học AI Agent từ A đến Z](/bai-viet/lo-trinh-hoc-ai-agent-a-z/) — kho 39 tài nguyên song song lộ trình này
-- [Multi-hop RAG với LangGraph](/bai-viet/multi-hop-rag-langgraph/) — ví dụ thực tế dùng LangGraph StateGraph
+- [Multi-hop RAG với LangGraph](/bai-viet/rag-nang-cao-cam-nang/) — ví dụ thực tế dùng LangGraph StateGraph
 
 ## Nguồn
 

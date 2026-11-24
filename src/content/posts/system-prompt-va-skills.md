@@ -17,7 +17,7 @@ faq:
     a: "Có. Ordered providers quyết định phần nào đứng trước (quy tắc cứng) phần nào sau (bối cảnh mềm). Đổi thứ tự là đổi hành vi model — nên composition cần patch layers thay vì deep-merge."
 ---
 
-Bài [Scheduler và steering inbox](/bai-viet/scheduler-va-steering-inbox) đã chốt điều kiện vào cửa: mọi thứ vào phiên qua boundary, mọi call trả lời trước khi step đóng. Nhưng nhìn lại request mà bài đó gửi model thì còn một khoảng trống to: không có system text nào. Model chưa từng được biết nó là ai, phải cư xử thế nào, hay thế giới ngoài đang trông ra sao.
+Bài [Scheduler và steering inbox](/bai-viet/chuong-trinh-harness-engineer) đã chốt điều kiện vào cửa: mọi thứ vào phiên qua boundary, mọi call trả lời trước khi step đóng. Nhưng nhìn lại request mà bài đó gửi model thì còn một khoảng trống to: không có system text nào. Model chưa từng được biết nó là ai, phải cư xử thế nào, hay thế giới ngoài đang trông ra sao.
 
 Đây không phải lỗi quên viết prompt — mà là không ai có quyền viết một mình. Nhiều bộ phận của harness cùng sở hữu một mẩu: Mini-dsh viết dòng identity của chính nó, một plugin persona viết giọng điệu, tầng tool viết danh sách schema. Mỗi bên muốn góp phần của mình mà không phối hợp với bên khác, và mẩu đó phải rơi vào đúng chỗ trong mọi request. Nhiệm vụ thứ hai còn khó hơn: một đống instruction text cho công việc chuyên môn (skill) — quá lớn để ship mỗi step, quá hữu ích để bỏ ra ngoài.
 
@@ -31,7 +31,7 @@ Ba lý do chồng lên nhau:
 
 - **Cache**: provider cache theo prompt prefix ổn định. System text là phần đầu của prefix, nên nó phải ra nguyên vẹn từng byte mỗi step — bao gồm cả những step mà một provider vừa mount vào giữa phiên.
 - **Ngữ nghĩa**: system text là quy tắc — "bạn là ai, bạn phải làm gì". Trạng thái runtime — bây giờ là mấy giờ, cwd là đâu — không phải quy tắc, là hoàn cảnh của turn hiện tại. Nhét hoàn cảnh vào quy tắc là làm model đọc hoàn cảnh thành luật.
-- **Replay**: text patch vào request ngoài pipeline thông thường không bao giờ đến log, nên replay không thể xây lại những gì model thực sự thấy — vi phạm trọn vẹn điểm của [session log](/bai-viet/session-log-va-compaction).
+- **Replay**: text patch vào request ngoài pipeline thông thường không bao giờ đến log, nên replay không thể xây lại những gì model thực sự thấy — vi phạm trọn vẹn điểm của [session log](/bai-viet/chuong-trinh-harness-engineer).
 
 ## Cơ chế: ordered providers, ba artifact mỗi step
 
@@ -42,7 +42,7 @@ Một file mới, `system_prompt.py`, và luồng request bị kéo qua nó. Reg
 - **variables** — giá trị cho `{{name}}`.
 - **tool-schema providers** — schema tool của request, qua một bridge: tool list cũng là một prompt output.
 
-Mỗi registration trả về undo của nó — mọi thứ đều có thể đảo ngược, đúng tinh thần kernel/plugin của bài [Kernel và plugin: thiết kế harness](/bai-viet/kernel-plugin-thiet-ke-harness). Hàm `assemble()` resolve mọi provider theo `(order, registration order)` và trả về đúng ba artifact:
+Mỗi registration trả về undo của nó — mọi thứ đều có thể đảo ngược, đúng tinh thần kernel/plugin của bài [Kernel và plugin: thiết kế harness](/bai-viet/chuong-trinh-harness-engineer). Hàm `assemble()` resolve mọi provider theo `(order, registration order)` và trả về đúng ba artifact:
 
 ```python
 def assemble(self, assemble_context):
@@ -63,7 +63,7 @@ Ba quy tắc vận hành assembly:
 2. **Interpolation nghiêm ngặt.** Một `{{name}}` unknown hoặc unset refuse-to-ship — raise, và step dừng trước `request/header`. Không ship prompt có lỗ hổng cho model.
 3. **Snapshot dedupe lấy sự thật từ log.** Snapshot giữ lại là row `user/message` mang `"kind": "runtime-context"` cuối cùng trong log — một projection của log, không phải state riêng. Sau resume, memory rỗng nhưng log còn; đạo snapshot từ log là dedupe và replay khớp nhau by construction.
 
-Trong `_step()`, assembly xảy ra ngay sau inbox claim — đúng boundary nơi [agent loop state machine](/bai-viet/agent-loop-state-machine) đã re-derive mọi thứ. Snapshot chỉ append khi khác snapshot cuối:
+Trong `_step()`, assembly xảy ra ngay sau inbox claim — đúng boundary nơi [agent loop state machine](/bai-viet/chuong-trinh-harness-engineer) đã re-derive mọi thứ. Snapshot chỉ append khi khác snapshot cuối:
 
 ```python
 assembly = self.prompt.assemble({"tools": self.tools})
@@ -139,7 +139,7 @@ def get(self, name):
     return None
 ```
 
-Catalog không cần cơ chế giao hàng mới. Nó là một context provider của section 08 (order=100), nên snapshot dedupe đã quyết định giúp: catalog đổi → re-emit một row; catalog yên → miễn phí. Body đi chiều ngược lại, qua [tool pipeline và permission](/bai-viet/tools-permission-pipeline) của section 05: model gọi tool `skill {"name": ...}` → `get(name)` → `tool/result`. Tên lạ raise trong body, pipeline trả về `is_error` result bình thường — turn tiếp tục, không sập loop. Catalog rỗng thì không ship gì cả.
+Catalog không cần cơ chế giao hàng mới. Nó là một context provider của section 08 (order=100), nên snapshot dedupe đã quyết định giúp: catalog đổi → re-emit một row; catalog yên → miễn phí. Body đi chiều ngược lại, qua [tool pipeline và permission](/bai-viet/chuong-trinh-harness-engineer) của section 05: model gọi tool `skill {"name": ...}` → `get(name)` → `tool/result`. Tên lạ raise trong body, pipeline trả về `is_error` result bình thường — turn tiếp tục, không sập loop. Catalog rỗng thì không ship gì cả.
 
 Một run thật như log ghi lại:
 
@@ -416,7 +416,7 @@ refuse-to-ship: prompt variable 'user' is unknown or unset
 - **Bodies trong catalog trả tiền cho mọi thứ luôn.** Inline mọi instruction là mỗi request mang toàn bộ trong khi một turn dùng tối đa một. `list()` chỉ yielding tên và một dòng; `get(name)` là cánh cửa duy nhất body lọt qua.
 - **Catalog nằm trong system text làm prefix chạy.** Provider mount giữa phiên sẽ rewrite system text và bust cache. Là context thì một provider đổi chỉ tốn một `user/message` row và prefix giữ nguyên.
 
-> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài này là bài 7 của 8 trong lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness). Section 08 + 09 của repo gốc là nguồn; bài 8 đóng lộ trình với capability seams, jobs, subagent và composition.
+> 📍 **Lộ trình xuyên suốt — Mini-dsh:** bài này là bài 7 của 8 trong lộ trình [Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer). Section 08 + 09 của repo gốc là nguồn; bài 8 đóng lộ trình với capability seams, jobs, subagent và composition.
 
 ## Bài tập tự làm (3 mức)
 
@@ -435,6 +435,6 @@ Bài này dựng lại từ hai section của tutorial rebuild DeepSeek Harness:
 
 Đọc tiếp trong lộ trình:
 
-- [Scheduler và steering inbox](/bai-viet/scheduler-va-steering-inbox) — bài trước: mọi thứ vào phiên qua boundary; catalog và snapshot cũng đi qua cùng cánh cửa đó.
-- [Capabilities, subagent và composition](/bai-viet/capabilities-subagents-composition) — bài kế: ba seam cuối và cách ghép cả harness thành data.
-- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/lo-trinh/xay-dung-agent-harness) — toàn bộ lộ trình 8 bài.
+- [Scheduler và steering inbox](/bai-viet/chuong-trinh-harness-engineer) — bài trước: mọi thứ vào phiên qua boundary; catalog và snapshot cũng đi qua cùng cánh cửa đó.
+- [Capabilities, subagent và composition](/bai-viet/chuong-trinh-harness-engineer) — bài kế: ba seam cuối và cách ghép cả harness thành data.
+- [Lộ trình Xây dựng Agent Harness từ số 0 với Mini-dsh](/bai-viet/chuong-trinh-harness-engineer) — toàn bộ lộ trình 8 bài.
