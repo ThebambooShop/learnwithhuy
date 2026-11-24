@@ -13,7 +13,16 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 20 phút."
 ---
 
-## 01. 9Router và Hermes Agent: 2 công cụ AI mà dev nào cũng nên biết
+## Bạn sẽ học được gì
+
+- **Phần 01. 9Router và Hermes Agent: 2 công cụ AI mà dev nào cũng nên biết**
+- **Phần 02. Cài đặt Hermes Agent từ con số 0: hướng dẫn chi tiết cho Windows, macOS và Linux**
+
+> **Ai nên đọc:** Người mới tìm hiểu 9Router và Hermes Agent, muốn cài đặt nhanh theo từng hệ điều hành.
+> **Điều kiện đầu vào:** Không cần nền tảng đặc biệt.
+> **Tổng thời gian đọc:** ≈20 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. 9Router và Hermes Agent: 2 công cụ AI mà dev nào cũng nên biết — ≈8 phút
 
 Khi ứng dụng AI chuyển từ "ô hội thoại" sang hệ thống xử lý tác vụ phức tạp, bạn sẽ gặp hai thách thức ở hai tầng khác nhau:
 
@@ -120,7 +129,7 @@ Bài viết dựa trên tài liệu hướng dẫn "9Router và Hermes Agent" c�
 
 ---
 
-## 02. Cài đặt Hermes Agent từ con số 0: hướng dẫn chi tiết cho Windows, macOS và Linux
+02. Cài đặt Hermes Agent từ con số 0: hướng dẫn chi tiết cho Windows, macOS và Linux — ≈12 phút
 
 Hermes Agent là AI agent mã nguồn mở của Nous Research — không chỉ trả lời câu hỏi mà còn chủ động *hành động*: đọc ghi file, chạy lệnh terminal, điều khiển trình duyệt, gọi API. Bài này là hướng dẫn thực hành: từ con số 0 đến hội thoại AI đầu tiên trong khoảng 15 phút, trên cả ba hệ điều hành.
 

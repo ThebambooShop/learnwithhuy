@@ -21,6 +21,23 @@ faq:
 
 Agent của bạn chạy 20 phút rồi báo "xong" — nhưng code làm hỏng test, sửa một lỗi sinh ra hai lỗi. Trước khi mở ví nâng cấp model, hãy đọc chương trình này: **vấn đề phần lớn không nằm ở model, mà nằm ở harness** — toàn bộ hạ tầng bên ngoài trọng số model. Chương trình Harness Engineer gồm 14 bài giảng (dịch và tái sử dụng từ [Learn Harness Engineering — WalkingLab](https://github.com/walkinglabs/learn-harness-engineering), giấy phép MIT, bài gốc tiếng Việt) — **toàn bộ nội dung đầy đủ của 14 bài nằm ngay trong trang này**, gộp thành một cẩm nang duy nhất theo 7 phần, không cần click sang web ngoài.
 
+## Bạn sẽ học được gì
+
+- **Phần 1 · Nền tảng — vì sao agent mạnh vẫn thất bại**
+- **Phần 2 · Nguồn sự thật — repo và hướng dẫn**
+- **Phần 3 · Chạy dài — phiên và khởi tạo**
+- **Phần 4 · Ranh giới — WIP=1 và feature list**
+- **Phần 5 · Xác minh — chống tuyên bố sớm và end-to-end**
+- **Phần 6 · Quan sát — observability và bàn giao sạch**
+- **Phần 7 · Tổng hợp — loop và graph engineering**
+- **Phần 8 · Thực hành — tự tay dựng agent harness Mini-dsh**
+
+> **Ai nên đọc:** Ai đã dùng AI coding agent và thấy agent mạnh nhưng kết quả không đáng tin cậy; muốn hiểu và tự dựng agent harness.
+> **Điều kiện đầu vào:** Không yêu cầu lập trình để đọc lý thuyết; Phần thực hành cần Python cơ bản.
+> **Tổng thời gian đọc:** ≈335 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+
+
 ## Dùng trang này thế nào
 
 1. **Lướt bản đồ chương trình** phía dưới để định vị phần bạn cần ngay — mỗi phần gồm 2 bài, đứng độc lập được.
@@ -42,7 +59,7 @@ Tổng thời gian: **≈220 phút lý thuyết** (Bài 01–14) + **≈115 phú
 | Tổng hợp | 13–14 | Từ prompt thủ công đến vòng lặp tự chủ; graph engineering |
 | Thực hành | 15–22 | Tự tay dựng Mini-dsh: kernel, session log, agent loop, permission, scheduler, skills, composition |
 
-## Phần 1 · Nền tảng — vì sao agent mạnh vẫn thất bại
+## Phần 1 · Nền tảng — vì sao agent mạnh vẫn thất bại — ≈23 phút
 
 Hai bài dựng nền tư duy cho cả chương trình: failure của agent là failure của môi trường thực thi, và harness là gì một cách chính xác.
 
@@ -254,7 +271,7 @@ Bốn vòng lặp, mô hình không hề thay đổi, mà tỷ lệ thành công
 
 ---
 
-## Phần 2 · Nguồn sự thật — repo và hướng dẫn
+## Phần 2 · Nguồn sự thật — repo và hướng dẫn — ≈24 phút
 
 Agent không nhớ thì repo phải nhớ thay: kiến thức nằm đúng chỗ trong kho lưu trữ, và hướng dẫn được chia nhỏ để agent tiêu thụ được.
 
@@ -517,7 +534,7 @@ Nghiên cứu ghép cặp dùng gpt-5.2-codex trên 124 nhiệm vụ từ PR c�
 
 ---
 
-## Phần 3 · Chạy dài — phiên và khởi tạo
+## Phần 3 · Chạy dài — phiên và khởi tạo — ≈26 phút
 
 Tác vụ thật kéo dài hơn một phiên: giữ tính liên tục giữa các phiên và tách giai đoạn khởi tạo khỏi giai đoạn làm việc.
 
@@ -625,7 +642,7 @@ Cách tiếp cận cốt lõi: **hãy đối xử với agent như một kỹ s�
 ```markdown
 # Các quyết định thiết kế
 
-## 2024-01-15: Dùng Redis để cache tùy chọn người dùng
+2024-01-15: Dùng Redis để cache tùy chọn người dùng
 - Lý do: Tần suất đọc cao (mỗi lần gọi API), kích thước dữ liệu nhỏ
 - Phương án bị loại: PostgreSQL materialized view (tần suất thay đổi cao khiến chi phí bảo trì không xứng)
 - Ràng buộc: TTL cache 5 phút, chủ động vô hiệu khi ghi
@@ -856,7 +873,7 @@ So sánh toàn chu kỳ dự án: tổng thời gian tái thiết lập (cộng 
 
 ---
 
-## Phần 4 · Ranh giới — WIP=1 và feature list
+## Phần 4 · Ranh giới — WIP=1 và feature list — ≈19 phút
 
 Hai bài điều tiết agent không làm quá giới hạn: một việc tại một thời điểm, và danh sách tính năng như hợp đồng ràng buộc.
 
@@ -1130,7 +1147,7 @@ Một danh sách có cấu trúc đặt trạng thái và lệnh xác minh của
 
 ---
 
-## Phần 5 · Xác minh — chống tuyên bố sớm và end-to-end
+## Phần 5 · Xác minh — chống tuyên bố sớm và end-to-end — ≈23 phút
 
 “Agent nói xong” chưa phải là xong: hai bài dựng hệ thống xác minh độc lập, từ kiểm tra ba lớp đến end-to-end testing.
 
@@ -1433,7 +1450,7 @@ Cả 5 khiếm khuyết đều bị end-to-end test bắt, unit test không bắ
 
 ---
 
-## Phần 6 · Quan sát — observability và bàn giao sạch
+## Phần 6 · Quan sát — observability và bàn giao sạch — ≈27 phút
 
 Không nhìn được vào runtime của agent thì không sửa được harness — và mỗi phiên kết thúc phải để lại trạng thái mà phiên sau bận ngay được.
 
@@ -1802,7 +1819,7 @@ Một ứng dụng Electron phát triển bằng agent trong 12 tuần, so sánh
 
 ---
 
-## Phần 7 · Tổng hợp — loop và graph engineering
+## Phần 7 · Tổng hợp — loop và graph engineering — ≈76 phút
 
 Hai bài dài nhất ghép mọi lớp phòng thủ thành hệ thống: trước hết là một vòng lặp tự chủ, rồi nâng cấp thành đồ thị nhiều agent.
 
@@ -2643,7 +2660,7 @@ Không phải mọi nhiệm vụ đều đáng để vẽ đồ thị. Năm tiê
 
 5. **Biến graph.md thành chương trình thực thi được:** theo sáu bước trong "Xây dựng đồ thị đầu tiên của bạn từ con số không" của bài giảng này, triển khai đồ thị maker-checker bạn đã vẽ thành một đồ thị chạy được (triển khai tham chiếu: `code/maker_checker_graph.py`, viết bằng LangGraph). Đừng bỏ qua bước nào trong sáu bước: định nghĩa trạng thái → liệt kê nút → nối cạnh → viết định tuyến → gắn checkpoint → chạy. Chạy xong so sánh `graph.md` và code, tìm ra chỗ đầu tiên không khớp, và giải thích vì sao không khớp — là đồ thị vẽ sai, hay code viết sai?
 
-## Phần 8 · Thực hành — tự tay dựng agent harness Mini-dsh
+## Phần 8 · Thực hành — tự tay dựng agent harness Mini-dsh — ≈118 phút
 
 Lý thuyết của 14 bài giảng ghép với phần thực hành dưới đây: 8 bài tự tay dựng agent harness (Mini-dsh) theo nguyên tắc *everything is a plugin*, khoảng 115 phút đọc. **Bắt đầu từ Bài 15**, mỗi bài dựng một cơ chế rồi nối dần thành hệ thống chạy được.
 

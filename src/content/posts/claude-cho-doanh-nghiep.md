@@ -13,7 +13,28 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 110 phút."
 ---
 
-## 01. Claude cho doanh nghiệp: vì sao 'vài cá nhân giỏi dùng AI' chưa đủ?
+## Bạn sẽ học được gì
+
+- **Phần 01. Claude cho doanh nghiệp: vì sao 'vài cá nhân giỏi dùng AI' chưa đủ?**
+- **Phần 02. Kiến trúc 7 tầng và 6 tài sản tri thức để làm chủ Claude trong doanh nghiệp**
+- **Phần 03. CLAUDE.md, Project và Skills — ba trụ cột để Claude hiểu doanh nghiệp bạn**
+- **Phần 04. Connectors, MCP, Plugins và sub-agents: đưa Claude chạm vào hệ thống thật**
+- **Phần 05. Prompt giao việc chuẩn 6 lớp cho Claude: cấu trúc và cách tránh 3 lỗi phổ biến**
+- **Phần 06. Claude cho 8 phòng ban: 30+ use case, tự động hoá và lộ trình 30 ngày triển khai**
+- **Phần 07. Dùng Claude làm Content Marketing hiệu quả: 9 Prompt dựa trên 15 triệu video nổi bật**
+- **Phần 08. Xây dựng cỗ máy Content với Claude: hệ thống 4 Agent từ nghiên cứu đến xuất bản**
+- **Phần 1. Brand Personality**
+- **Phần 2. Writing Style**
+- **Phần 3. Content Principles**
+- **Phần 4. Avoid**
+- **Phần 5. Preferred Structure**
+- **Phần 6. Formatting**
+
+> **Ai nên đọc:** Người đi làm muốn đưa Claude vào quy trình của cá nhân và đội nhóm.
+> **Điều kiện đầu vào:** Đã từng dùng Claude hoặc ChatGPT; không cần lập trình.
+> **Tổng thời gian đọc:** ≈114 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. Claude cho doanh nghiệp: vì sao 'vài cá nhân giỏi dùng AI' chưa đủ? — ≈12 phút
 
 Trong vòng hai mươi bốn tháng vừa qua, Claude đã dịch chuyển âm thầm nhưng quyết liệt: từ một mô hình ngôn ngữ chỉ biết hỏi và đáp, sang một nền tảng năng lực có khả năng ghi nhớ ngữ cảnh, dùng kỹ năng riêng, kết nối hệ thống nội bộ của doanh nghiệp và phối hợp công việc nhiều bước. Sự thay đổi này không nằm ở chỉ số benchmark — nó nằm ở câu hỏi mà mỗi người lãnh đạo doanh nghiệp Việt Nam phải trả lời: **bạn có dám tổ chức lại cách làm việc của đội ngũ xoay quanh AI hay không?**
 
@@ -115,7 +136,7 @@ Dấu hiệu chung cho cả ba nâng cấp: **bạn đã đo được ROI ở c�
 
 ---
 
-## 02. Kiến trúc 7 tầng và 6 tài sản tri thức để làm chủ Claude trong doanh nghiệp
+02. Kiến trúc 7 tầng và 6 tài sản tri thức để làm chủ Claude trong doanh nghiệp — ≈9 phút
 
 Phần khung sườn nhất của series (bài 1): mọi phần sau đều xây trên kiến trúc trình bày ở đây, và mọi sai lầm triển khai đều bắt nguồn từ việc bỏ qua hoặc nhầm lẫn các tầng này.
 
@@ -202,7 +223,7 @@ Sáu tài sản vận hành theo một vòng tròn liên tục: con người đ�
 
 ---
 
-## 03. CLAUDE.md, Project và Skills — ba trụ cột để Claude hiểu doanh nghiệp bạn
+03. CLAUDE.md, Project và Skills — ba trụ cột để Claude hiểu doanh nghiệp bạn — ≈12 phút
 
 Sau kiến trúc tổng thể (bài 2), bài này đi vào ba trụ cột thực tế nhất: file CLAUDE.md, không gian Project, và cơ chế Skills — nơi "cách công ty bạn làm việc" được đóng gói thành thứ Claude hiểu được và tái sử dụng được.
 
@@ -315,7 +336,7 @@ Bốn use case skill nên xây sớm: **báo cáo định kỳ** (5 phút thay v
 
 ---
 
-## 04. Connectors, MCP, Plugins và sub-agents: đưa Claude chạm vào hệ thống thật
+04. Connectors, MCP, Plugins và sub-agents: đưa Claude chạm vào hệ thống thật — ≈10 phút
 
 Khi đã có CLAUDE.md, Project và Skills (bài 3), bước tiếp theo là cho Claude chạm vào dữ liệu và hệ thống thật của doanh nghiệp — tầng tạo bước nhảy lớn về giá trị. Bài này giải thích ba khái niệm thường bị nhầm lẫn (Connectors, MCP, Plugins) và tầng cao nhất (sub-agents, Cowork, Hooks).
 
@@ -428,7 +449,7 @@ Hooks là các điểm kích hoạt tự động — chuyển Claude từ "phả
 
 ---
 
-## 05. Prompt giao việc chuẩn 6 lớp cho Claude: cấu trúc và cách tránh 3 lỗi phổ biến
+05. Prompt giao việc chuẩn 6 lớp cho Claude: cấu trúc và cách tránh 3 lỗi phổ biến — ≈11 phút
 
 Sau khi đã có kiến trúc, tài sản tri thức, project, skills và workflow (bài 1–4), bạn vẫn cần biết cách giao một việc cụ thể cho Claude. Đó là cấu trúc prompt sáu lớp — phần thực hành thiết yếu của mỗi người dùng AI.
 
@@ -521,7 +542,7 @@ Bộ nhớ tốt giúp tiết kiệm 5–10 phút mỗi cuộc chat khi không p
 
 ---
 
-## 06. Claude cho 8 phòng ban: 30+ use case, tự động hoá và lộ trình 30 ngày triển khai
+06. Claude cho 8 phòng ban: 30+ use case, tự động hoá và lộ trình 30 ngày triển khai — ≈19 phút
 
 Bài cuối series (bài 1–5): cẩm nang ứng dụng cho từng phòng ban, công thức tự động hoá quy trình, và lộ trình 30 ngày triển khai Claude cho đội ngũ. Bạn không cần đọc tất cả — đọc phòng ban liên quan đến bạn trước, các phòng khác làm tham khảo khi mở rộng.
 
@@ -693,7 +714,7 @@ Chúc bạn xây được một hệ thống AI vận hành đáng tự hào —
 
 ---
 
-## 07. Dùng Claude làm Content Marketing hiệu quả: 9 Prompt dựa trên 15 triệu video nổi bật
+07. Dùng Claude làm Content Marketing hiệu quả: 9 Prompt dựa trên 15 triệu video nổi bật — ≈19 phút
 
 Bạn từng yêu cầu Claude đưa ra 10 ý tưởng hook TikTok có khả năng viral, và kết quả nhận được thường chỉ là 10 phỏng đoán?
 
@@ -1114,7 +1135,7 @@ Bước đầu tiên ngay hôm nay: kết nối Virlo với Claude và chạy Pr
 
 ---
 
-## 08. Xây dựng cỗ máy Content với Claude: hệ thống 4 Agent từ nghiên cứu đến xuất bản
+08. Xây dựng cỗ máy Content với Claude: hệ thống 4 Agent từ nghiên cứu đến xuất bản — ≈8 phút
 
 Hầu hết mọi người dùng Claude cho content marketing theo cách đơn giản: mở một cuộc trò chuyện, yêu cầu viết một bài đăng, chỉnh vài lần rồi tự đăng. Cách này tiết kiệm một chút thời gian, nhưng về bản chất bạn vẫn đang làm thủ công — chỉ là thay bàn phím thường bằng bàn phím có AI hỗ trợ.
 
@@ -1265,27 +1286,27 @@ Practical Examples → Key Takeaways → CTA
 Muốn AI viết đúng phong cách thương hiệu, đừng chỉ nói "viết tự nhiên, chuyên nghiệp và thu hút" — mô tả này quá chung chung. Cần một bộ quy tắc cụ thể:
 
 ```markdown
-## 1. Brand Personality
+1. Brand Personality — ≈1 phút
 Thực tế, thẳng thắn, có chiều sâu, dễ hiểu, ưu tiên giá trị ứng dụng.
 
-## 2. Writing Style
+2. Writing Style — ≈1 phút
 - Viết như một người có kinh nghiệm đang chia sẻ với người đọc.
 - Ưu tiên câu ngắn và rõ nghĩa, không học thuật.
 - Sử dụng ví dụ thực tế; dùng câu hỏi để dẫn dắt tư duy.
 
-## 3. Content Principles
+3. Content Principles — ≈1 phút
 - Mỗi bài viết một thông điệp chính; mỗi đoạn đóng góp vào thông điệp đó.
 - Ưu tiên hữu ích hơn độ dài.
 - Hãy khiến người đọc cảm thấy thương hiệu hiểu vấn đề của họ.
 
-## 4. Avoid
+4. Avoid — ≈1 phút
 - Câu nói truyền cảm hứng sáo rỗng, từ ngữ phóng đại.
 - Lời hứa không có cơ sở, câu văn dài khó hiểu.
 
-## 5. Preferred Structure
+5. Preferred Structure — ≈1 phút
 Hook → Problem → Insight → Explanation → Example → Action → CTA
 
-## 6. Formatting
+6. Formatting — ≈9 phút
 Tiêu đề phụ, đoạn ngắn, bullet khi cần, bôi đậm ý quan trọng,
 không lạm dụng emoji.
 ```

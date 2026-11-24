@@ -13,7 +13,22 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 90 phút."
 ---
 
-## 01. Meridian: vì sao text-chunk RAG thất bại trên tài liệu bảo trì công nghiệp
+## Bạn sẽ học được gì
+
+- **Phần 01. Meridian: vì sao text-chunk RAG thất bại trên tài liệu bảo trì công nghiệp**
+- **Phần 02. Ingestion layout-aware: biến PDF bảng biểu và scan thành evidence có citation**
+- **Phần 03. Chart digitiser: đọc số liệu từ biểu đồ trong PDF — caption không đủ**
+- **Phần 04. 8 kênh hybrid retrieval: từ BM25 đến graph — hợp nhất bằng weighted RRF**
+- **Phần 05. Fact index và conflict resolution: khi manual và bulletin nói khác nhau**
+- **Phần 06. CRAG grader và abstention: trả lời 'không biết' là tính năng, không phải lỗi**
+- **Phần 07. Claim-level verifier: chặn hallucination trước khi câu trả lời ra tới người dùng**
+- **Phần 08. Benchmark và deploy: đóng benchmark held-out, chạy Qdrant offline**
+
+> **Ai nên đọc:** Kỹ sư xây RAG cho tài liệu thật: PDF, bảng biểu, scan, bảo trì công nghiệp.
+> **Điều kiện đầu vào:** Python trung cấp; đã từng xây hoặc đọc pipeline RAG cơ bản.
+> **Tổng thời gian đọc:** ≈91 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. Meridian: vì sao text-chunk RAG thất bại trên tài liệu bảo trì công nghiệp — ≈11 phút
 
 "Torque bulông cánh quạt HX-200 bao nhiêu Nm?" — một câu hỏi đơn giản của kỹ thuật viên bảo trì. Câu trả lời nằm rải rác trên sáu nguồn: giá trị nằm trong **một dòng của bảng** ở manual, công suất riêng tại 50% load chỉ có trong **ảnh biểu đồ**, quy tắc an toàn trong **warning box**, số torque mới hơn trong **service bulletin**, lịch sử lỗi trong **CSV log**, mã alarm ở hiện trường là **ảnh chụp panel**.
 
@@ -202,7 +217,7 @@ Ba tình huống: grader chấm evidence chưa đủ sau corrective retry; câu 
 
 ---
 
-## 02. Ingestion layout-aware: biến PDF bảng biểu và scan thành evidence có citation
+02. Ingestion layout-aware: biến PDF bảng biểu và scan thành evidence có citation — ≈11 phút
 
 Một manual PDF chứa bảng torque 40 dòng, một service bulletin DOCX, một CSV log 6 tháng và một trang scan mờ — nạp cả bốn vào hệ thống. Ingestion là nơi RAG thắng hoặc thua trước cả khi LLM xuất hiện. Chunk-text truyền thống làm phẳng toàn trang: bảng thành chuỗi ký tự, warning box dính vào đoạn kề, scan thành trang trắng, citation trỏ cả trang thay vì đúng vùng.
 
@@ -428,7 +443,7 @@ Mỗi upload hoặc xóa rebuild một object Indexes mới và swap atomic sau 
 
 ---
 
-## 03. Chart digitiser: đọc số liệu từ biểu đồ trong PDF — caption không đủ
+03. Chart digitiser: đọc số liệu từ biểu đồ trong PDF — caption không đủ — ≈10 phút
 
 Caption của biểu đồ trong manual máy bơm thường chỉ viết vậy: *curve of head vs flow*. Người dùng hỏi: *head tại 70 m³/h là bao nhiêu?* Câu trả lời nằm trong các pixel của đường cong — captioning trả lời được "biểu đồ này vẽ cái gì", không trả lời được "giá trị là bao nhiêu tại điểm X".
 
@@ -581,7 +596,7 @@ Dùng visual descriptor (HSV + HOG-like + ink-layout, 264 chiều) cho image-to-
 
 ---
 
-## 04. 8 kênh hybrid retrieval: từ BM25 đến graph — hợp nhất bằng weighted RRF
+04. 8 kênh hybrid retrieval: từ BM25 đến graph — hợp nhất bằng weighted RRF — ≈10 phút
 
 Một vector search không đủ cho corpus bảo trì công nghiệp. Câu hỏi *What torque for the HX-200 impeller bolt?* cần khớp chính xác "HX-200" — dense retrieval bỏ sót số hiệu. Câu hỏi paraphrase *bơm quá nhiệt xử lý thế nào?* cần hiểu ngữ nghĩa — BM25 trượt nếu corpus dùng từ khác. Ảnh chụp panel có OCR typo "E4T" thay "E47" — cả hai đều trượt. Không có một kênh nào thắng mọi loại lỗi.
 
@@ -736,7 +751,7 @@ Không. Trên benchmark 43 câu held-out, full pipeline đạt Hit@1 89.5% so v�
 
 ---
 
-## 05. Fact index và conflict resolution: khi manual và bulletin nói khác nhau
+05. Fact index và conflict resolution: khi manual và bulletin nói khác nhau — ≈11 phút
 
 Hỏi "What torque should I use for the HX-200 impeller bolt?" và nhận câu trả lời nghe rất chắc: 45 Nm. Hoặc 52 Nm — tùy lúc chạy. Corpus của Meridian chứa cả hai số này: Maintenance Manual ghi 45 Nm, Service Bulletin SB-118 revision mới hơn ghi 52 Nm. Khi cả hai chunk cùng rơi vào top-k, RAG text trộn lẫn chúng hoặc chọn ngẫu nhiên theo thứ tự chunk. Không ai nói cho bạn biết bulletin mới hơn; cũng không ai nói 45 Nm đã bị supersede. Với lệnh torque sai 7 Nm trên máy móc công nghiệp, đó không phải lỗi demo — đó là sự cố.
 
@@ -925,7 +940,7 @@ Câu 'Is the HX-200 rated for fluid at 150 °C?' chứa premise 150 °C nhưng c
 
 ---
 
-## 06. CRAG grader và abstention: trả lời 'không biết' là tính năng, không phải lỗi
+06. CRAG grader và abstention: trả lời 'không biết' là tính năng, không phải lỗi — ≈12 phút
 
 RAG demo luôn trả lời — kể cả khi evidence không đủ. Hỏi "Who is the CEO of Helix Dynamics?" trên corpus tài liệu bảo trì: không có CEO nào, không có Helix Dynamics nào, nhưng demo thông thường vẫn sinh ra một câu trông mượt với số liệu bịa. Hallucination sinh ra từ đúng chỗ này: pipeline cho phép generation chạy dù evidence không hỗ trợ. Lỗi không nằm ở mô hình ngôn ngữ; nó nằm ở quyết định thiết kế.
 
@@ -1126,7 +1141,7 @@ Phụ thuộc nghiệp vụ. 100% unanswerable decline và faithfulness 100% là
 
 ---
 
-## 07. Claim-level verifier: chặn hallucination trước khi câu trả lời ra tới người dùng
+07. Claim-level verifier: chặn hallucination trước khi câu trả lời ra tới người dùng — ≈13 phút
 
 RAG demo đo chất lượng bằng "câu trả lời có mượt không". Nhưng hallucination không phải lỗi tổng thể của câu trả lời — nó lẩn vào từng claim: một con số sai, một mã lỗi không tồn tại, một câu phủ định evidence chưa bao giờ nói. Câu trả lời 90% đúng với 10% bịa nguy hiểm hơn câu từ chối. Bài trước chặn generation chạy khi evidence không đủ; bài này xử lý phần còn lại: kiểm từng claim trước khi ra tới người dùng.
 
@@ -1378,7 +1393,7 @@ Trên câu trả lời sạch, 12.3% claim bị flag không chính xác — ch�
 
 ---
 
-## 08. Benchmark và deploy: đóng benchmark held-out, chạy Qdrant offline
+08. Benchmark và deploy: đóng benchmark held-out, chạy Qdrant offline — ≈13 phút
 
 RAG không có benchmark đóng held-out là RAG chưa xong. Bạn có thể đổi retriever, thêm reranker, gắn LLM vào composer — không có tập câu hỏi đã đóng, mọi thay đổi được đánh giá bằng cảm giác "trông có vẻ tốt hơn". Bài này lấy Meridian làm case study cho hai việc còn lại của pipeline: **đóng benchmark held-out có số liệu trung thực** và **deploy ổn định với Qdrant tự host** — cả hai chạy offline, không key, không tài khoản vector database.
 

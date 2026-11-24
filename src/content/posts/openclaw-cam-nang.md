@@ -13,7 +13,20 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 45 phút."
 ---
 
-## 01. OpenClaw là gì? AI Agent mã nguồn mở chạy trên máy tính của bạn
+## Bạn sẽ học được gì
+
+- **Phần 01. OpenClaw là gì? AI Agent mã nguồn mở chạy trên máy tính của bạn**
+- **Phần 02. Cài đặt và cấu hình OpenClaw trong 30 phút**
+- **Phần 03. Tools, Skills và tích hợp kênh của OpenClaw**
+- **Phần 04. Multi-Agent, bảo mật và chạy OpenClaw 24/7 trên VPS**
+- **Phần 05. 21 use case OpenClaw thực chiến cho công việc**
+- **Phần 06. OpenClaw hay Manus AI? Chọn công cụ agent và lộ trình 30 ngày làm chủ**
+
+> **Ai nên đọc:** Người muốn chạy AI Agent mã nguồn mở ngay trên máy của mình, từ cá nhân đến VPS 24/7.
+> **Điều kiện đầu vào:** Quen terminal cơ bản; có tài khoản API cho model.
+> **Tổng thời gian đọc:** ≈45 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. OpenClaw là gì? AI Agent mã nguồn mở chạy trên máy tính của bạn — ≈6 phút
 
 Đầu năm 2026, một project nhỏ trên GitHub bắt đầu lan truyền với tốc độ chưa từng có trong lịch sử phần mềm mã nguồn mở. Trong vòng chưa đầy 4 tháng, nó vượt qua React để trở thành project phi tổng hợp được star nhiều nhất mọi thời đại trên GitHub với hơn 300,000 stars. Project đó tên là **OpenClaw**.
 
@@ -91,7 +104,7 @@ Sau bài này, bạn sẽ có thể: hiểu OpenClaw hoạt động ra sao và t
 
 ---
 
-## 02. Cài đặt và cấu hình OpenClaw trong 30 phút
+02. Cài đặt và cấu hình OpenClaw trong 30 phút — ≈7 phút
 
 Sau khi hiểu OpenClaw là gì (bài 1), bài này sẽ đưa bạn từ cài đặt đến có một Agent "hiểu mình" — thông qua các file cấu hình workspace.
 
@@ -253,7 +266,7 @@ AGENTS.md chứa các workflow được lập trình sẵn. Khi bạn nói "xử
 
 ---
 
-## 03. Tools, Skills và tích hợp kênh của OpenClaw
+03. Tools, Skills và tích hợp kênh của OpenClaw — ≈8 phút
 
 Nếu Tools là "cơ quan", thì Skills là "sách giáo khoa" dạy Agent cách dùng cơ quan đó để thực hiện việc gì. Bài này đi qua ba lớp năng lực của OpenClaw: **Tools** (26 công cụ nội tại), **Skills** (mở rộng qua ClawHub) và **kênh giao tiếp** (Telegram, Zalo, Slack...).
 
@@ -386,7 +399,7 @@ Nếu khách hàng hoặc đội nhóm của bạn dùng Zalo, đây là lựa c
 
 ---
 
-## 04. Multi-Agent, bảo mật và chạy OpenClaw 24/7 trên VPS
+04. Multi-Agent, bảo mật và chạy OpenClaw 24/7 trên VPS — ≈5 phút
 
 Sau khi đã quen với một Agent duy nhất (bài 2) và các use case thực chiến (bài 4), bài này đưa bạn lên hai cấp độ tiếp theo: **chạy nhiều Agent song song** và **triển khai vận hành 24/7 một cách an toàn**.
 
@@ -496,7 +509,7 @@ openclaw onboard --install-daemon
 
 ---
 
-## 05. 21 use case OpenClaw thực chiến cho công việc
+05. 21 use case OpenClaw thực chiến cho công việc — ≈11 phút
 
 Tổng hợp từ cộng đồng OpenClaw trên Discord, Reddit, Facebook và các diễn đàn công nghệ Việt Nam. Đây là những tình huống người dùng thực tế đã triển khai thành công — không phải lý thuyết. Nếu mới bắt đầu, hãy đọc bài 2 và bài 3 trong series trước.
 
@@ -614,7 +627,7 @@ workspace/shared/final/2026-03-23.md
 
 ---
 
-## 06. OpenClaw hay Manus AI? Chọn công cụ agent và lộ trình 30 ngày làm chủ
+06. OpenClaw hay Manus AI? Chọn công cụ agent và lộ trình 30 ngày làm chủ — ≈8 phút
 
 Bài cuối series OpenClaw (bài 1 → bài 5): thị trường AI Agent 2026 đang rất sôi động. Hiểu rõ sự khác biệt giúp bạn chọn đúng công cụ cho từng nhu cầu — OpenClaw không phải lúc nào cũng là lựa chọn tốt nhất.
 

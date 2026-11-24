@@ -37,6 +37,13 @@ const posts = await getPublishedPosts();
         {topics.map((t) => <option value={t.slug}>{t.name}</option>)}
       </select>
 
+      <select id="filter-duration" aria-label="Lọc theo thời lượng đọc">
+        <option value="">Mọi thời lượng</option>
+        <option value="ngan">Ngắn (≤ 10 phút)</option>
+        <option value="vua">Vừa (11–25 phút)</option>
+        <option value="dai">Dài (&gt; 25 phút)</option>
+      </select>
+
       <select id="filter-sort" aria-label="Sắp xếp bài viết">
         <option value="moi">Mới nhất</option>
         <option value="pho-bien">Phổ biến</option>
@@ -67,6 +74,7 @@ const posts = await getPublishedPosts();
     const qClear = document.getElementById('clear-q');
     const topicSel = document.getElementById('filter-topic');
     const sortSel = document.getElementById('filter-sort');
+    const durSel = document.getElementById('filter-duration');
     const resetBtn = document.getElementById('reset-filters');
 
     const TOPIC_NAMES = {};
@@ -111,12 +119,14 @@ const posts = await getPublishedPosts();
       const q = qInput.value.trim().toLowerCase();
       const topic = topicSel.value;
       const sort = sortSel.value;
+      const dur = durSel.value;
 
       if (pushUrl) {
         const params = new URLSearchParams();
         if (q) params.set('q', q);
         if (topic) params.set('chu-de', topic);
         if (sort !== 'moi') params.set('sap-xep', sort);
+        if (dur) params.set('thoi-luong', dur);
         const qs = params.toString();
         history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
       }
@@ -126,12 +136,14 @@ const posts = await getPublishedPosts();
       ensurePosts().then((posts) => {
         let list = posts.filter((p) => {
           const okTopic = !topic || p.topic === topic;
+          const mins = readMinutes(p.body);
+          const okDur = !dur || (dur === 'ngan' && mins <= 10) || (dur === 'vua' && mins >= 11 && mins <= 25) || (dur === 'dai' && mins > 25);
           const okQ =
             !q ||
             p.title.toLowerCase().includes(q) ||
             p.description.toLowerCase().includes(q) ||
             p.body.toLowerCase().includes(q);
-          return okTopic && okQ;
+          return okTopic && okQ && okDur;
         });
         list = sort === 'pho-bien'
           ? [...list].sort((a, b) => b.views - a.views || new Date(b.date) - new Date(a.date))
@@ -151,10 +163,12 @@ const posts = await getPublishedPosts();
     qClear.addEventListener('click', () => { qInput.value = ''; apply(); qInput.focus(); });
     topicSel.addEventListener('change', () => apply());
     sortSel.addEventListener('change', () => apply());
+    durSel.addEventListener('change', () => apply());
     resetBtn.addEventListener('click', () => {
       qInput.value = '';
       topicSel.value = '';
       sortSel.value = 'moi';
+      durSel.value = '';
       apply();
       qInput.focus();
     });
@@ -165,7 +179,8 @@ const posts = await getPublishedPosts();
       qInput.value = params.get('q') ?? '';
       topicSel.value = params.get('chu-de') ?? '';
       sortSel.value = params.get('sap-xep') === 'pho-bien' ? 'pho-bien' : 'moi';
-      if (params.get('q') || params.get('chu-de') || params.get('sap-xep') === 'pho-bien') apply(false);
+      durSel.value = params.get('thoi-luong') ?? '';
+      if (params.get('q') || params.get('chu-de') || params.get('sap-xep') === 'pho-bien' || params.get('thoi-luong')) apply(false);
       else {
         qWrap.classList.remove('has-value');
         countEl.textContent = `${posts_count} bài viết`;

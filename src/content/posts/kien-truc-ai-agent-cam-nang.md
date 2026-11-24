@@ -13,7 +13,20 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 79 phút."
 ---
 
-## 01. Nền tảng AI Agent: xây agent loop đầu tiên từ con số 0
+## Bạn sẽ học được gì
+
+- **Phần 01. Nền tảng AI Agent: xây agent loop đầu tiên từ con số 0**
+- **Phần 02. Tool use và Routing: hai pattern nền tảng của agent**
+- **Phần 03. Memory và Context Engineering: agent nhớ được gì, bỏ quên gì**
+- **Phần 04. Planning và Reflection: agent tự lập kế hoạch và tự sửa lỗi**
+- **Phần 05. Multi-agent orchestration: điều phối đội agent như một hệ thống**
+- **Phần 06. RAG trong agent: từ Agentic RAG đến GraphRAG**
+
+> **Ai nên đọc:** Người muốn hiểu kiến trúc AI Agent từ loop đến multi-agent trước khi đọc code.
+> **Điều kiện đầu vào:** Hiểu LLM ở mức khái niệm; lợi thế nếu biết Python.
+> **Tổng thời gian đọc:** ≈80 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. Nền tảng AI Agent: xây agent loop đầu tiên từ con số 0 — ≈15 phút
 
 Xây agent nghe phức tạp, nhưng trái tim của nó chỉ là một vòng lặp: model quyết định, code thực thi, kết quả quay về model, lặp cho tới khi xong. Hiểu và tự tay viết được vòng lặp đó — agent loop — là bước nền quan trọng nhất trước khi bạn chạm tới framework hay kiến trúc multi-agent.
 
@@ -385,7 +398,7 @@ Bài này tổng hợp từ 3 nguồn tôi dùng khi tự học agent:
 
 ---
 
-## 02. Tool use và Routing: hai pattern nền tảng của agent
+02. Tool use và Routing: hai pattern nền tảng của agent — ≈13 phút
 
 Bài trước bạn đã tự tay viết agent loop khoảng 100 dòng không framework. Bài này đi vào hai pattern bạn sẽ gặp gần như trong mọi hệ thống agent: **routing** để điều hướng request một cách rẻ, và **tool use** để agent đọc dữ liệu và hành động. Cả hai đều có code chạy được ngay trong bài.
 
@@ -730,7 +743,7 @@ Thứ tự khuyến nghị khi mới bắt đầu: dựng router trước (một
 
 ---
 
-## 03. Memory và Context Engineering: agent nhớ được gì, bỏ quên gì
+03. Memory và Context Engineering: agent nhớ được gì, bỏ quên gì — ≈11 phút
 
 Vấn đề lớn nhất của agent production không phải suy luận — model ngày càng giỏi — mà là quản lý cái model nhìn thấy. Mọi thứ vào context window: system prompt, lịch sử hội thoại, kết quả tool, memory được nạp vào, tài liệu vừa truy xuất — đều chiếm cùng một ngân sách hữu hạn và đắt. Agent chạy vài chục vòng sẽ nạp đầy window trước khi hoàn thành tác vụ: hoặc cắt bớt mà mất thông tin quan trọng, hoặc vượt limit mà chết giữa đường.
 
@@ -947,7 +960,7 @@ Ba cạm bẫy phổ biến khi thêm memory cho agent:
 
 ---
 
-## 04. Planning và Reflection: agent tự lập kế hoạch và tự sửa lỗi
+04. Planning và Reflection: agent tự lập kế hoạch và tự sửa lỗi — ≈14 phút
 
 Một agent chạy agent loop cơ bản xử lý tốt tác vụ một đến vài vòng: nhận yêu cầu, gọi tool, trả kết quả. Đổi sang tác vụ phức tạp gồm nhiều bước phụ thuộc nhau, loop trần thường thất bại theo ba cách dễ đoán: bỏ sót bước, làm sai thứ tự, và chết ở bước đầu khi tool fail mà không quay lại. Hai pattern trong bài vá đúng ba lỗi đó: **planning** tự lập kế hoạch trước khi chạy, **reflection** tự chấm điểm và tự sửa sau khi chạy.
 
@@ -1212,7 +1225,7 @@ Bật pattern khi **accuracy đáng giá hơn chi phí**: tác vụ production c
 
 ---
 
-## 05. Multi-agent orchestration: điều phối đội agent như một hệ thống
+05. Multi-agent orchestration: điều phối đội agent như một hệ thống — ≈13 phút
 
 Bài [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) đã dựng một agent hoàn chỉnh: model, tools và vòng lặp quyết định. Câu hỏi tiếp theo rất tự nhiên khi agent bắt đầu làm việc thật: một agent có đủ không? Nguyên tắc của bài này khó chịu nhưng đúng: **thường là đủ — và khi không đủ, multi-agent phải trả giá**. Không có nâng cấp miễn phí nào ở đây.
 
@@ -1492,7 +1505,7 @@ Chạy ví dụ trên, supervisor làm đúng ba bước: gọi researcher, nh�
 
 ---
 
-## 06. RAG trong agent: từ Agentic RAG đến GraphRAG
+06. RAG trong agent: từ Agentic RAG đến GraphRAG — ≈14 phút
 
 Bài [Nền tảng agent và agent loop](/bai-viet/kien-truc-ai-agent-cam-nang) đã dựng agent với vòng lặp tools; bài [Multi-agent orchestration](/bai-viet/kien-truc-ai-agent-cam-nang) đã tách đội agent. Bài này quay về một tool mà gần như mọi hệ agent đều phải có: retrieve dữ liệu. Câu hỏi không phải "RAG là gì" — mà là **ai ra quyết định trong RAG**: pipeline hay agent. Hệ agent hiện đại trả lời: agent. Retrieve chỉ là một tool, và chất lượng câu trả lời phụ thuộc vào việc agent quyết định tool đó thế nào.
 

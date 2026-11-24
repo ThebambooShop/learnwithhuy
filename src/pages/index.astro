@@ -13,6 +13,42 @@ const featured = posts.filter((p) => p.data.featured).slice(0, 2);
 const latest = posts.slice(0, 6);
 const popularTopics = [...topics];
 
+const CAM_NANG_SLUGS = [
+  'chuong-trinh-harness-engineer',
+  'claude-cho-doanh-nghiep',
+  'kien-truc-ai-agent-cam-nang',
+  'meridian-rag-multimodal',
+  'rag-nang-cao-cam-nang',
+  'openclaw-cam-nang',
+  'tieng-anh-cho-dan-ai-cam-nang',
+  'hermes-agent-9router',
+];
+const camNangs = CAM_NANG_SLUGS.map((slug) => posts.find((p) => p.id === slug)).filter(Boolean);
+
+const goals = [
+  {
+    icon: '🌱',
+    title: 'Tôi mới tìm hiểu AI',
+    desc: '5 bài nền tảng, không cần biết lập trình — hiểu AI vận hành ra sao và bắt tay dùng thử.',
+    href: '/lo-trinh/nhap-mon-ai/',
+    cta: 'Lộ trình nhập môn',
+  },
+  {
+    icon: '💼',
+    title: 'Tôi muốn dùng AI trong công việc',
+    desc: 'Viết prompt rõ ràng, dùng công cụ đúng cách và dựng hệ thống cho đội nhóm.',
+    href: '/lo-trinh/ai-cho-cong-viec/',
+    cta: 'Lộ trình công việc',
+  },
+  {
+    icon: '🛠️',
+    title: 'Tôi muốn xây ứng dụng AI',
+    desc: 'Từ agent loop đầu tiên đến harness production — cho người có nền tảng kỹ thuật.',
+    href: '/lo-trinh/ai-agent-engineer/',
+    cta: 'Lộ trình AI Engineer',
+  },
+];
+
 const counts = new Map<string, number>();
 for (const p of posts) counts.set(p.data.topic, (counts.get(p.data.topic) ?? 0) + 1);
 const postsPerTopic = (slug: string) => counts.get(slug) ?? 0;
@@ -47,8 +83,28 @@ const pathCards = await Promise.all(
     </div>
   </section>
 
+  <!-- Bắt đầu theo mục tiêu -->
+  <section class="section section--alt" aria-labelledby="goals-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="goals-h">Bắt đầu theo mục tiêu của bạn</h2>
+        <a class="see-all" href="/lo-trinh/">Tất cả lộ trình →</a>
+      </div>
+      <div class="goal-grid">
+        {goals.map((g) => (
+          <a class="goal-card" href={g.href}>
+            <span class="goal-card__icon" aria-hidden="true">{g.icon}</span>
+            <h3 class="goal-card__title">{g.title}</h3>
+            <p class="goal-card__desc">{g.desc}</p>
+            <span class="goal-card__cta">{g.cta} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Bài viết nổi bật -->
-  <section class="section section--alt" aria-labelledby="featured-h">
+  <section class="section" aria-labelledby="featured-h">
     <div class="container">
       <div class="section-head">
         <h2 id="featured-h">Bài viết nổi bật</h2>
@@ -90,8 +146,27 @@ const pathCards = await Promise.all(
     </div>
   </section>
 
+  <!-- Chuyên sâu: cẩm nang toàn tập -->
+  {camNangs.length > 0 && (
+  <section class="section section--alt" aria-labelledby="camnang-h">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="camnang-h">Chuyên sâu: cẩm nang toàn tập</h2>
+        <a class="see-all" href="/bai-viet/">Xem tất cả bài viết →</a>
+      </div>
+      <p class="paths-intro">
+        Mỗi cẩm nang gộp trọn một chương trình trong một trang — có mục lục, thời gian đọc từng
+        phần, phù hợp đọc tuần tự hoặc tra cứu theo phần.
+      </p>
+      <div class="post-grid">
+        {camNangs.map((p) => <PostCard post={p} />)}
+      </div>
+    </div>
+  </section>
+  )}
+
   <!-- Chủ đề phổ biến -->
-  <section class="section section--alt" aria-labelledby="topics-h">
+  <section class="section" aria-labelledby="topics-h">
     <div class="container">
       <div class="section-head">
         <h2 id="topics-h">Chủ đề phổ biến</h2>
@@ -127,5 +202,46 @@ const pathCards = await Promise.all(
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
+  }
+  .goal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .goal-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.35rem 1.35rem 1.15rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .goal-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .goal-card__icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .goal-card__title {
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .goal-card__desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .goal-card__cta {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.92rem;
   }
 </style>

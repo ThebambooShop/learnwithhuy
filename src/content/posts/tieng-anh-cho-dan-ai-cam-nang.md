@@ -13,7 +13,23 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 63 phút."
 ---
 
-## 01. Bắt đầu học tiếng Anh với AI — bản đồ công cụ cho dân IT
+## Bạn sẽ học được gì
+
+- **Phần 01. Bắt đầu học tiếng Anh với AI — bản đồ công cụ cho dân IT**
+- **Phần 02. 5 phương pháp nền tảng để học tiếng Anh hiệu quả**
+- **Phần 03. Biến ChatGPT, Claude, Gemini thành gia sư tiếng Anh cá nhân**
+- **Phần 04. Luyện nghe tiếng Anh từ podcast tech đến TV series**
+- **Phần 05. Luyện đọc tài liệu kỹ thuật bằng tiếng Anh**
+- **Phần 06. Luyện nói tiếng Anh với AI speaking coach**
+- **Phần 07. Viết tiếng Anh với AI writing assistant**
+- **Phần 08. Kho từ vựng tech với Anki và AI**
+- **Phần 09. Kế hoạch 30 ngày học tiếng Anh với AI**
+
+> **Ai nên đọc:** Dân IT muốn dùng AI làm gia sư tiếng Anh cá nhân theo lộ trình 30 ngày.
+> **Điều kiện đầu vào:** Trình độ tiếng Anh tùy ý — bài có phân theo cấp độ.
+> **Tổng thời gian đọc:** ≈67 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. Bắt đầu học tiếng Anh với AI — bản đồ công cụ cho dân IT — ≈6 phút
 
 Bạn đọc Stack Overflow, error message, tài liệu docs bằng tiếng Anh không vấn đề gì. Nhưng đến lượt mình nói trong daily standup thì câu dài nhất hôm đó là "no blocker, thanks". Viết reply Slack dài hơn ba dòng là phải mở Google Translate soi từng câu.
 
@@ -108,7 +124,7 @@ Bài cùng series: [5 phương pháp học tiếng Anh hiệu quả](/bai-viet/t
 
 ---
 
-## 02. 5 phương pháp nền tảng để học tiếng Anh hiệu quả
+02. 5 phương pháp nền tảng để học tiếng Anh hiệu quả — ≈8 phút
 
 Học tiếng Anh 10 năm, thêm mấy năm đọc docs tiếng Anh hằng ngày — nhưng đến demo call với khách hàng nước ngoài, bạn vẫn đứng hình ở câu thứ hai. Vấn đề không nằm ở lực học. Người chăm chỉ vẫn đi vòng vòng khi học sai phương pháp: nhồi từ vựng rời rạc, nghe thứ mình không hiểu, không bao giờ nói lại điều vừa nghe. Dưới đây là 5 phương pháp nền tảng được cộng đồng kiểm chứng lâu năm, kèm cách dùng AI hỗ trợ từng cái.
 
@@ -235,7 +251,7 @@ Bản chính thức là tiếng Anh, nhưng nhờ AI dịch và giải thích t�
 
 ---
 
-## 03. Biến ChatGPT, Claude, Gemini thành gia sư tiếng Anh cá nhân
+03. Biến ChatGPT, Claude, Gemini thành gia sư tiếng Anh cá nhân — ≈6 phút
 
 Gia sư tiếng Anh ở Việt Nam tính 300–500k một giờ, phải đặt lịch trước, kiên nhẫn có hạn. LLM thì rảnh 24/7, hỏi sai lần thứ mười vẫn giải thích lần thứ mười một, và bạn không phải ngại — thứ quan trọng nhất khi luyện nói.
 
@@ -350,7 +366,7 @@ Bài liên quan: [Bắt đầu học tiếng Anh với AI — bản đồ công 
 
 ---
 
-## 04. Luyện nghe tiếng Anh từ podcast tech đến TV series
+04. Luyện nghe tiếng Anh từ podcast tech đến TV series — ≈6 phút
 
 Buổi sync đầu tiên với team Singapore, bạn nắm được chắc 30% câu nói — và nửa giờ sau chỉ còn biết gật cho có. Nghe là kỹ năng mở cửa mọi thứ khác: nghe hiểu mới phản hồi được, mới học được phát âm từ chính người nói. Nhưng cũng dễ nản nhất, vì phần lớn chọn sai level ngay từ đầu. Dưới đây là cây nghe theo level và workflow nghe chủ động.
 
@@ -429,7 +445,7 @@ Nội dung podcast và show trong bài lấy từ [yvoronoy/awesome-english](htt
 
 ---
 
-## 05. Luyện đọc tài liệu kỹ thuật bằng tiếng Anh
+05. Luyện đọc tài liệu kỹ thuật bằng tiếng Anh — ≈9 phút
 
 Mỗi ngày bạn đọc vài chục dòng tiếng Anh: một answer trên Stack Overflow, một trang MDN, một issue trên GitHub. Đa số bạn lướt qua được vì quen chủ đề. Nhưng cứ gặp câu dài ba mươi từ với hai mệnh đề quan hệ là dừng lại, đọc đi đọc lại, rồi đoán mò nghĩa — và quay lại làm việc. Công việc xong, nhưng kỹ năng đọc sau một năm vẫn đứng nguyên.
 
@@ -537,7 +553,7 @@ Các nguồn luyện đọc trong bài (Breaking News English, Reading Room, Lin
 
 ---
 
-## 06. Luyện nói tiếng Anh với AI speaking coach
+06. Luyện nói tiếng Anh với AI speaking coach — ≈8 phút
 
 Viết code ổn, comment tiếng Anh cũng xử được, chat Slack với client không sao. Nhưng đến lượt nói trong standup — một câu status đơn giản — đầu trắng, câu đầu ấp úng, và cuối cùng bạn rút ra câu dễ nhất cho nhanh xong. Ba tiếng sau lại quên chuyện đó. Nhưng tuần sau standup, kịch bản lặp lại y hệt.
 
@@ -632,7 +648,7 @@ Ba AI speaking coach và các nguồn luyện nói với người thật trong b
 
 ---
 
-## 07. Viết tiếng Anh với AI writing assistant
+07. Viết tiếng Anh với AI writing assistant — ≈7 phút
 
 Thứ Hai bạn viết PR description cho một pull request lớn. Thứ Tư, email ping đối tác hỏi tiến độ sprint. Thứ Sáu, README cho repo nội bộ. Ba tình huống, chung một thứ tiếng Anh — và nếu mỗi lần đều dán nguyên đoạn ChatGPT trả về, thì sau ba năm bạn vẫn viết đúng như hôm nay.
 
@@ -732,7 +748,7 @@ Công cụ và nguyên tắc luyện viết trong bài lấy từ section **Writ
 
 ---
 
-## 08. Kho từ vựng tech với Anki và AI
+08. Kho từ vựng tech với Anki và AI — ≈10 phút
 
 Từ "deprecate" xuất hiện trong changelog lần thứ mười hôm nay, và lần thứ mười đó bạn vẫn tra Google như lần thứ nhất. Không phải bạn lười — mà là nhớ bằng cách đọc lại không giữ được gì: một tuần sau, từ đó biến mất như chưa từng học.
 
@@ -992,7 +1008,7 @@ Công cụ tra từ và nguyên tắc Sentence Mining trong bài lấy từ sect
 
 ---
 
-## 09. Kế hoạch 30 ngày học tiếng Anh với AI
+09. Kế hoạch 30 ngày học tiếng Anh với AI — ≈7 phút
 
 Bạn đã bookmark đủ công cụ, đọc hết tám bài trước của lộ trình này. Một tháng sau, bạn vẫn đang ở đúng chỗ cũ. Vấn đề duy nhất còn lại không phải thiếu tool — mà là lịch thực thi. Bài cuối lộ trình bàn giao đúng cái đó: bốn tuần, 30–45 phút mỗi ngày, đo được bằng số.
 

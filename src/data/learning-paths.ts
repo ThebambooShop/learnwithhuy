@@ -47,6 +47,51 @@ export const learningPaths: LearningPath[] = [
       'ai-engineer-roadmap-2026',
     ],
   },
+  {
+    slug: 'nhap-mon-ai',
+    title: 'Nhập môn AI cho người mới',
+    description:
+      'Lộ trình 5 bài đầu tiên để hiểu AI hoạt động ra sao: AI là gì, LLM vận hành thế nào, Machine Learning khác gì Generative AI, dùng AI tiết kiệm thời gian và chọn công cụ phù hợp. Không cần biết lập trình, mỗi bài đọc 8-12 phút.',
+    topic: 'ai-co-ban',
+    level: 'Mới bắt đầu',
+    outcomes: [
+      'Giải thích được AI, Machine Learning và Generative AI khác nhau thế nào',
+      'Hiểu LLM hoạt động ở mức khái niệm, không bị choáng thuật ngữ',
+      'Dùng được vài cách AI tiết kiệm thời gian trong công việc hằng ngày',
+      'Chọn được 2-3 công cụ AI phù hợp để bắt đầu thực hành',
+    ],
+    lessons: [
+      'ai-la-gi',
+      'llm-hoat-dong-nhu-the-nao',
+      'machine-learning-khac-generative-ai',
+      '7-cach-dung-ai-tiet-kiem-thoi-gian',
+      'cong-cu-ai-cho-viec-hoc',
+    ],
+  },
+  {
+    slug: 'ai-cho-cong-viec',
+    title: 'Dùng AI hiệu quả trong công việc',
+    description:
+      'Lộ trình 4 bài đưa AI vào công việc hằng ngày: viết prompt rõ ràng, dùng handbook Gemini for Workspace, học 7 bài học triển khai từ doanh nghiệp tiên phong, rồi dựng hệ thống vận hành với Claude cho cả phòng ban.',
+    topic: 'ai-trong-cong-viec',
+    level: 'Mới bắt đầu',
+    prerequisites: [
+      'Đã từng dùng ChatGPT, Claude hoặc Gemini ở mức cơ bản',
+      'Không cần nền tảng lập trình',
+    ],
+    outcomes: [
+      'Viết prompt rõ ràng, đúng cấu trúc để nhận kết quả dùng được ngay',
+      'Áp dụng bộ prompt mẫu của Gemini for Workspace vào email, tài liệu, phân tích',
+      'Nắm 7 bài học thực tế khi doanh nghiệp đưa AI vào vận hành',
+      'Xây được hệ thống dùng Claude cho quy trình của đội nhóm',
+    ],
+    lessons: [
+      'viet-prompt-ro-rang',
+      'gemini-workspace-prompt-guide-101',
+      'bai-hoc-ai-doanh-nghiep-openai',
+      'claude-cho-doanh-nghiep',
+    ],
+  },
 ];
 
 export function getPath(slug: string): LearningPath | undefined {

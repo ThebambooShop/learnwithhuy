@@ -13,7 +13,19 @@ faq:
     a: "Các phần được xếp theo thứ tự học gợi ý. Đọc lộn vẫn hiểu vì mỗi phần đứng độc lập, nhưng lần đầu học thì nên theo thứ tự. Tổng thời gian đọc khoảng 58 phút."
 ---
 
-## 01. Hybrid Search với BM25, Dense Retrieval và RRF: xây dựng tìm kiếm tài liệu tiếng Việt từ con số 0
+## Bạn sẽ học được gì
+
+- **Phần 01. Hybrid Search với BM25, Dense Retrieval và RRF: xây dựng tìm kiếm tài liệu tiếng Việt từ con số 0**
+- **Phần 02. GraphRAG: từ văn bản tới Knowledge Graph — xây dựng đồ thị tri thức bằng Microsoft GraphRAG**
+- **Phần 03. Multi-hop RAG: suy luận bắc cầu qua nhiều văn bản với LangGraph cho tài liệu tiếng Việt**
+- **Phần 04. Multimodal RAG: xây dựng pipeline đa phương thức và benchmark cho tài liệu PDF tiếng Việt**
+- **Phần 05. Đánh giá chất lượng hệ thống RAG với Ragas: 4 độ đo, Golden Dataset và 5 lỗi thường gặp**
+
+> **Ai nên đọc:** Kỹ sư muốn nâng RAG lên mức production: hybrid search, GraphRAG, đánh giá bằng Ragas.
+> **Điều kiện đầu vào:** Đã hiểu RAG cơ bản (chunk, embedding, vector store).
+> **Tổng thời gian đọc:** ≈58 phút — có thể đọc dần theo phần, thời lượng từng phần ghi ngay trên tiêu đề.
+
+01. Hybrid Search với BM25, Dense Retrieval và RRF: xây dựng tìm kiếm tài liệu tiếng Việt từ con số 0 — ≈12 phút
 
 Bạn đang xây một ô tìm kiếm cho kho văn bản pháp luật. Người dùng hỏi "thành lập công ty cần thủ tục hồ sơ nào", trong khi corpus lại dùng cụm "đăng ký doanh nghiệp" — nếu chỉ so khớp từ khóa, hệ thống bỏ lỡ tài liệu đúng vì hai câu không dùng chung từ. Ngược lại, khi người dùng nhập chính xác `01/2021/NĐ-CP`, model ngữ nghĩa không giữ chuỗi số hiệu tốt bằng tìm kiếm từ khóa.
 
@@ -257,7 +269,7 @@ Giá trị của hybrid không nằm ở chỗ nó luôn thắng — mà ở vi�
 
 ---
 
-## 02. GraphRAG: từ văn bản tới Knowledge Graph — xây dựng đồ thị tri thức bằng Microsoft GraphRAG
+02. GraphRAG: từ văn bản tới Knowledge Graph — xây dựng đồ thị tri thức bằng Microsoft GraphRAG — ≈12 phút
 
 Trong RAG thông thường, câu hỏi được mã hóa thành vector để tìm các đoạn văn bản liên quan. Cách này phù hợp khi câu trả lời nằm trong một vài đoạn liên quan trực tiếp. Khó khăn xuất hiện khi câu hỏi cần thông tin nằm ở **nhiều phần khác nhau** của tài liệu — ví dụ để trả lời *"Người thuê nhà có được tự ý chấm dứt hợp đồng khi căn nhà bị hư hỏng nghiêm trọng hay không?"*, hệ thống cần đồng thời: quy định về nghĩa vụ sửa chữa của bên cho thuê, điều kiện đơn phương chấm dứt hợp đồng, và quyền yêu cầu bồi thường của bên thuê. Các thông tin này nằm ở những đoạn khác nhau và không nhất thiết đều có độ tương đồng ngữ nghĩa cao với câu hỏi.
 
@@ -482,7 +494,7 @@ Pipeline này chuyển 63 văn bản pháp luật tiếng Việt thành đồ th
 
 ---
 
-## 03. Multi-hop RAG: suy luận bắc cầu qua nhiều văn bản với LangGraph cho tài liệu tiếng Việt
+03. Multi-hop RAG: suy luận bắc cầu qua nhiều văn bản với LangGraph cho tài liệu tiếng Việt — ≈12 phút
 
 Tìm kiếm đơn bước (Single-hop RAG) gặp hạn chế lớn khi xử lý truy vấn pháp lý đòi hỏi suy luận bắc cầu qua nhiều văn bản: *Thực thể X → thực thể trung gian Y → văn bản quy định Z*. Do hiện tượng đứt gãy liên kết ngữ nghĩa và khuyết ngữ cảnh đại từ chỉ định, mô hình khó thu hồi đủ văn bản đích — làm giảm tỷ lệ hồi tưởng chuỗi và tăng rủi ro sinh ảo giác pháp lý.
 
@@ -726,7 +738,7 @@ python run.py --trace_case mh20_01_det_may  # xuất vết thực thi chi tiết
 
 ---
 
-## 04. Multimodal RAG: xây dựng pipeline đa phương thức và benchmark cho tài liệu PDF tiếng Việt
+04. Multimodal RAG: xây dựng pipeline đa phương thức và benchmark cho tài liệu PDF tiếng Việt — ≈11 phút
 
 Hệ thống hỏi đáp trên tài liệu PDF học thuật tiếng Việt — chứa bảng số liệu nhiều cột, chú thích và biểu đồ — thường gặp ba trở ngại với phương pháp bóc tách truyền thống: **lệch hàng cột** khi làm phẳng bảng nén, **xáo trộn thứ tự đọc** khi dàn trang phức tạp (trang hai cột, hộp chú thích xen giữa), và **mất mát thông tin đồ thị** do OCR thông thường không bóc tách được nhãn trục.
 
@@ -866,7 +878,7 @@ Xử lý các tình huống chạy lệch: thứ tự đọc xáo trộn → ưu
 
 ---
 
-## 05. Đánh giá chất lượng hệ thống RAG với Ragas: 4 độ đo, Golden Dataset và 5 lỗi thường gặp
+05. Đánh giá chất lượng hệ thống RAG với Ragas: 4 độ đo, Golden Dataset và 5 lỗi thường gặp — ≈11 phút
 
 Bạn đã xây được một hệ thống RAG cơ bản. Nhưng làm sao biết nó thực sự "thông minh"? Việc chỉ thử nghiệm 3–5 câu hỏi bằng mắt thường là không đủ khi đưa ứng dụng vào môi trường thực tế. Cần một phương pháp đánh giá tự động và toàn diện: xây dựng **Golden Dataset** và dùng thư viện **Ragas** để đo lường các độ đo.
 
